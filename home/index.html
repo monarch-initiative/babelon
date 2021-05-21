@@ -93,60 +93,9 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="obabel-a-simple-standard-for-managing-ontology-translations-and-language-profiles">OBABEL - A simple standard for managing ontology translations and language profiles</h1>
-<p>OBABEL is simple standard for managing ontology translations and language profiles. Profiles are managed a simple TSV files, for example:</p>
-<table>
-<thead>
-<tr>
-<th>source</th>
-<th>source_version</th>
-<th>source_language</th>
-<th>translation_language</th>
-<th>subject_id</th>
-<th>predicate_id</th>
-<th>source_value</th>
-<th>translation_value</th>
-<th>translator</th>
-<th>translation_date</th>
-<th>translation_confidence</th>
-<th>translation_precision</th>
-<th>translation_type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>http://purl.obolibrary.org/obo/hp.owl</td>
-<td>http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl</td>
-<td>en</td>
-<td>de</td>
-<td>HP:0001945</td>
-<td>rdfs:label</td>
-<td>Fever</td>
-<td>Fieber</td>
-<td>https://orcid.org/0000-0002-1373-XXXX</td>
-<td>2021-05-21</td>
-<td>0.95</td>
-<td>exact</td>
-<td>HumanCurated</td>
-</tr>
-<tr>
-<td>http://purl.obolibrary.org/obo/hp.owl</td>
-<td>http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl</td>
-<td>en</td>
-<td>de</td>
-<td>HP:0002615</td>
-<td>oio:exactSynonym</td>
-<td>Low blood pressure</td>
-<td>Niedriger Blutdruck</td>
-<td>https://orcid.org/0000-0002-1373-XXXX</td>
-<td>2021-05-21</td>
-<td>0.9</td>
-<td>exact</td>
-<td>HumanCurated</td>
-</tr>
-</tbody>
-</table>
-<p>The goal of OBABEL is to capture the minimum data required to enable the following use cases:</p>
+                <h1 id="babelon-a-simple-standard-for-managing-ontology-translations-and-language-profiles">BABELON - A simple standard for managing ontology translations and language profiles</h1>
+<p>BABELON is simple standard for managing ontology translations and language profiles. Profiles are managed a simple TSV files (for examples go to the <a href="https://github.com/matentzn/babelon">GitHub repo</a>).
+The goal of BABELON is to capture the minimum data required to enable the following use cases:</p>
 <ul>
 <li>Translate a profile into RDF to enable seamless integration of alternative language alongside the primary ones.</li>
 <li>Support all properties for translation, including labels, synonyms and definitions.</li>
