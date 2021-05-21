@@ -1,0 +1,4 @@
+id,mappings,description
+profile,,Represents a set of translation that together compose a language profile.
+translation,,Represents and individual translation
+

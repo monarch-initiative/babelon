@@ -1,0 +1,22 @@
+type Profile
+  {
+    translationProvider: String
+  }
+
+type Translation
+  {
+    predicateId: String
+    translationValue: String
+    sourceValue: String
+    sourceLanguage: String
+    translationLanguage: String
+    sourceVersion: String
+    translator: String
+    translationDate: String
+    translationConfidence: Double
+    translationPrecision: String
+    translationType: String
+    source: String
+  }
+
+
