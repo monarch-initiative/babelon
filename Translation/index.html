@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Class: Translation - {{schema.description}}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Class: Translation";
+    var mkdocs_page_input_path = "Translation.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> {{schema.description}}</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../home/">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Index</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">{{schema.description}}</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Class: Translation</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="class-translation">Class: Translation</h1>
+<p>Represents and individual translation</p>
+<p>URI: <a href="https://w3id.org/obabel/Translation">obabel:Translation</a></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Translation&#124;predicate_id:string%20%3F;translation_value:string%20%3F;source_value:string%20%3F;source_language:string%20%3F;translation_language:string%20%3F;source_version:string%20%3F;translator:string%20%3F;translation_date:string%20%3F;translation_confidence:double%20%3F;translation_precision:string%20%3F;translation_type:string%20%3F;source:string%20%3F;subject_id:string%20%3F]" /></p>
+<h2 id="attributes">Attributes</h2>
+<h3 id="own">Own</h3>
+<ul>
+<li><a href="../predicate_id/">predicate_id</a>  <sub>OPT</sub><ul>
+<li>Description: The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../source/">source</a>  <sub>OPT</sub><ul>
+<li>Description: The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../source_language/">source_language</a>  <sub>OPT</sub><ul>
+<li>Description: The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../source_value/">source_value</a>  <sub>OPT</sub><ul>
+<li>Description: The value that is being translated, for example the definition of a disease or the name of a cell type.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../source_version/">source_version</a>  <sub>OPT</sub><ul>
+<li>Description: The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../subject_id/">subject_id</a>  <sub>OPT</sub><ul>
+<li>Description: The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translation_confidence/">translation_confidence</a>  <sub>OPT</sub><ul>
+<li>Description: A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision "narrow" or "broad" rather than "exact", but the confidence that this is right may still be 100% (1.0).</li>
+<li>range: <a href="../types/Double/">Double</a></li>
+</ul>
+</li>
+<li><a href="../translation_date/">translation_date</a>  <sub>OPT</sub><ul>
+<li>Description: The date the translation was performed.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translation_language/">translation_language</a>  <sub>OPT</sub><ul>
+<li>Description: The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translation_precision/">translation_precision</a>  <sub>OPT</sub><ul>
+<li>Description: While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translation_type/">translation_type</a>  <sub>OPT</sub><ul>
+<li>Description: The type of translation, for example: Manual, Tool.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translation_value/">translation_value</a>  <sub>OPT</sub><ul>
+<li>Description: The translation of the source value int the translation language. For example the french name of a disease.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../translator/">translator</a>  <sub>OPT</sub><ul>
+<li>Description: The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
