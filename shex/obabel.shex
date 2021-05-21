@@ -50,7 +50,8 @@ linkml:Nodeidentifier NONLITERAL
           <translation_confidence> @linkml:Double ? ;
           <translation_precision> @linkml:String ? ;
           <translation_type> @linkml:String ? ;
-          <source> @linkml:String ?
+          <source> @linkml:String ? ;
+          <subject_id> @linkml:String ?
        ) ;
        rdf:type [ <Translation> ] ?
     )

@@ -17,6 +17,7 @@ type Translation
     translationPrecision: String
     translationType: String
     source: String
+    subjectId: String
   }
 
 

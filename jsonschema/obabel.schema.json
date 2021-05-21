@@ -39,6 +39,10 @@
                "description": "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.",
                "type": "string"
             },
+            "subject_id": {
+               "description": "The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.",
+               "type": "string"
+            },
             "translation_confidence": {
                "description": "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0).",
                "type": "number"

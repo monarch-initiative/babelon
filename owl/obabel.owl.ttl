@@ -124,11 +124,11 @@ linkml:Uriorcurie a owl:Class,
     rdfs:label "obabel" ;
     dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
     skos:definition "A schema for describing translations and language profiles for ontologies" ;
-    linkml:generation_date "2021-05-21 10:26" ;
+    linkml:generation_date "2021-05-21 11:32" ;
     linkml:metamodel_version "1.7.0" ;
     linkml:source_file "obabel.yaml" ;
-    linkml:source_file_date "Fri May 21 10:26:27 2021" ;
-    linkml:source_file_size 3134 .
+    linkml:source_file_date "Fri May 21 11:14:21 2021" ;
+    linkml:source_file_size 3318 .
 
 <https://w3id.org/obabel/Profile> a owl:Class,
         linkml:ClassDefinition ;
@@ -145,7 +145,19 @@ linkml:Uriorcurie a owl:Class,
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/obabel/translation_date> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
             owl:onProperty <https://w3id.org/obabel/translation_type> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/obabel/predicate_id> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/obabel/translation_value> ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
@@ -157,19 +169,15 @@ linkml:Uriorcurie a owl:Class,
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/predicate_id> ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
             owl:onProperty <https://w3id.org/obabel/translator> ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/source_version> ],
+            owl:onProperty <https://w3id.org/obabel/source_value> ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/translation_value> ],
+            owl:onProperty <https://w3id.org/obabel/subject_id> ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
@@ -177,19 +185,15 @@ linkml:Uriorcurie a owl:Class,
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/translation_date> ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/source_language> ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
             owl:onProperty <https://w3id.org/obabel/source> ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty <https://w3id.org/obabel/source_value> ] ;
+            owl:onProperty <https://w3id.org/obabel/source_version> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/obabel/source_language> ] ;
     skos:definition "Represents and individual translation" .
 
 <https://w3id.org/obabel/predicate_id> a owl:ObjectProperty,
@@ -221,6 +225,12 @@ linkml:Uriorcurie a owl:Class,
     rdfs:label "source_version" ;
     rdfs:range linkml:String ;
     skos:definition "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl." .
+
+<https://w3id.org/obabel/subject_id> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "subject_id" ;
+    rdfs:range linkml:String ;
+    skos:definition "The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001." .
 
 <https://w3id.org/obabel/translation_confidence> a owl:ObjectProperty,
         linkml:SlotDefinition ;

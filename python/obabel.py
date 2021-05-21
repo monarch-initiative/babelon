@@ -1,5 +1,5 @@
 # Auto generated from obabel.yaml by pythongen.py version: 0.9.0
-# Generation date: 2021-05-21 10:26
+# Generation date: 2021-05-21 11:32
 # Schema: obabel
 #
 # id: https://w3id.org/obabel
@@ -64,6 +64,7 @@ class Translation(YAMLRoot):
     translation_precision: Optional[str] = None
     translation_type: Optional[str] = None
     source: Optional[str] = None
+    subject_id: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.predicate_id is not None and not isinstance(self.predicate_id, str):
@@ -101,6 +102,9 @@ class Translation(YAMLRoot):
 
         if self.source is not None and not isinstance(self.source, str):
             self.source = str(self.source)
+
+        if self.subject_id is not None and not isinstance(self.subject_id, str):
+            self.subject_id = str(self.subject_id)
 
         super().__post_init__(**kwargs)
 
@@ -141,6 +145,9 @@ slots.translation_value = Slot(uri=OBABEL.translation_value, name="translation_v
 
 slots.source_value = Slot(uri=OBABEL.source_value, name="source_value", curie=OBABEL.curie('source_value'),
                    model_uri=OBABEL.source_value, domain=None, range=Optional[str])
+
+slots.subject_id = Slot(uri=OBABEL.subject_id, name="subject_id", curie=OBABEL.curie('subject_id'),
+                   model_uri=OBABEL.subject_id, domain=None, range=Optional[str])
 
 slots.source_language = Slot(uri=OBABEL.source_language, name="source_language", curie=OBABEL.curie('source_language'),
                    model_uri=OBABEL.source_language, domain=None, range=Optional[str])
