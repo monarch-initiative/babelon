@@ -1,4 +1,4 @@
-# OBABEL - A simple standard for managing ontology translations and language profiles
+# BABELON - A simple standard for managing ontology translations and language profiles
 
 Editors:
 - @matentzn
@@ -8,7 +8,7 @@ Editors:
 - Anyone that wants to be on here.
 
 
-OBABEL is simple standard for managing ontology translations and language profiles. Profiles are managed a simple TSV files, for example:
+BABELON is simple standard for managing ontology translations and language profiles. Profiles are managed a simple TSV files, for example:
 
 | source                                | source_version                                               | source_language | translation_language | subject_id | predicate_id     | source_value       | translation_value   | translator                            | translation_date | translation_confidence | translation_precision | translation_type |
 |---------------------------------------|--------------------------------------------------------------|-----------------|----------------------|------------|------------------|--------------------|---------------------|---------------------------------------|------------------|------------------------|-----------------------|------------------|

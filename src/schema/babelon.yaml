@@ -1,13 +1,13 @@
-id: https://w3id.org/obabel
-name: obabel
+id: https://w3id.org/babelon
+name: babelon
 description: >-
   A schema for describing translations and language profiles for ontologies
 imports:
  - linkml:types
 prefixes:
   linkml: https://w3id.org/linkml/
-  obabel: https://w3id.org/obabel/
-default_prefix: obabel
+  babelon: https://w3id.org/babelon/
+default_prefix: babelon
 
 slots:
   predicate_id:
