@@ -1,0 +1,93 @@
+{
+   "$id": "https://w3id.org/babelon",
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "definitions": {
+      "Profile": {
+         "additionalProperties": false,
+         "description": "Represents a set of translation that together compose a language profile.",
+         "properties": {
+            "translation_provider": {
+               "description": "The entity, i.e. person or group, that provides and maintains the translation profile.",
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "Profile",
+         "type": "object"
+      },
+      "Translation": {
+         "additionalProperties": false,
+         "description": "Represents and individual translation",
+         "properties": {
+            "predicate_id": {
+               "type": "string"
+            },
+            "source": {
+               "description": "The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.",
+               "type": "string"
+            },
+            "source_language": {
+               "type": "string"
+            },
+            "source_value": {
+               "description": "The value that is being translated, for example the definition of a disease or the name of a cell type.",
+               "type": "string"
+            },
+            "source_version": {
+               "description": "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.",
+               "type": "string"
+            },
+            "subject_id": {
+               "type": "string"
+            },
+            "translation_confidence": {
+               "description": "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0).",
+               "type": "number"
+            },
+            "translation_date": {
+               "description": "The date the translation was performed.",
+               "type": "string"
+            },
+            "translation_language": {
+               "type": "string"
+            },
+            "translation_precision": {
+               "description": "While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad.",
+               "type": "string"
+            },
+            "translation_status": {
+               "description": "The status of the translation indicates how \"official\" the translation is.",
+               "type": "string"
+            },
+            "translation_type": {
+               "description": "By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value.",
+               "type": "string"
+            },
+            "translation_value": {
+               "type": "string"
+            },
+            "translator": {
+               "type": "string"
+            },
+            "translator_expertise": {
+               "type": "string"
+            }
+         },
+         "required": [
+            "subject_id",
+            "predicate_id",
+            "translation_value",
+            "source_language",
+            "translation_language",
+            "translator",
+            "translator_expertise"
+         ],
+         "title": "Translation",
+         "type": "object"
+      }
+   },
+   "properties": {},
+   "title": "babelon",
+   "type": "object"
+}
+

@@ -1,0 +1,25 @@
+type Profile
+  {
+    translationProvider: String
+  }
+
+type Translation
+  {
+    subjectId: String!
+    predicateId: String!
+    translationValue: String!
+    sourceValue: String
+    sourceLanguage: String!
+    translationLanguage: String!
+    sourceVersion: String
+    translationType: TranslationTypeEnum
+    translator: String!
+    translatorExpertise: TranslatorExpertiseEnum!
+    translationDate: String
+    translationConfidence: Double
+    translationPrecision: TranslationPrecisionEnum
+    translationStatus: TranslationStatusEnum
+    source: String
+  }
+
+

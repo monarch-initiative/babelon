@@ -9,6 +9,31 @@ prefixes:
   babelon: https://w3id.org/babelon/
 default_prefix: babelon
 
+enums:
+  translator_expertise_enum:
+    permissible_values:
+      DOMAIN_EXPERT: "The translator is an expert of the domain of the ontology, for example an expert in anatomy when translating terms from an anatomy ontology such as Uberon."
+      LAYPERSON: "The translator is an interested lay person with no specific knowledge of the domain."
+      DOMAIN_STUDENT: "The translator is a student of the domain of the ontology, for example a student of anatomy, when translating terms from an anatomy ontology such as Uberon."
+      PROFESSIONAL_TRANSLATOR: "The translator is a professional translator by trade."
+      ALGORITHM: "The translator is a machine, not a person."
+  translation_status_enum:
+    permissible_values:
+      CANDIDATE: "The translation has been suggested from an entity (algorithm, person) outside the core team managing the translation."
+      UNDER_REVIEW: "The translation has been suggested from an entity (algorithm, person) inside the core team managing the translation, but not yet officially ratified."
+      OFFICIAL: "The translation has been accepted by the core team managing the language profile."
+  translation_type_enum:
+    permissible_values:
+      TRANSLATION: "The record corresponds to an actual translation of a source value into a translation value."
+      AUGMENTATION: "The record corresponds to an additional language specific terminological element without a corresponding element in the source language."
+      CORRECTION: "The record corresponds to a translation of a source value into a translation value, but rather than being an exact translation, it suggests a change to the original source value."
+  translation_precision_enum:
+    permissible_values:
+      EXACT: "The translation is exact."
+      BROADER: "The translation value has a somewhat broader meaning than the source value."
+      NARROWER: "The translation value has a somewhat narrower meaning than the source value."
+      CLOSE: "The translation value is close in meaning to the source value, but not exact."
+
 slots:
   predicate_id:
     description: >-
@@ -26,6 +51,9 @@ slots:
   source_language:
     description: The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).
     range: string
+  translation_type:
+    description: By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value.
+    range: translation_type_enum
   translation_language:
     description: The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).
     range: string
@@ -38,9 +66,9 @@ slots:
   translator:
     description: The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/
     range: string
-  translation_type:
-    description: "The type of translation, for example: Manual, Tool."
-    range: string
+  translator_expertise:
+    description: The expertise level of the translator, e.g. domain expert or student.
+    range: translator_expertise_enum
   translation_date:
     description: The date the translation was performed.
     range: string
@@ -49,28 +77,56 @@ slots:
     range: double
   translation_precision:
     description: While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad.
-    range: string
+    range: translation_precision_enum
   translation_provider:
     description: The entity, i.e. person or group, that provides and maintains the translation profile.
     range: string
+  translation_status:
+    description: The status of the translation indicates how "official" the translation is.
+    range: translation_status_enum
 
 classes:
   translation:
     description: Represents and individual translation
     slots:
+      - subject_id
       - predicate_id
       - translation_value
       - source_value
       - source_language
       - translation_language
       - source_version
+      - translation_type
       - translator
+      - translator_expertise
       - translation_date
       - translation_confidence
       - translation_precision
-      - translation_type
+      - translation_status
       - source
-      - subject_id
+    slot_usage:
+      subject_id:
+        required: true
+      predicate_id :
+        required: true
+      source_language :
+        required: true
+      translation_language :
+        required: true
+      translation_value :
+        required: true
+      translator:
+        required: true
+      translator_expertise :
+        required: true
+      #translation_type:
+      #  ifabsent: TRANSLATION
+      #translation_precision:
+      #  ifabsent: EXACT
+      #translation_status:
+      #  ifabsent: CANDIDATE
+
+      
   profile:
     description: Represents a set of translation that together compose a language profile.
     slots:

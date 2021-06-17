@@ -39,19 +39,21 @@ linkml:Nodeidentifier NONLITERAL
 }
 
 <Translation> CLOSED {
-    (  $<Translation_tes> (  <predicate_id> @linkml:String ? ;
-          <translation_value> @linkml:String ? ;
+    (  $<Translation_tes> (  <subject_id> @linkml:String ;
+          <predicate_id> @linkml:String ;
+          <translation_value> @linkml:String ;
           <source_value> @linkml:String ? ;
-          <source_language> @linkml:String ? ;
-          <translation_language> @linkml:String ? ;
+          <source_language> @linkml:String ;
+          <translation_language> @linkml:String ;
           <source_version> @linkml:String ? ;
-          <translator> @linkml:String ? ;
+          <translation_type> @<TranslationTypeEnum> ? ;
+          <translator> @linkml:String ;
+          <translator_expertise> @<TranslatorExpertiseEnum> ;
           <translation_date> @linkml:String ? ;
           <translation_confidence> @linkml:Double ? ;
-          <translation_precision> @linkml:String ? ;
-          <translation_type> @linkml:String ? ;
-          <source> @linkml:String ? ;
-          <subject_id> @linkml:String ?
+          <translation_precision> @<TranslationPrecisionEnum> ? ;
+          <translation_status> @<TranslationStatusEnum> ? ;
+          <source> @linkml:String ?
        ) ;
        rdf:type [ <Translation> ] ?
     )

@@ -1,0 +1,386 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/babelon> a owl:Ontology ;
+    rdfs:label "babelon" ;
+    dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
+    skos:definition "A schema for describing translations and language profiles for ontologies" ;
+    linkml:generation_date "2021-06-17 11:43" ;
+    linkml:metamodel_version "1.7.0" ;
+    linkml:source_file "babelon.yaml" ;
+    linkml:source_file_date "Thu Jun 17 11:43:30 2021" ;
+    linkml:source_file_size 6418 .
+
+<https://w3id.org/babelon/Profile> a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "profile" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/translation_provider> ] ;
+    skos:definition "Represents a set of translation that together compose a language profile." .
+
+linkml:Boolean a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "boolean" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:boolean ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A binary (true or false) value" .
+
+linkml:Date a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "date" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:date ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "a date (year, month and day) in an idealized calendar" ;
+    skos:editorialNote "URI is dateTime because OWL reasoners don't work with straight date or time" .
+
+linkml:Datetime a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "datetime" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:dateTime ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "The combination of a date and time" .
+
+linkml:Decimal a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "decimal" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:decimal ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A real number with arbitrary precision that conforms to the xsd:decimal specification" .
+
+linkml:Float a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "float" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:float ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A real number that conforms to the xsd:float specification" .
+
+linkml:Integer a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "integer" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:integer ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "An integer" .
+
+linkml:Ncname a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "ncname" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "Prefix part of CURIE" .
+
+linkml:Nodeidentifier a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "nodeidentifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange <http://www.w3.org/ns/shex#nonLiteral> ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A URI, CURIE or BNODE that represents a node in a model." .
+
+linkml:Objectidentifier a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "objectidentifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange <http://www.w3.org/ns/shex#iri> ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A URI or CURIE that represents an object in the model." ;
+    skos:note "Used for inheritence and type checking" .
+
+linkml:SubsetDefinition a owl:Class ;
+    rdfs:label "subset_definition" ;
+    skos:definition "the name and description of a subset" .
+
+linkml:Time a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "time" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:dateTime ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A time object represents a (local) time of day, independent of any particular day" ;
+    skos:editorialNote "URI is dateTime because OWL reasoners don't work with straight date or time" .
+
+linkml:Uri a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "uri" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:anyURI ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "a complete URI" .
+
+linkml:Uriorcurie a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "uriorcurie" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:anyURI ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "a URI or a CURIE" .
+
+linkml:translation_predicate_id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_predicate_id" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/predicate_id> .
+
+linkml:translation_source_language a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_source_language" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/source_language> .
+
+linkml:translation_subject_id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_subject_id" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/subject_id> .
+
+linkml:translation_translation_language a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_translation_language" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/translation_language> .
+
+linkml:translation_translation_value a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_translation_value" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/translation_value> .
+
+linkml:translation_translator a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_translator" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range linkml:String ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/translator> .
+
+linkml:translation_translator_expertise a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_translator_expertise" ;
+    rdfs:domain <https://w3id.org/babelon/Translation> ;
+    rdfs:range <http://UNKNOWN.org/translator_expertise_enum> ;
+    rdfs:subPropertyOf <https://w3id.org/babelon/translator_expertise> .
+
+<https://w3id.org/babelon/source> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "source" ;
+    rdfs:range linkml:String ;
+    skos:definition "The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl." .
+
+<https://w3id.org/babelon/source_value> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "source_value" ;
+    rdfs:range linkml:String ;
+    skos:definition "The value that is being translated, for example the definition of a disease or the name of a cell type." .
+
+<https://w3id.org/babelon/source_version> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "source_version" ;
+    rdfs:range linkml:String ;
+    skos:definition "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl." .
+
+<https://w3id.org/babelon/translation_confidence> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_confidence" ;
+    rdfs:range linkml:Double ;
+    skos:definition "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0)." .
+
+<https://w3id.org/babelon/translation_date> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_date" ;
+    rdfs:range linkml:String ;
+    skos:definition "The date the translation was performed." .
+
+<https://w3id.org/babelon/translation_precision> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_precision" ;
+    rdfs:range <http://UNKNOWN.org/translation_precision_enum> ;
+    skos:definition "While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad." .
+
+<https://w3id.org/babelon/translation_provider> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_provider" ;
+    rdfs:range linkml:String ;
+    skos:definition "The entity, i.e. person or group, that provides and maintains the translation profile." .
+
+<https://w3id.org/babelon/translation_status> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_status" ;
+    rdfs:range <http://UNKNOWN.org/translation_status_enum> ;
+    skos:definition "The status of the translation indicates how \"official\" the translation is." .
+
+<https://w3id.org/babelon/translation_type> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_type" ;
+    rdfs:range <http://UNKNOWN.org/translation_type_enum> ;
+    skos:definition "By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value." .
+
+<https://w3id.org/babelon/predicate_id> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "predicate_id" ;
+    rdfs:range linkml:String ;
+    skos:definition "The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description" .
+
+<https://w3id.org/babelon/source_language> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "source_language" ;
+    rdfs:range linkml:String ;
+    skos:definition "The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm)." .
+
+<https://w3id.org/babelon/subject_id> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "subject_id" ;
+    rdfs:range linkml:String ;
+    skos:definition "The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001." .
+
+<https://w3id.org/babelon/translation_language> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_language" ;
+    rdfs:range linkml:String ;
+    skos:definition "The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm)." .
+
+<https://w3id.org/babelon/translation_value> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translation_value" ;
+    rdfs:range linkml:String ;
+    skos:definition "The translation of the source value int the translation language. For example the french name of a disease." .
+
+<https://w3id.org/babelon/translator> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translator" ;
+    rdfs:range linkml:String ;
+    skos:definition "The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/" .
+
+<https://w3id.org/babelon/translator_expertise> a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "translator_expertise" ;
+    rdfs:range <http://UNKNOWN.org/translator_expertise_enum> ;
+    skos:definition "The expertise level of the translator, e.g. domain expert or student." .
+
+linkml:ClassDefinition a owl:Class ;
+    rdfs:label "class_definition" ;
+    skos:definition "the definition of a class or interface" .
+
+linkml:Double a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "double" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:double ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A real number that conforms to the xsd:double specification" .
+
+<https://w3id.org/babelon/Translation> a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "translation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/source_language> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Double ;
+            owl:onProperty <https://w3id.org/babelon/translation_confidence> ],
+        [ a owl:Restriction ;
+            owl:onClass <http://UNKNOWN.org/translator_expertise_enum> ;
+            owl:onProperty <https://w3id.org/babelon/translator_expertise> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/translation_value> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/translation_language> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/translator> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/predicate_id> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass <http://UNKNOWN.org/translation_precision_enum> ;
+            owl:onProperty <https://w3id.org/babelon/translation_precision> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass <http://UNKNOWN.org/translation_type_enum> ;
+            owl:onProperty <https://w3id.org/babelon/translation_type> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/translation_date> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/source> ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/subject_id> ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/source_value> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass <http://UNKNOWN.org/translation_status_enum> ;
+            owl:onProperty <https://w3id.org/babelon/translation_status> ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty <https://w3id.org/babelon/source_version> ] ;
+    skos:definition "Represents and individual translation" .
+
+linkml:TypeDefinition a owl:Class ;
+    rdfs:label "type_definition" ;
+    skos:definition "A data type definition." .
+
+linkml:topValue a owl:DatatypeProperty ;
+    rdfs:label "value" .
+
+linkml:SlotDefinition a owl:Class ;
+    rdfs:label "slot_definition" ;
+    skos:definition "the definition of a property or a slot" .
+
+linkml:String a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:label "string" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty linkml:topValue ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:definition "A character string" .
+
+
+
