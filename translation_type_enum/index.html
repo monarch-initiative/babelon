@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Slot: translator - {{schema.description}}</title>
+  <title>Enum: translation_type_enum - {{schema.description}}</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Slot: translator";
-    var mkdocs_page_input_path = "translator.md";
+    var mkdocs_page_name = "Enum: translation_type_enum";
+    var mkdocs_page_input_path = "translation_type_enum.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -80,7 +80,7 @@
     
       
     
-    <li>Slot: translator</li>
+    <li>Enum: translation_type_enum</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -91,17 +91,56 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="slot-translator">Slot: translator</h1>
-<p>The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/</p>
-<p>URI: <a href="https://w3id.org/babelon/translator">babelon:translator</a></p>
-<h2 id="domain-and-range">Domain and Range</h2>
-<p>None &#8594;  <sub>OPT</sub> <a href="../types/String/">String</a></p>
-<h2 id="parents">Parents</h2>
-<h2 id="children">Children</h2>
-<ul>
-<li><a href="../translation_translator/">translation➞translator</a></li>
-</ul>
-<h2 id="used-by">Used by</h2>
+                <h1 id="enum-translation_type_enum">Enum: translation_type_enum</h1>
+<p>URI: <a href="https://w3id.org/babelon/translation_type_enum">babelon:translation_type_enum</a></p>
+<h2 id="other-properties">Other properties</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Text</th>
+<th align="center">Description</th>
+<th align="center">Meaning</th>
+<th align="right">Other Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">TRANSLATION</td>
+<td align="center">The record corresponds to an actual translation of a source value into a translation value.</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">AUGMENTATION</td>
+<td align="center">The record corresponds to an additional language specific terminological element without a corresponding element in the source language.</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">CORRECTION</td>
+<td align="center">The record corresponds to a translation of a source value into a translation value, but rather than being an exact translation, it suggests a change to the original source value.</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>

@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Slot: translator - {{schema.description}}</title>
+  <title>Slot: translation_source_language - {{schema.description}}</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Slot: translator";
-    var mkdocs_page_input_path = "translator.md";
+    var mkdocs_page_name = "Slot: translation_source_language";
+    var mkdocs_page_input_path = "translation_source_language.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -80,7 +80,7 @@
     
       
     
-    <li>Slot: translator</li>
+    <li>Slot: translation_source_language</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -91,17 +91,19 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="slot-translator">Slot: translator</h1>
-<p>The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/</p>
-<p>URI: <a href="https://w3id.org/babelon/translator">babelon:translator</a></p>
+                <h1 id="slot-translation_source_language">Slot: translation_source_language</h1>
+<p>URI: <a href="https://w3id.org/babelon/translation_source_language">babelon:translation_source_language</a></p>
 <h2 id="domain-and-range">Domain and Range</h2>
-<p>None &#8594;  <sub>OPT</sub> <a href="../types/String/">String</a></p>
+<p><a href="../Translation/">Translation</a> &#8594;  <sub>REQ</sub> <a href="../types/String/">String</a></p>
 <h2 id="parents">Parents</h2>
-<h2 id="children">Children</h2>
 <ul>
-<li><a href="../translation_translator/">translation➞translator</a></li>
+<li>is_a: <a href="../source_language/">source_language</a></li>
 </ul>
+<h2 id="children">Children</h2>
 <h2 id="used-by">Used by</h2>
+<ul>
+<li><a href="../Translation/">Translation</a></li>
+</ul>
               
             </div>
           </div>

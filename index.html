@@ -60,6 +60,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#slots">Slots</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enums">Enums</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#types">Types</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#built-in">Built in</a>
@@ -107,7 +109,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="obabel-schema">Obabel schema</h1>
+                <h1 id="babelon-schema">babelon schema</h1>
 <p>A schema for describing translations and language profiles for ontologies</p>
 <h3 id="classes">Classes</h3>
 <ul>
@@ -117,20 +119,50 @@
 <h3 id="mixins">Mixins</h3>
 <h3 id="slots">Slots</h3>
 <ul>
-<li><a href="predicate_id/">predicate_id</a> - The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description</li>
+<li><a href="predicate_id/">predicate_id</a> - The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description<ul>
+<li><a href="translation_predicate_id/">translation➞predicate_id</a></li>
+</ul>
+</li>
 <li><a href="source/">source</a> - The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.</li>
-<li><a href="source_language/">source_language</a> - The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).</li>
+<li><a href="source_language/">source_language</a> - The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).<ul>
+<li><a href="translation_source_language/">translation➞source_language</a></li>
+</ul>
+</li>
 <li><a href="source_value/">source_value</a> - The value that is being translated, for example the definition of a disease or the name of a cell type.</li>
 <li><a href="source_version/">source_version</a> - The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.</li>
-<li><a href="subject_id/">subject_id</a> - The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.</li>
+<li><a href="subject_id/">subject_id</a> - The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.<ul>
+<li><a href="translation_subject_id/">translation➞subject_id</a></li>
+</ul>
+</li>
 <li><a href="translation_confidence/">translation_confidence</a> - A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision "narrow" or "broad" rather than "exact", but the confidence that this is right may still be 100% (1.0).</li>
 <li><a href="translation_date/">translation_date</a> - The date the translation was performed.</li>
-<li><a href="translation_language/">translation_language</a> - The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).</li>
+<li><a href="translation_language/">translation_language</a> - The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).<ul>
+<li><a href="translation_translation_language/">translation➞translation_language</a></li>
+</ul>
+</li>
 <li><a href="translation_precision/">translation_precision</a> - While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad.</li>
 <li><a href="translation_provider/">translation_provider</a> - The entity, i.e. person or group, that provides and maintains the translation profile.</li>
-<li><a href="translation_type/">translation_type</a> - The type of translation, for example: Manual, Tool.</li>
-<li><a href="translation_value/">translation_value</a> - The translation of the source value int the translation language. For example the french name of a disease.</li>
-<li><a href="translator/">translator</a> - The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/</li>
+<li><a href="translation_status/">translation_status</a> - The status of the translation indicates how "official" the translation is.</li>
+<li><a href="translation_type/">translation_type</a> - By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value.</li>
+<li><a href="translation_value/">translation_value</a> - The translation of the source value int the translation language. For example the french name of a disease.<ul>
+<li><a href="translation_translation_value/">translation➞translation_value</a></li>
+</ul>
+</li>
+<li><a href="translator/">translator</a> - The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/<ul>
+<li><a href="translation_translator/">translation➞translator</a></li>
+</ul>
+</li>
+<li><a href="translator_expertise/">translator_expertise</a> - The expertise level of the translator, e.g. domain expert or student.<ul>
+<li><a href="translation_translator_expertise/">translation➞translator_expertise</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="enums">Enums</h3>
+<ul>
+<li><a href="translation_precision_enum/">translation_precision_enum</a></li>
+<li><a href="translation_status_enum/">translation_status_enum</a></li>
+<li><a href="translation_type_enum/">translation_type_enum</a></li>
+<li><a href="translator_expertise_enum/">translator_expertise_enum</a></li>
 </ul>
 <h3 id="types">Types</h3>
 <h4 id="built-in">Built in</h4>
@@ -223,5 +255,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-05-21 08:45:34.346262+00:00
+Build Date UTC : 2021-06-17 08:45:03.967739+00:00
 -->
