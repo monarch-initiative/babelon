@@ -6,3 +6,5 @@ docs/*md
 docs/types/
 */my_schema.*
 .DS_Store
+.idea/
+.ipynb_checkpoints/
