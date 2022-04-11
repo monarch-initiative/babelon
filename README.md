@@ -7,7 +7,7 @@ Editors:
 - @drseb
 - Anyone that wants to be on here.
 
-[Provisional documentation here.](https://matentzn.github.io/babelon/)
+[Provisional documentation here.](https://monarch-initiative.github.io/babelon/)
 
 Babelon is simple standard for managing ontology translations and language profiles. Profiles are managed a simple TSV files, for example:
 
