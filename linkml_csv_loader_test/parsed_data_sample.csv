@@ -1,0 +1,100 @@
+source_language,translation_language,subject_id,predicate_id,source_value,translation_value
+en,nl,HP:0000001,rdfs:label,All,Alle
+en,nl,HP:0000002,rdfs:label,Abnormality of body height,Afwijking van de lichaamslengte
+en,nl,HP:0000002,IAO:0000115,Deviation from the norm of height with respect to that which is expected according to age and gender norms,Afwijking van de norm van hoogte met betrekking tot wat de verwachting is volgens leeftijds en geslachtsnormen
+en,nl,HP:0000003,rdfs:label,Multicystic kidney dysplasia,Multicysteuze nierdysplasie
+en,nl,HP:0000003,IAO:0000115,"Multicystic dysplasia of the kidney is characterized by multiple cysts of varying size in the kidney and the absence of a normal pelvicaliceal system. The condition is associated with ureteral or ureteropelvic atresia, and the affected kidney is nonfunctional","Multicystic dysplasia of the kidney is characterized by multiple cysts of varying size in the kidney and the absence of a normal pelvicaliceal system. The condition is associated with ureteral or ureteropelvic atresia, and the affected kidney is nonfunctional"
+en,nl,HP:0000003,oboInOwl:exactSynonym,Multicystic dysplastic kidney ,Multicystic dysplastic kidney 
+en,nl,HP:0000003,oboInOwl:exactSynonym,Multicystic kidneys ,Multicystic kidneys 
+en,nl,HP:0000003,oboInOwl:exactSynonym,Multicystic renal dysplasia,Multicystic renal dysplasia
+en,nl,HP:0000005,rdfs:label,Mode of inheritance,Overervingspatroon
+en,nl,HP:0000005,IAO:0000115,The pattern in which a particular genetic trait or disorder is passed from one generation to the next,The pattern in which a particular genetic trait or disorder is passed from one generation to the next
+en,nl,HP:0000005,oboInOwl:exactSynonym,Inheritance,Overerving
+en,nl,HP:0000006,rdfs:label,Autosomal dominant inheritance,Autosomaal dominante overerving
+en,nl,HP:0000006,IAO:0000115,"A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in heterozygotes. In the context of medical genetics, an autosomal dominant disorder is caused when a single copy of the mutant allele is present. Males and females are affected equally, and can both transmit the disorder with a risk of 50% for each child of inheriting the mutant allele","A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in heterozygotes. In the context of medical genetics, an autosomal dominant disorder is caused when a single copy of the mutant allele is present. Males and females are affected equally, and can both transmit the disorder with a risk of 50% for each child of inheriting the mutant allele"
+en,nl,HP:0000006,oboInOwl:exactSynonym,Autosomal dominant ,Autosomal dominant 
+en,nl,HP:0000006,oboInOwl:exactSynonym,Autosomal dominant form ,Autosomal dominant form 
+en,nl,HP:0000006,oboInOwl:exactSynonym,Autosomal dominant type,Autosomal dominant type
+en,nl,HP:0000007,rdfs:label,Autosomal recessive inheritance,Autosomaal recessieve overerving
+en,nl,HP:0000007,IAO:0000115,"A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in individuals with two pathogenic alleles, either homozygotes (two copies of the same mutant allele) or compound heterozygotes (whereby each copy of a gene has a distinct mutant allele)","A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in individuals with two pathogenic alleles, either homozygotes (two copies of the same mutant allele) or compound heterozygotes (whereby each copy of a gene has a distinct mutant allele)"
+en,nl,HP:0000007,oboInOwl:exactSynonym,Autosomal recessive ,Autosomal recessive 
+en,nl,HP:0000007,oboInOwl:exactSynonym,Autosomal recessive form ,Autosomal recessive form 
+en,nl,HP:0000007,oboInOwl:exactSynonym,Autosomal recessive predisposition,Autosomal recessive predisposition
+en,nl,HP:0000008,rdfs:label,Abnormality of female internal genitalia,Afwijking van de vrouwelijke interne genitalia
+en,nl,HP:0000008,IAO:0000115,An abnormality of the female internal genitalia,Een afwijking van de vrouwelijke interne genitalia
+en,nl,HP:0000009,rdfs:label,Functional abnormality of the bladder,Functionele afwijking van de blaas
+en,nl,HP:0000009,IAO:0000115,Dysfunction of the urinary bladder,Dysfunction of the urinary bladder
+en,nl,HP:0000009,oboInOwl:exactSynonym,Poor bladder function,Beperkte blaasfunctie
+en,nl,HP:0000010,rdfs:label,Recurrent urinary tract infections,Recidiverende urineweginfecties
+en,nl,HP:0000010,IAO:0000115,Repeated infections of the urinary tract,Repeated infections of the urinary tract
+en,nl,HP:0000010,oboInOwl:exactSynonym,Frequent urinary tract infections ,Frequent urinary tract infections 
+en,nl,HP:0000010,oboInOwl:exactSynonym,Urinary infection ,Urinary infection 
+en,nl,HP:0000010,oboInOwl:exactSynonym,Urinary tract infection ,Urinary tract infection 
+en,nl,HP:0000010,oboInOwl:exactSynonym,Urinary tract infections ,Urinary tract infections 
+en,nl,HP:0000010,oboInOwl:exactSynonym,"Urinary tract infections, recurrent","Urinary tract infections, recurrent"
+en,nl,HP:0000011,rdfs:label,Neurogenic bladder,Neurogene blaas
+en,nl,HP:0000011,IAO:0000115,"A type of bladder dysfunction caused by neurologic damage. Neurogenic bladder can be flaccid or spastic. Common manifestatios of neurogenic bladder are overflow incontinence, frequency, urgency, urge incontinence, and retention","A type of bladder dysfunction caused by neurologic damage. Neurogenic bladder can be flaccid or spastic. Common manifestatios of neurogenic bladder are overflow incontinence, frequency, urgency, urge incontinence, and retention"
+en,nl,HP:0000011,oboInOwl:exactSynonym,Lack of bladder control due to nervous system injury,Lack of bladder control due to nervous system injury
+en,nl,HP:0000012,rdfs:label,Urinary urgency,Urinaire urgentie
+en,nl,HP:0000012,IAO:0000115,"Urge incontinence is the strong, sudden need to urinate","Urge incontinence is the strong, sudden need to urinate"
+en,nl,HP:0000012,oboInOwl:exactSynonym,Overactive bladder ,Overactive bladder 
+en,nl,HP:0000012,oboInOwl:exactSynonym,Overactive bladder syndrome ,Overactive bladder syndrome 
+en,nl,HP:0000012,oboInOwl:exactSynonym,Urgency frequency syndrome,Urgency frequency syndrome
+en,nl,HP:0000013,rdfs:label,Hypoplasia of the uterus,Hypoplasie van de uterus
+en,nl,HP:0000013,IAO:0000115,Underdevelopment of the uterus,Underdevelopment of the uterus
+en,nl,HP:0000013,oboInOwl:exactSynonym,Hypoplastic uterus ,Hypoplastic uterus 
+en,nl,HP:0000013,oboInOwl:exactSynonym,Rudimentary uterus ,Rudimentary uterus 
+en,nl,HP:0000013,oboInOwl:exactSynonym,Small uterus ,Small uterus 
+en,nl,HP:0000013,oboInOwl:exactSynonym,Underdeveloped uterus,Underdeveloped uterus
+en,nl,HP:0000014,rdfs:label,Abnormality of the bladder,Afwijking van de blaas
+en,nl,HP:0000014,IAO:0000115,An abnormality of the urinary bladder,Een afwijking van de urineblaas
+en,nl,HP:0000015,rdfs:label,Bladder diverticulum,Blaas diverticulum
+en,nl,HP:0000015,IAO:0000115,Diverticulum (sac or pouch) in the wall of the urinary bladder,Diverticulum (sac or pouch) in the wall of the urinary bladder
+en,nl,HP:0000015,oboInOwl:exactSynonym,Bladder diverticula,Bladder diverticula
+en,nl,HP:0000016,rdfs:label,Urinary retention,Urineretentie
+en,nl,HP:0000016,IAO:0000115,Inability to completely empty the urinary bladder during the process of urination,Inability to completely empty the urinary bladder during the process of urination
+en,nl,HP:0000016,oboInOwl:exactSynonym,Increased post-void residual urine volume,Increased post-void residual urine volume
+en,nl,HP:0000017,rdfs:label,Nocturia,Nycturie
+en,nl,HP:0000017,IAO:0000115,Abnormally increased production of urine during the night leading to an unusually frequent need to urinate,Abnormally increased production of urine during the night leading to an unusually frequent need to urinate
+en,nl,HP:0000017,oboInOwl:exactSynonym,Nycturia,Nycturia
+en,nl,HP:0000019,rdfs:label,Urinary hesitancy,Urinaire aarzeling
+en,nl,HP:0000019,IAO:0000115,Difficulty in beginning the process of urination,Difficulty in beginning the process of urination
+en,nl,HP:0000019,oboInOwl:exactSynonym,Difficulty with flow,Difficulty with flow
+en,nl,HP:0000020,rdfs:label,Urinary incontinence,Urine-incontinentie
+en,nl,HP:0000020,IAO:0000115,Loss of the ability to control the urinary bladder leading to involuntary urination,Loss of the ability to control the urinary bladder leading to involuntary urination
+en,nl,HP:0000020,oboInOwl:exactSynonym,Bladder incontinence ,Bladder incontinence 
+en,nl,HP:0000020,oboInOwl:exactSynonym,Loss of bladder control,Loss of bladder control
+en,nl,HP:0000021,rdfs:label,Megacystis,Megacystis
+en,nl,HP:0000021,IAO:0000115,Dilatation of the bladder postnatally,Dilatation of the bladder postnatally
+en,nl,HP:0000022,rdfs:label,Abnormality of male internal genitalia,Afwijking van mannelijke interne genitaliën
+en,nl,HP:0000022,IAO:0000115,An abnormality of the male internal genitalia,Een afwijking van de mannelijke interne genitaliën
+en,nl,HP:0000023,rdfs:label,Inguinal hernia,Hernia inguinalis
+en,nl,HP:0000023,IAO:0000115,Protrusion of the contents of the abdominal cavity through the inguinal canal,Protrusion of the contents of the abdominal cavity through the inguinal canal
+en,nl,HP:0000024,rdfs:label,Prostatitis,Prostatitis
+en,nl,HP:0000024,IAO:0000115,The presence of inflammation of the prostate,The presence of inflammation of the prostate
+en,nl,HP:0000024,oboInOwl:exactSynonym,Inflammation of the prostate,Ontsteking van de prostaat
+en,nl,HP:0000025,rdfs:label,Functional abnormality of male internal genitalia,Functionele afwijking van de mannelijke interne genitaliën
+en,nl,HP:0000026,rdfs:label,Male hypogonadism,Mannelijke hypogonadisme
+en,nl,HP:0000026,IAO:0000115,"Decreased functionality of the male gonad, i.e., of the testis, with reduced spermatogenesis or testosterone synthesis",Verminderde functionaliteit van de mannelijke gonaden (testis) met verminderde spermatogenese en testosteronproductie
+en,nl,HP:0000026,oboInOwl:exactSynonym,Decreased function of male gonad,Verminderde functie van mannelijke gonaden
+en,nl,HP:0000027,rdfs:label,Azoospermia,Azoöspermie
+en,nl,HP:0000027,IAO:0000115,Absence of any measurable level of sperm in his semen,Ontbreken van een meetbare hoeveelheid spermacellen in zijn semen
+en,nl,HP:0000027,oboInOwl:exactSynonym,Absent sperm in semen,Ontbreken van zaadcellen in het sperma
+en,nl,HP:0000028,rdfs:label,Cryptorchidism,Cryptorchisme
+en,nl,HP:0000028,IAO:0000115,"Testis in inguinal canal. That is, absence of one or both testes from the scrotum owing to failure of the testis or testes to descend through the inguinal canal to the testis","Testis in inguinal canal. That is, absence of one or both testes from the scrotum owing to failure of the testis or testes to descend through the inguinal canal to the testis"
+en,nl,HP:0000028,oboInOwl:exactSynonym,Cryptorchism ,Cryptorchism 
+en,nl,HP:0000028,oboInOwl:exactSynonym,Undescended testes ,Undescended testes 
+en,nl,HP:0000028,oboInOwl:exactSynonym,Undescended testis,Undescended testis
+en,nl,HP:0000029,rdfs:label,Testicular atrophy,Testiculaire atrofie
+en,nl,HP:0000029,IAO:0000115,Wasting (atrophy) of the testicle (the male gonad) manifested by a decrease in size and potentially by a loss of fertility,Wasting (atrophy) of the testicle (the male gonad) manifested by a decrease in size and potentially by a loss of fertility
+en,nl,HP:0000029,oboInOwl:exactSynonym,Testicular degeneration,Testicular degeneration
+en,nl,HP:0000030,rdfs:label,Testicular gonadoblastoma,Testiculaire gonadoblastoma
+en,nl,HP:0000030,IAO:0000115,The presence of a gonadoblastoma of the testis,The presence of a gonadoblastoma of the testis
+en,nl,HP:0000030,oboInOwl:exactSynonym,"Gonadoblastoma, male","Gonadoblastoma, mannelijke"
+en,nl,HP:0000031,rdfs:label,Epididymitis,Epididymitis
+en,nl,HP:0000031,IAO:0000115,The presence of inflammation of the epididymis,De aanwezigheid van ontsteking van de bijbal
+en,nl,HP:0000032,rdfs:label,Abnormality of male external genitalia,Afwijking van mannelijke externe genitaliën
+en,nl,HP:0000032,IAO:0000115,An abnormality of male external genitalia,Een afwijking van mannelijke externe genitaliën
+en,nl,HP:0000033,rdfs:label,"Ambiguous genitalia, male","Tweeslachtige genitaliën, mannelijke"
+en,nl,HP:0000033,IAO:0000115,Ambiguous genitalia in an individual with XY genetic gender,Ambiguous genitalia in an individual with XY genetic gender
+en,nl,HP:0000033,oboInOwl:exactSynonym,Ambiguous genitalia in males,Ambiguous genitalia in males
