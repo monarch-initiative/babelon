@@ -4,8 +4,8 @@ import csv
 with open('tests/data/hpo_notes.xliff') as fd:
     doc = xmltodict.parse(fd.read())
 
-csvfile = open("tests/data/parsed_data.csv", 'w', encoding='utf-8')
-csvfile_writer = csv.writer(csvfile)
+csvfile = open("tests/data/parsed_data.tsv", 'w', encoding='utf-8')
+csvfile_writer = csv.writer(csvfile, delimiter='\t')
 
 # ADD HEADER
 csvfile_writer.writerow(

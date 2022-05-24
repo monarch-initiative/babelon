@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("../tests/data/parsed_data.csv")
+df = pd.read_csv("../tests/data/parsed_data.tsv", sep='\t')
 
 output_df = df[0:0]
 
@@ -23,4 +23,4 @@ for index, row in df.iterrows():
     else:
         output_df = output_df.append(row.to_dict(), ignore_index=True)
 
-output_df.to_csv("../tests/data/parsed_data.csv", index=False)
+output_df.to_csv("../tests/data/parsed_data.tsv", sep="\t", index=False)
