@@ -10,4 +10,4 @@ docs/types/
 __pycache__/
 Pipfile.lock
 tests/data/parsed_data.tsv
-scratch_1.py
+scratch/scratch_1.py
