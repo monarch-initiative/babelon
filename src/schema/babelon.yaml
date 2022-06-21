@@ -57,6 +57,12 @@ slots:
     description: The translation of the source value int the translation language. For example the french name of a disease.
     range: string
     slot_uri: owl:annotatedTarget
+  profile_id:
+    description: The persistent identifier of the profile, for example http://w3id.org/hpo-international/french.
+    range: string
+  profile_version:
+    description: The version of the profile (e.g. 2.1, v2021-01-01).
+    range: string
   source_value:
     description: The value that is being translated, for example the definition of a disease or the name of a cell type.
     range: string
@@ -155,5 +161,7 @@ classes:
     slots:
       - translations
       - translation_provider
+      - profile_id
+      - profile_version
 
 
