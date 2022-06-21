@@ -7,6 +7,9 @@ imports:
 prefixes:
   linkml: https://w3id.org/linkml/
   babelon: https://w3id.org/babelon/
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  oboInOwl: http://www.geneontology.org/formats/oboInOwl#
 default_prefix: babelon
 
 enums:
@@ -34,20 +37,35 @@ enums:
       NARROWER: "The translation value has a somewhat narrower meaning than the source value."
       CLOSE: "The translation value is close in meaning to the source value, but not exact."
 
+types:
+ EntityReference:
+    typeof: uriorcurie
+    description: A reference to a mapped entity. This is represented internally as a string, and as a resource in RDF
+    base: str
+    uri: rdfs:Resource
+
 slots:
   predicate_id:
     description: >-
       The predicate / annotation property used to relate the translated value at the source ontolgy.
       For example: rdfs:label, oio:exactSynonym, dc:description
+    range: EntityReference
+    mappings:
+      - owl:annotatedProperty
+    slot_uri: owl:annotatedProperty
   translation_value:
     description: The translation of the source value int the translation language. For example the french name of a disease.
     range: string
+    slot_uri: owl:annotatedTarget
   source_value:
     description: The value that is being translated, for example the definition of a disease or the name of a cell type.
     range: string
   subject_id:
     description: The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.
-    range: string
+    range: EntityReference
+    mappings:
+      - owl:annotatedSource
+    slot_uri: owl:annotatedSource
   source_language:
     description: The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).
     range: string
@@ -84,6 +102,10 @@ slots:
   translation_status:
     description: The status of the translation indicates how "official" the translation is.
     range: translation_status_enum
+  translations:
+    multivalued: true
+    inlined_as_list: true
+    range: translation
 
 classes:
   translation:
@@ -115,10 +137,10 @@ classes:
         required: true
       translation_value :
         required: true
-      translator:
-        required: true
-      translator_expertise :
-        required: true
+#      translator:
+#        required: true
+#      translator_expertise :
+#        required: true
       #translation_type:
       #  ifabsent: TRANSLATION
       #translation_precision:
@@ -126,10 +148,12 @@ classes:
       #translation_status:
       #  ifabsent: CANDIDATE
 
+
       
   profile:
     description: Represents a set of translation that together compose a language profile.
     slots:
+      - translations
       - translation_provider
 
 
