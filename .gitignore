@@ -6,3 +6,8 @@ docs/*md
 docs/types/
 */my_schema.*
 .DS_Store
+.idea
+__pycache__/
+Pipfile.lock
+tests/data/parsed_data.tsv
+scratch/scratch_1.py
