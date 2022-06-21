@@ -5,9 +5,9 @@ import os
 from os.path import exists
 
 
-class XMLParser:
+class XliffParser:
     '''
-    parser = XMLParser(/tests/data/)
+    parser = XliffParser(/tests/data/)
 
     '''
     def __init__(self, **kwargs):
