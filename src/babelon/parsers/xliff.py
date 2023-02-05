@@ -6,10 +6,9 @@ from os.path import exists
 
 
 class XliffParser:
-    '''
+    """
     parser = XliffParser(/tests/data/)
-
-    '''
+    """
     def __init__(self, **kwargs):
         self.input_file = kwargs.get('input_file_path', '')
         self.output_file = kwargs.get('output_file_path', os.getcwd() + r'/tests/data/parsed_data.tsv')
@@ -76,4 +75,6 @@ class XliffParser:
                 output_df = output_df.append(row.to_dict(), ignore_index=True)
         output_df.to_csv(self.output_file, sep="\t", index=False)
         return self.output_file
+
+
 
