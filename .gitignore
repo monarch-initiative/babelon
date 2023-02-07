@@ -11,3 +11,4 @@ __pycache__/
 Pipfile.lock
 tests/data/parsed_data.tsv
 scratch/scratch_1.py
+src/.ipynb_checkpoints/Untitled-checkpoint.ipynb
