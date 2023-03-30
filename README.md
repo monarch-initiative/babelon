@@ -27,3 +27,11 @@ The goal of Babelon is to capture the minimum data required to enable the follow
 
 
 As a first use case for the format, we see to capture the French language translations of the Human Phenotype Ontology by the Orphanet team and use them to provide versioned language profiles of HPO.
+
+### Editors
+
+```
+# in new environment
+pip install -r requirements.txt
+make translations
+```

@@ -23,7 +23,7 @@ class XliffParser:
         csvfile = open(self.output_file, 'w', encoding='utf-8')
         csvfile_writer = csv.writer(csvfile, delimiter='\t')
 
-        csvfile_synonyms = open(self.output_file+"_synonyms.tsv", 'w', encoding='utf-8')
+        csvfile_synonyms = open(self.output_file.replace(".babelon.",".synonyms."), 'w', encoding='utf-8')
         csvfile_writer_synonyms = csv.writer(csvfile_synonyms, delimiter='\t')
 
         # ADD HEADER
