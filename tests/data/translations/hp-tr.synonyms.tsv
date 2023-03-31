@@ -8318,12 +8318,12 @@ HP:0004463	İşitsel beyin sapı cevabı yok	OFFICIAL
 HP:0004464	Kulak arkası çukuru	CANDIDATE
 HP:0004464	Postoriküler kulakboşlugu	CANDIDATE
 HP:0004464	Postoriküler fistül	CANDIDATE
-HP:0004464	"Posterior 	oriküler çukuru"	CANDIDATE
+HP:0004464	Posterior oriküler çukuru	CANDIDATE
 HP:0004464	Posterior oriküler sinusü	CANDIDATE
 HP:0004467	Kulak arkası çukuru	CANDIDATE
 HP:0004467	Postoriküler kulakboşlugu	CANDIDATE
 HP:0004467	Postoriküler fistül	CANDIDATE
-HP:0004467	"Posterior 	oriküler çukuru"	CANDIDATE
+HP:0004467	Posterior oriküler çukuru	CANDIDATE
 HP:0004467	Posterior oriküler sinusü	CANDIDATE
 HP:0004468	Anormal trakeal kıkırdak halka	OFFICIAL
 HP:0004471	Abent kesit konjeniti	CANDIDATE
@@ -8412,7 +8412,7 @@ HP:0004563	Kompakt omur kemiği	CANDIDATE
 HP:0004563	Sert omur kemiği	CANDIDATE
 HP:0004563	Yoğun omur kemiği	CANDIDATE
 HP:0004563	Omur kemiğinin eburnasyonu	CANDIDATE
-HP:0004563	Omur kemiğinde artan  yoğunlaşma Z	CANDIDATE
+HP:0004563	Omur kemiğinde artan yoğunlaşma Z	CANDIDATE
 HP:0004563	Ivory omur kemiği	CANDIDATE
 HP:0004563	Omur kemiğinin sklerozu	CANDIDATE
 HP:0004565	platispondili, aşırı	OFFICIAL
@@ -12077,7 +12077,7 @@ HP:0009226	Kısa en içteki serçe parmağı kemiği	CANDIDATE
 HP:0009226	Kısa en içteki serçe parmağı kemiği	CANDIDATE
 HP:0009226	Beşinci parmağın kısa proksimal falanksı	CANDIDATE
 HP:0009227	5. Parmağın genişlemiş en iç kemiği	CANDIDATE
-HP:0009227	Serçe  parmağın genişlemiş en iç kemiği	CANDIDATE
+HP:0009227	Serçe parmağın genişlemiş en iç kemiği	CANDIDATE
 HP:0009227	Serçe parmağın genişlemiş en iç kemiği	CANDIDATE
 HP:0009227	5. Parmağın geniş proksimal falanksı	CANDIDATE
 HP:0009228	Kurşun şekilli en içteki küçük parmak kemiği	OFFICIAL

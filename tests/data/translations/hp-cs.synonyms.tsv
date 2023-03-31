@@ -4444,7 +4444,7 @@ HP:0100298	Motheaten muscle fibres	NOT_TRANSLATED
 HP:0100301	Tubulární agregáty svalových vláken	CANDIDATE
 HP:0001997	Dnavá artritida	OFFICIAL
 HP:0001998	Nízká hladina krevního cukru u novorozence	OFFICIAL
-HP:0100303	Tělíska v cytoplazmě  svalových vláken	CANDIDATE
+HP:0100303	Tělíska v cytoplazmě svalových vláken	CANDIDATE
 HP:0001999	Abnormální morfologie obličeje	OFFICIAL
 HP:0001999	Deformita obličeje	OFFICIAL
 HP:0001999	Charakteristická tvář	OFFICIAL
@@ -8156,7 +8156,7 @@ HP:0004490	Zvětšení kostí kalvy	OFFICIAL
 HP:0004490	Nadměrný růst kosí kalvy	OFFICIAL
 HP:0004490	Hyperostóza kostí kalvy	OFFICIAL
 HP:0004490	Hypertrofie kostí kalvy	OFFICIAL
-HP:0004490	Zvětšená osifikace kostí  kalvy	OFFICIAL
+HP:0004490	Zvětšená osifikace kostí kalvy	OFFICIAL
 HP:0004490	Overgrowth kostí kalvy	OFFICIAL
 HP:0004490	Tlustá kalva	OFFICIAL
 HP:0004490	Ztluštělá kalva	OFFICIAL
@@ -16249,7 +16249,7 @@ HP:0410243	Abnormální hladina IgM v krvi	CANDIDATE
 HP:0410240	Abnormální hladina IgA v krvi	CANDIDATE
 HP:0410241	Abnormální hladina IgE v krvi	CANDIDATE
 HP:0410253	Myeloid maturation arrest in bone marrow	NOT_TRANSLATED
-HP:0410248	Zvýšená hladina protilátek IgE  proti prachu	OFFICIAL
+HP:0410248	Zvýšená hladina protilátek IgE proti prachu	OFFICIAL
 HP:0410249	Zvýšená hladina IgE protilátek proti galaktóze alfa-1, 3	OFFICIAL
 HP:0410262	Abnormální funkce dolních hlavových nervů	OFFICIAL
 HP:0410263	Abnormální zobrazení mozku	OFFICIAL
@@ -16453,7 +16453,7 @@ HP:3000024	Abnormalita obličejové tepny	OFFICIAL
 HP:3000021	Abnormality of buccal fat pad	NOT_TRANSLATED
 HP:3000019	Abnormalita výstělky dutiny ústní	CANDIDATE
 HP:3000019	Abnormální ústní mucosa	CANDIDATE
-HP:3000077	"Abnormální	processus condylaris mandibulae"	OFFICIAL
+HP:3000077	Abnormální processus condylaris mandibulae	OFFICIAL
 HP:3000079	Abnormalita symfýzy mandibuly	OFFICIAL
 HP:3000078	Vada processus coronoideus mandibulae	OFFICIAL
 HP:3000075	Abnormalita jazykového nervu	OFFICIAL
