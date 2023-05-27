@@ -15,3 +15,4 @@ src/.ipynb_checkpoints/Untitled-checkpoint.ipynb
 tests/data/hpo_czech.xliff
 tests/data/all_translations.zip
 tests/data/all_translations/*
+src/notebooks/.ipynb_checkpoints/babelon_notebook-checkpoint.ipynb
