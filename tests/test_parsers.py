@@ -13,6 +13,7 @@ import yaml
 from tests.test_data import data_dir as test_data_dir
 from tests.test_data import test_out_dir
 
+
 class TestParse(unittest.TestCase):
     """A test case for parser functionality."""
 
@@ -23,13 +24,13 @@ class TestParse(unittest.TestCase):
 
     def test_parse_xliff(self):
         """Test parsing an Xliff XML."""
-        
+
         out_path = os.path.join(test_out_dir, "test_parse_alignment_minidom.tsv")
         parser = XliffParser(input_file_path=self.xliff_file, output_file_path=out_path)
-        
+
         df = parser.xml_to_tsv()
         df.to_csv(out_path, sep="\t")
-        
+
         self.assertEqual(
             len(df),
             646,
