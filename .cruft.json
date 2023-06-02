@@ -1,0 +1,24 @@
+{
+  "template": "https://github.com/monarch-initiative/monarch-project-template",
+  "commit": "0fce395fe859618d3feb3ac9ebd2f8b94d743b2b",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "babelon",
+      "github_org_name": "monarch-initiative",
+      "__project_slug": "babelon",
+      "project_description": "Babelon is simple standard for managing ontology translations and language profiles.",
+      "min_python_version": "3.9",
+      "file_name": "main",
+      "greeting_recipient": "World",
+      "full_name": "Vinicius de Souza",
+      "email": "souzadevinicius@gmail.com",
+      "__author": "Vinicius de Souza <souzadevinicius@gmail.com>",
+      "license": "MIT",
+      "github_token_for_doc_deployment": "GH_TOKEN",
+      "github_token_for_pypi_deployment": "PYPI_TOKEN",
+      "_template": "https://github.com/monarch-initiative/monarch-project-template"
+    }
+  },
+  "directory": null
+}

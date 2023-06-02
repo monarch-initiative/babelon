@@ -21,7 +21,7 @@ input_argument = click.argument("input_path", required=True, type=click.Path())
 input_format_option = click.option(
     "--input-format",
     "-f",
-    help='Input format',
+    help="Input format",
 )
 output_option = click.option(
     "--output",
@@ -33,7 +33,7 @@ output_option = click.option(
 output_format_option = click.option(
     "--output-format",
     "-t",
-    help=f'Output format',
+    help=f"Output format",
 )
 output_directory_option = click.option(
     "-d",
@@ -65,14 +65,9 @@ def main(verbose: int, quiet: bool):
 @input_argument
 # @input_format_option
 @output_option
-def parse(
-        input
-    ):
+def parse(input):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
-    parse_file(
-        input_path=input[0],
-        output_path=input[1]
-    )
+    parse_file(input_path=input[0], output_path=input[1])
 
 
 if __name__ == "__main__":
