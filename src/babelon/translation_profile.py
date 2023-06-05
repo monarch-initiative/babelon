@@ -37,9 +37,10 @@ def update_translation_status(translation_profile: Path, ontology_file: Path) ->
     profile["translation_status"] = profile.apply(
         lambda row: _translate_profile_iterator(row, adapter), axis=1
     )
+
     rows = []
-    for ent in set(adapter.entities()):
-        if ":" in ent and ent not in set(profile["subject_id"]):
+    for ent in  set(adapter.entities()).difference(set(profile["subject_id"])):
+        if ":" in ent:
             new_row = pd.DataFrame(
                 {
                     "subject_id": ent,
