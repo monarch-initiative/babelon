@@ -45,11 +45,12 @@ def update_translation_status(translation_profile: Path, ontology_file: Path) ->
                     "subject_id": ent,
                     "source_language": "en",
                     "translation_language": profile["translation_language"][0],
-                    "predicate_id": 'rdfs:label',
+                    "predicate_id": "rdfs:label",
                     "source_value": adapter.label(ent),
                     "translation_status": "CANDIDATE",
                     "translation_value": None,
-                }, index=[ent]
+                },
+                index=[ent],
             )
             rows.append(new_row)
     new_rows = pd.concat(rows)
