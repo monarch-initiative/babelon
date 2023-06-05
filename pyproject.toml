@@ -14,6 +14,7 @@ rdflib = "^6.3.2"
 jsonasobj2 = "^1.0.4"
 xmltodict = "^0.13.0"
 pandas = "^2.0.2"
+oaklib = "^0.5.9"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.2"
@@ -35,7 +36,7 @@ myst-parser = {version = ">=0.18.1", extras = ["docs"]}
 
 
 [tool.poetry.scripts]
-babelon = "babelon.cli:main"
+babelon = "babelon.cli:babelon"
 
 [tool.poetry.extras]
 docs = [

@@ -3,18 +3,17 @@
 
 import logging
 import os
-import re
 import sys
 from pathlib import Path
-from typing import ChainMap, Dict, List, Optional, TextIO, Tuple
 
 import click
 import pandas as pd
-import yaml
-from babelon_io import parse_file
+
+from babelon.babelon_io import parse_file
+from babelon.translation_profile import update_translation_profile
 
 # from . import __version__
-
+info_log = logging.getLogger("info")
 # Click input options common across commands
 input_argument = click.argument("input_path", required=True, type=click.Path())
 
@@ -47,21 +46,31 @@ output_directory_option = click.option(
 @click.group()
 @click.option("-v", "--verbose", count=True)
 @click.option("-q", "--quiet")
-# @click.version_option(__version__)
-def main(verbose: int, quiet: bool):
-    """Run the SSSOM CLI."""
+def main(verbose=1, quiet=False) -> None:
+    """main CLI method for SSSOM
+
+    Args:
+        verbose (int, optional): Verbose flag.
+        quiet (bool, optional): Queit Flag.
+    """
     if verbose >= 2:
-        logging.basicConfig(level=logging.DEBUG)
+        info_log.setLevel(level=logging.DEBUG)
     elif verbose == 1:
-        logging.basicConfig(level=logging.INFO)
+        info_log.setLevel(level=logging.INFO)
     else:
-        logging.basicConfig(level=logging.WARNING)
+        info_log.setLevel(level=logging.WARNING)
     if quiet:
-        logging.basicConfig(level=logging.ERROR)
+        info_log.setLevel(level=logging.ERROR)
+
+
+@click.group()
+def babelon():
+    """babelon"""
 
 
 # Input and metadata would be files (file paths). Check if exists.
 # @main.command()
+@click.command()
 @input_argument
 # @input_format_option
 @output_option
@@ -75,3 +84,47 @@ if __name__ == "__main__":
         parse(sys.argv[1:])
     except Exception as e:
         print(e)
+
+
+@click.command("update-translation-profile")
+@click.option(
+    "--translation-profile",
+    "-t",
+    metavar="PATH",
+    required=True,
+    help="Path to translation profile.",
+    type=Path,
+)
+@click.option(
+    "--ontology-file",
+    "-o",
+    metavar="PATH",
+    required=True,
+    help="Path to ontology file.",
+    type=Path,
+)
+@click.option(
+    "--output",
+    "-O",
+    metavar="PATH",
+    required=True,
+    help="Path where updated profile will be written.",
+    type=Path,
+)
+def update_translation_profile_command(
+    translation_profile: Path,
+    ontology_file: Path,
+    output: Path,
+):
+    """Writes update_translation_profile to TSV file
+
+    Args:
+        translation_profile (Path): Path to the translation profile
+        ontology_file (Path): Path to the ontology file
+        output_file (Path): Path to the output TSV file
+    """
+    update_translation_profile(translation_profile, ontology_file, output_file=output)
+
+
+babelon.add_command(parse)
+babelon.add_command(update_translation_profile_command)

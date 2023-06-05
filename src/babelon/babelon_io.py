@@ -1,10 +1,4 @@
-import logging
-import os
-from pathlib import Path
-from typing import List, TextIO
-
-import click
-from parsers.xliff import XliffParser
+from babelon.parsers.xliff import XliffParser
 
 
 def parse_file(input_path: str, output_path: str) -> None:
