@@ -37,7 +37,23 @@ def update_translation_status(translation_profile: Path, ontology_file: Path) ->
     profile["translation_status"] = profile.apply(
         lambda row: _translate_profile_iterator(row, adapter), axis=1
     )
-    return profile
+    rows = []
+    for ent in set(adapter.entities()):
+        if ":" in ent and ent not in set(profile["subject_id"]):
+            new_row = pd.DataFrame(
+                {
+                    "subject_id": ent,
+                    "source_language": "en",
+                    "translation_language": profile["translation_language"][0],
+                    "predicate_id": 'rdfs:label',
+                    "source_value": adapter.label(ent),
+                    "translation_status": "CANDIDATE",
+                    "translation_value": None,
+                }, index=[ent]
+            )
+            rows.append(new_row)
+    new_rows = pd.concat(rows)
+    return pd.concat([profile, new_rows])
 
 
 def _translate_profile_iterator(row: pd.Series, adapter: BasicOntologyInterface) -> str:
