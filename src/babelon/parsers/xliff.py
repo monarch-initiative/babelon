@@ -11,11 +11,9 @@ class XliffParser:
     parser = XliffParser(/tests/data/)
     """
 
-    def __init__(self, **kwargs):
-        self.input_file = kwargs.get("input_file_path", "")
-        self.output_file = kwargs.get(
-            "output_file_path", os.getcwd() + r"/tests/data/parsed_data.tsv"
-        )
+    def __init__(self, input_file_path, output_file_path):
+        self.input_file = input_file_path
+        self.output_file = output_file_path
 
     def xml_to_tsv(self):
         if exists(self.input_file):
