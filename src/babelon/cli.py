@@ -74,9 +74,9 @@ def babelon():
 @input_argument
 # @input_format_option
 @output_option
-def parse(input_path, output_path):
+def parse(input_path, output):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
-    parse_file(input_path=input_path, output_path=output_path)
+    parse_file(input_path=input_path, output_path=output)
 
 
 if __name__ == "__main__":
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 )
 @click.option(
     "--output",
-    "-O",
+    "-o",
     metavar="PATH",
     required=True,
     help="Path where updated profile will be written.",
