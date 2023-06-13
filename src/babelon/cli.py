@@ -74,9 +74,9 @@ def babelon():
 @input_argument
 # @input_format_option
 @output_option
-def parse(input):
+def parse(input, output):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
-    parse_file(input_path=input[0], output_path=input[1])
+    parse_file(input_path=input, output_path=output)
 
 
 if __name__ == "__main__":
