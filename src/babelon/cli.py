@@ -26,7 +26,7 @@ output_option = click.option(
     "--output",
     "-o",
     help="Path of output file.",
-    type=click.File(mode="w"),
+    type=Path,
     default=sys.stdout,
 )
 output_format_option = click.option(
