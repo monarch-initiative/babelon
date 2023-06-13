@@ -139,14 +139,14 @@ class XliffParser:
                     for each_word in word_list:
                         temp_row.source_value = each_word
                         temp_row.translation_value = each_word
-                        output_df = output_df.append(temp_row.to_dict(), ignore_index=True)
+                        output_df = pd.concat([output_df, pd.DataFrame([temp_row.to_dict()])], ignore_index=True)
 
                 else:
                     temp_row.source_value = word_list[0]
                     temp_row.translation_value = temp_row.translation_value.replace("#", "")
-                    output_df = output_df.append(temp_row.to_dict(), ignore_index=True)
+                    output_df = pd.concat([output_df, pd.DataFrame([temp_row.to_dict()])], ignore_index=True)
 
             else:
-                output_df = output_df.append(row.to_dict(), ignore_index=True)
+                output_df = pd.concat([output_df, pd.DataFrame([row.to_dict()])], ignore_index=True)
         output_df.to_csv(self.output_file, sep="\t", index=False)
         return self.output_file
