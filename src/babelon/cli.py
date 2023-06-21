@@ -1,5 +1,4 @@
-"""Command line interface for Babelon.
-"""
+"""Command line interface for Babelon."""
 
 import logging
 import os
@@ -7,12 +6,10 @@ import sys
 from pathlib import Path
 
 import click
-import pandas as pd
 
 from babelon.babelon_io import parse_file
 from babelon.translation_profile import update_translation_profile
 
-# from . import __version__
 info_log = logging.getLogger("info")
 # Click input options common across commands
 input_argument = click.argument("input_path", required=True, type=click.Path())
@@ -32,7 +29,7 @@ output_option = click.option(
 output_format_option = click.option(
     "--output-format",
     "-t",
-    help=f"Output format",
+    help="Output format",
 )
 output_directory_option = click.option(
     "-d",
@@ -47,7 +44,7 @@ output_directory_option = click.option(
 @click.option("-v", "--verbose", count=True)
 @click.option("-q", "--quiet")
 def main(verbose=1, quiet=False) -> None:
-    """main CLI method for SSSOM
+    """Command Line Interface for the main method for SSSOM.
 
     Args:
         verbose (int, optional): Verbose flag.
@@ -65,7 +62,7 @@ def main(verbose=1, quiet=False) -> None:
 
 @click.group()
 def babelon():
-    """babelon"""
+    """babelon."""
 
 
 # Input and metadata would be files (file paths). Check if exists.
@@ -116,14 +113,14 @@ def update_translation_profile_command(
     ontology_file: Path,
     output: Path,
 ):
-    """Writes update_translation_profile to TSV file
+    """Write update_translation_profile to TSV file.
 
     Args:
         translation_profile (Path): Path to the translation profile
         ontology_file (Path): Path to the ontology file
-        output_file (Path): Path to the output TSV file
+        output (Path): Path to the output TSV file
     """
-    update_translation_profile(translation_profile, ontology_file, output_file=output)
+    update_translation_profile(translation_profile, ontology_file, output)
 
 
 babelon.add_command(parse)

@@ -1,11 +1,8 @@
 """Tests for loading and processing data."""
 
 import os
-from typing import Any, List, Mapping
 
-import yaml
-
-from tests.constants import cwd, data_dir, test_out_dir
+from tests.constants import cwd, data_dir
 
 test_validate_dir = os.path.join(cwd, "validate_data")
 schema_dir = os.path.join(cwd, os.pardir, "schema")
