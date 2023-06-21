@@ -1,4 +1,4 @@
-"""Translation Profile"""
+"""Translation Profile."""
 
 from pathlib import Path
 
@@ -9,7 +9,7 @@ from oaklib import BasicOntologyInterface, get_adapter
 def update_translation_profile(
     translation_profile: Path, ontology_file: Path, output_file: Path
 ) -> None:
-    """Writes update_translation_profile to TSV file
+    """Write update_translation_profile to TSV file.
 
     Args:
         translation_profile (Path): Path to the translation profile
@@ -21,8 +21,9 @@ def update_translation_profile(
 
 
 def update_translation_status(translation_profile: Path, ontology_file: Path) -> pd.DataFrame:
-    """Update all translation_status in translation_profile
-    from "OFFICIAL"  to "CANDIDATE"  if the original ontology label has changed
+    """Update all translation_status in translation_profile.
+
+    From "OFFICIAL"  to "CANDIDATE"  if the original ontology label has changed.
 
 
     Args:
@@ -39,7 +40,7 @@ def update_translation_status(translation_profile: Path, ontology_file: Path) ->
     )
 
     rows = []
-    for ent in  set(adapter.entities()).difference(set(profile["subject_id"])):
+    for ent in set(adapter.entities()).difference(set(profile["subject_id"])):
         if ":" in ent:
             new_row = pd.DataFrame(
                 {
@@ -59,7 +60,10 @@ def update_translation_status(translation_profile: Path, ontology_file: Path) ->
 
 
 def _translate_profile_iterator(row: pd.Series, adapter: BasicOntologyInterface) -> str:
-    """Iterates through profile rows and returns OFFICAL if the profile label is equal to the ontology label, or CANDIDATE if it's different
+    """
+    Iterate through profile rows and returns OFFICIAL if the profile label is equal to the ontology label.
+
+    Returns CANDIDATE if it's different than OFFICIAL.
 
     Args:
         row (pd.Series): translation profile row

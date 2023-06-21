@@ -11,8 +11,8 @@ class TestTranslationProfile(unittest.TestCase):
         """Set up the test case."""
 
     def test_update_translation_profile(self):
-        """Test update_translation_profile"""
+        """Test update_translation_profile."""
         res = update_translation_status(
             "tests/data/translations/hp-tr.babelon.tsv", "tests/data/hp.obo"
         )
-        assert any(res[res["translation_status"].isin(["CANDIDATE"])]) == True
+        self.assertTrue(any(res[res["translation_status"].isin(["CANDIDATE"])]))
