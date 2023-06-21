@@ -10,12 +10,9 @@ import xmltodict
 class XliffParser:
     """parser = XliffParser(/tests/data/)."""
 
-    def __init__(self, **kwargs):
-        """__init__."""
-        self.input_file = kwargs.get("input_file_path", "")
-        self.output_file = kwargs.get(
-            "output_file_path", os.getcwd() + r"/tests/data/parsed_data.tsv"
-        )
+    def __init__(self, input_file_path, output_file_path):
+        self.input_file = input_file_path
+        self.output_file = output_file_path
 
     def xml_to_tsv(self):
         """xlm_to_tsv.
@@ -36,7 +33,7 @@ class XliffParser:
         csvfile_writer = csv.writer(csvfile, delimiter="\t")
 
         csvfile_synonyms = open(
-            self.output_file.replace(".babelon.", ".synonyms."), "w", encoding="utf-8"
+            str(self.output_file).replace(".babelon.", ".synonyms."), "w", encoding="utf-8"
         )
         csvfile_writer_synonyms = csv.writer(csvfile_synonyms, delimiter="\t")
 
@@ -152,14 +149,14 @@ class XliffParser:
                     for each_word in word_list:
                         temp_row.source_value = each_word
                         temp_row.translation_value = each_word
-                        output_df = output_df.append(temp_row.to_dict(), ignore_index=True)
+                        output_df = pd.concat([output_df, pd.DataFrame([temp_row.to_dict()])], ignore_index=True)
 
                 else:
                     temp_row.source_value = word_list[0]
                     temp_row.translation_value = temp_row.translation_value.replace("#", "")
-                    output_df = output_df.append(temp_row.to_dict(), ignore_index=True)
+                    output_df = pd.concat([output_df, pd.DataFrame([temp_row.to_dict()])], ignore_index=True)
 
             else:
-                output_df = output_df.append(row.to_dict(), ignore_index=True)
+                output_df = pd.concat([output_df, pd.DataFrame([row.to_dict()])], ignore_index=True)
         output_df.to_csv(self.output_file, sep="\t", index=False)
         return self.output_file

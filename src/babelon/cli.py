@@ -23,7 +23,7 @@ output_option = click.option(
     "--output",
     "-o",
     help="Path of output file.",
-    type=click.File(mode="w"),
+    type=Path,
     default=sys.stdout,
 )
 output_format_option = click.option(
@@ -71,9 +71,9 @@ def babelon():
 @input_argument
 # @input_format_option
 @output_option
-def parse(input, output):
+def parse(input_path, output):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
-    parse_file(input_path=input, output_path=output)
+    parse_file(input_path=input_path, output_path=output)
 
 
 if __name__ == "__main__":
@@ -102,7 +102,7 @@ if __name__ == "__main__":
 )
 @click.option(
     "--output",
-    "-O",
+    "-o",
     metavar="PATH",
     required=True,
     help="Path where updated profile will be written.",
