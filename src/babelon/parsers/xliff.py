@@ -1,3 +1,4 @@
+"""xliff.py."""
 import csv
 import os
 from os.path import exists
@@ -7,17 +8,24 @@ import xmltodict
 
 
 class XliffParser:
-    """
-    parser = XliffParser(/tests/data/)
-    """
+    """parser = XliffParser(/tests/data/)."""
 
     def __init__(self, **kwargs):
+        """__init__."""
         self.input_file = kwargs.get("input_file_path", "")
         self.output_file = kwargs.get(
             "output_file_path", os.getcwd() + r"/tests/data/parsed_data.tsv"
         )
 
     def xml_to_tsv(self):
+        """xlm_to_tsv.
+
+        Raises:
+            FileNotFoundError: FileNotFoundError
+
+        Returns:
+            [type]: [description]
+        """
         if exists(self.input_file):
             with open(self.input_file) as fd:
                 doc = xmltodict.parse(fd.read())
@@ -84,7 +92,7 @@ class XliffParser:
                     csv_line = [subject_id, syn, translation_status]
                     csvfile_writer_synonyms.writerow(csv_line)
             else:
-                for l in [
+                for line in [
                     source_language,
                     translation_language,
                     subject_id,
@@ -93,7 +101,7 @@ class XliffParser:
                     translational_value,
                     translation_status,
                 ]:
-                    csv_line.append(self._remove_redundant_whitespace(l))
+                    csv_line.append(self._remove_redundant_whitespace(line))
                 csvfile_writer.writerow(csv_line)
 
         return self.output_file
@@ -111,6 +119,7 @@ class XliffParser:
         )
 
     def get_translation_status(self, translation_status_raw):
+        """get_translation_status."""
         if translation_status_raw:
             if translation_status_raw == "needs-translation":
                 return "NOT_TRANSLATED"
@@ -123,16 +132,18 @@ class XliffParser:
         return ""
 
     def synonym_split_value(self, raw_synonym):
+        """synonym_split_value."""
         word_list = raw_synonym.split("#")
         stripped = [self._remove_redundant_whitespace(s) for s in word_list if s]
         return stripped
 
     def synonym_split(self):
+        """synonym_split."""
         df = pd.read_csv(self.output_file, sep="\t")
 
         output_df = df[0:0]
 
-        for index, row in df.iterrows():
+        for _, row in df.iterrows():
             if row.predicate_id == "oboInOwl:exactSynonym":
                 word_list = row["source_value"].split("#")
                 word_list.remove("")
