@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "babelon"
-version = "0.1.0"
+version = "0.1.1"
 description = "babelon"
 authors = ["Vinicius de Souza <souzadevinicius@gmail.com>"]
 license = "MIT"
