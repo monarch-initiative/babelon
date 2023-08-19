@@ -8,7 +8,7 @@ from pathlib import Path
 import click
 
 from babelon.babelon_io import parse_file
-from babelon.translation_profile import update_translation_profile
+from babelon.translation_profile import statistics_translation_profile, update_translation_profile
 
 info_log = logging.getLogger("info")
 # Click input options common across commands
@@ -83,6 +83,28 @@ if __name__ == "__main__":
         print(e)
 
 
+@click.command("statistics")
+@click.option(
+    "--translation-profile",
+    "-t",
+    metavar="PATH",
+    required=True,
+    help="Path to translation profile.",
+    type=Path,
+)
+def statistics_translation_profile_command(
+    translation_profile: Path,
+):
+    """Takes as an input a babelon profile (TSV) and returns some basic stats:
+        number of translations by source_language, target_language
+        number of translations by source_language, target_language, predicate_id
+        number of translations by source_language, target_language, translation_status
+    Args:
+        translation_profile (Path): translation profile
+    """
+    statistics_translation_profile(translation_profile)
+
+
 @click.command("update-translation-profile")
 @click.option(
     "--translation-profile",
@@ -125,3 +147,4 @@ def update_translation_profile_command(
 
 babelon.add_command(parse)
 babelon.add_command(update_translation_profile_command)
+babelon.add_command(statistics_translation_profile_command)
