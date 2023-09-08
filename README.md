@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/369423393.svg)](https://zenodo.org/badge/latestdoi/369423393)
+
 # Babelon - A simple standard for managing ontology translations and language profiles
 
 Editors:
