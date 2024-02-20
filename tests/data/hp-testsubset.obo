@@ -1,0 +1,49 @@
+format-version: 1.2
+data-version: hp/releases/2023-04-05
+synonymtypedef: abbreviation "abbreviation"
+synonymtypedef: HP:0034334 "allelic_requirement"
+synonymtypedef: layperson "layperson term"
+synonymtypedef: obsolete_synonym "discarded/obsoleted synonym"
+synonymtypedef: plural_form "plural form"
+synonymtypedef: uk_spelling "UK spelling"
+default-namespace: human_phenotype
+ontology: hp.obo
+property_value: http://purl.org/dc/terms/license https://hpo.jax.org/app/license
+property_value: IAO:0000700 HP:0000001
+property_value: owl:versionInfo "2023-04-05" xsd:string
+logical-definition-view-relation: has_part
+
+[Term]
+id: HP:0000001
+name: All
+comment: Root of all terms in the Human Phenotype Ontology.
+xref: UMLS:C0444868
+
+[Term]
+id: HP:0001945
+name: Fever
+def: "Body temperature elevated above the normal range." [https://orcid.org/0009-0006-4530-3154, PMID:9759682]
+comment: Fever has been defined as a state of elevated core temperature, which is often, but not necessarily, part of the defensive responses of multicellular organisms (host) to the invasion of live (microorganisms) or inanimate matter recognized as pathogenic or alien by the host. The febrile response (of which fever is a component) is a complex physiologic reaction to disease, involving a cytokine-mediated rise in core temperature, generation of acute phase reactants, and activation of numerous physiologic, endocrinologic, and immunologic systems. The rise in temperature during fever is to be distinguished from that occurring during episodes of hyperthermia. Unlike fever, hyperthermia involves an unregulated rise in body temperature in which pyrogenic cytokines are not directly involved and against which standard antipyretics are ineffective. It represents a failure of thermoregulatory homeostasis, in which there is uncontrolled heat production, inadequate heat dissipation, or defective hypothalamic thermoregulation.
+synonym: "Fever" EXACT layperson []
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0001297
+name: Stroke
+def: "Sudden impairment of blood flow to a part of the brain due to occlusion or rupture of an artery to the brain." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Cerebral vascular events" EXACT []
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0001695
+name: Cardiac arrest
+def: "An abrupt loss of heart function." []
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0001707
+name: Abnormal right ventricle morphology
+def: "An abnormality of the right ventricle of the heart." [https://orcid.org/0000-0002-0736-9199]
+comment: The function of the right ventricle is to receive blood from the right atrium and to eject blood into the pulmonary artery.
+synonym: "Abnormality of the right ventricle" EXACT []
+is_a: HP:0000001 ! All

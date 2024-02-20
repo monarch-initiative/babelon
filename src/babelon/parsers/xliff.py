@@ -1,6 +1,6 @@
 """xliff.py."""
+
 import csv
-import os
 from os.path import exists
 
 import pandas as pd
@@ -11,6 +11,7 @@ class XliffParser:
     """parser = XliffParser(/tests/data/)."""
 
     def __init__(self, input_file_path, output_file_path):
+        """Initialize XLIFF parser."""
         self.input_file = input_file_path
         self.output_file = output_file_path
 
@@ -101,7 +102,7 @@ class XliffParser:
                     csv_line.append(self._remove_redundant_whitespace(line))
                 csvfile_writer.writerow(csv_line)
 
-        return self.output_file
+        return pd.read_csv(self.output_file, sep="\t")
 
     def _remove_redundant_whitespace(self, v: str):
         if not v:

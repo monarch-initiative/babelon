@@ -17,6 +17,8 @@ xmltodict = "^0.13.0"
 pandas = "^2.0.2"
 oaklib = "^0.5.9"
 tabulate = "^0.9.0"
+llm = "^0.13.1"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.2"
