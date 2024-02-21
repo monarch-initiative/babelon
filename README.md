@@ -34,7 +34,8 @@ As a first use case for the format, we see to capture the French language transl
 
 ```
 # in new environment
-pip install -r requirements.txt
+pip install poetry
+poetry install
 make translations
 ```
 # Acknowledgements
