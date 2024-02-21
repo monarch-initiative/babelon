@@ -1,11 +1,11 @@
 """babelon.io."""
 
+import json
 import tempfile
 from typing import Callable, Dict, Optional, TextIO, Tuple
-import json
-from jsonasobj2 import JsonObj
 
-from linkml_runtime.dumpers import rdflib_dumper, JSONDumper
+from jsonasobj2 import JsonObj
+from linkml_runtime.dumpers import JSONDumper, rdflib_dumper
 from linkml_runtime.linkml_model.meta import SlotDefinitionName
 from linkml_runtime.loaders.tsv_loader import TSVLoader
 from linkml_runtime.utils.schemaview import SchemaView
@@ -38,9 +38,9 @@ def parse_file(input_path: str, output_path: str) -> None:
 
 
 def convert_file(
-        input_path: str,
-        output: TextIO,
-        output_format: Optional[str] = None,
+    input_path: str,
+    output: TextIO,
+    output_format: Optional[str] = None,
 ) -> None:
     """Convert a file from one format to another.
 
@@ -238,8 +238,8 @@ def write_json(bdf: BabelonDataFrame, output: TextIO, serialisation="json") -> N
 
 
 def write_owl(
-        bdf: BabelonDataFrame,
-        file: TextIO,
+    bdf: BabelonDataFrame,
+    file: TextIO,
 ) -> None:
     """Write a mapping set dataframe to the file as OWL."""
     graph = to_owl_graph(bdf)
@@ -248,7 +248,7 @@ def write_owl(
 
 
 def _get_writer_function(
-        *, output_format: Optional[str] = None, output: TextIO
+    *, output_format: Optional[str] = None, output: TextIO
 ) -> Tuple[DFWriter, str]:
     """
     Get appropriate writer function based on file format.
@@ -268,13 +268,13 @@ def _get_writer_function(
         output_format = _get_file_extension(output)
     if output_format not in WRITER_FUNCTIONS:
         raise ValueError(f"Unknown output format: {output_format}")
-    
+
     func, tag = WRITER_FUNCTIONS[output_format]
     return func, tag or output_format
+
 
 # Adjust WRITER_FUNCTIONS to map to tuples of (function, tag)
 WRITER_FUNCTIONS: Dict[str, Tuple[Callable, str]] = {
     "owl": (write_owl, "turtle"),
-    "json": (write_json, "json")
+    "json": (write_json, "json"),
 }
-
