@@ -133,7 +133,7 @@ def translate_profile(
                 translated_df.at[index, "translator_expertise"] = "ALGORITHM"
                 translated_df.at[index, "comment"] = model
                 translated_df.at[index, "translation_date"] = formatted_date
-                translated_df.at[index, "translation_status"] = "candidate"
+                translated_df.at[index, "translation_status"] = "CANDIDATE"
             else:
                 logging.warning(f"Existing translation {existing_translation_value}, skipping..")
         else:
@@ -182,7 +182,7 @@ def prepare_translation_for_ontology(
         if predicate_id not in processed[subject_id]:
             processed[subject_id].append(predicate_id)
         source_value = row["source_value"]
-        term_metadata = ontology.entity_metadata_map(subject_id)
+        term_metadata = _get_metadata_for_term(ontology, subject_id)
         if predicate_id in term_metadata:
             ontology_value = term_metadata[predicate_id][0]
             if len(term_metadata[predicate_id]) > 1:
@@ -210,7 +210,7 @@ def prepare_translation_for_ontology(
 
     added_rows = []
     for term in terms:
-        term_metadata = ontology.entity_metadata_map(term)
+        term_metadata = _get_metadata_for_term(ontology, term)
         for field in fields:
             if term in processed:
                 if field in processed[term]:
@@ -237,3 +237,14 @@ def prepare_translation_for_ontology(
         df_augmented = pd.concat([df_augmented, df_added], ignore_index=True)
 
     return df_augmented
+
+
+def _get_metadata_for_term(ontology, term):
+    term_metadata = ontology.entity_metadata_map(term)
+    term_label = ontology.label(term)
+    if term_label:
+        term_metadata["rdfs:label"] = [term_label]
+    term_definition = ontology.definition(term)
+    if term_definition:
+        term_metadata["IAO:0000115"] = [term_definition]
+    return term_metadata

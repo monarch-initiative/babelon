@@ -1,5 +1,5 @@
 # Auto generated from babelon.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-02-21T13:44:30
+# Generation date: 2024-02-21T20:37:06
 # Schema: babelon
 #
 # id: https://w3id.org/babelon
@@ -82,6 +82,7 @@ class Translation(YAMLRoot):
     translation_precision: Optional[Union[str, "TranslationPrecisionEnum"]] = None
     translation_status: Optional[Union[str, "TranslationStatusEnum"]] = None
     source: Optional[str] = None
+    comment: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.subject_id):
@@ -147,6 +148,9 @@ class Translation(YAMLRoot):
         if self.source is not None and not isinstance(self.source, str):
             self.source = str(self.source)
 
+        if self.comment is not None and not isinstance(self.comment, str):
+            self.comment = str(self.comment)
+
         super().__post_init__(**kwargs)
 
 
@@ -169,6 +173,7 @@ class Profile(YAMLRoot):
     translation_provider: Optional[str] = None
     profile_id: Optional[str] = None
     profile_version: Optional[str] = None
+    comment: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if not isinstance(self.translations, list):
@@ -186,6 +191,9 @@ class Profile(YAMLRoot):
 
         if self.profile_version is not None and not isinstance(self.profile_version, str):
             self.profile_version = str(self.profile_version)
+
+        if self.comment is not None and not isinstance(self.comment, str):
+            self.comment = str(self.comment)
 
         super().__post_init__(**kwargs)
 
@@ -456,6 +464,15 @@ slots.translations = Slot(
     model_uri=BABELON.translations,
     domain=None,
     range=Optional[Union[Union[dict, Translation], List[Union[dict, Translation]]]],
+)
+
+slots.comment = Slot(
+    uri=BABELON.comment,
+    name="comment",
+    curie=BABELON.curie("comment"),
+    model_uri=BABELON.comment,
+    domain=None,
+    range=Optional[str],
 )
 
 slots.translation_subject_id = Slot(

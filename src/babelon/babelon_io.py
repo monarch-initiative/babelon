@@ -1,6 +1,7 @@
 """babelon.io."""
 
 import json
+import logging
 import tempfile
 from typing import Callable, Dict, Optional, TextIO, Tuple
 
@@ -44,15 +45,22 @@ def convert_file(
 ) -> None:
     """Convert a file from one format to another.
 
-    :param input_path: The path to the input SSSOM tsv file
+    :param input_path: The path to the input babelon tsv file
     :param output: The path to the output file. If none is given, will default to using stdout.
     :param output_format: The format to which the SSSOM TSV should be converted.
     """
     raise_for_bad_path(input_path)
     babelon_df: BabelonDataFrame = parse_babelon(input_path)
     write_func, fileformat = _get_writer_function(output_format=output_format, output=output)
-    # TODO cthoyt figure out how to use protocols for this
+
+    # We need to silence logging for the LinkML parts as it is way too verbose
+    original_level = logging.getLogger().getEffectiveLevel()
+    logging.getLogger().setLevel(logging.CRITICAL)
+
     write_func(babelon_df, output, serialisation=fileformat)  # type:ignore
+
+    # Restore the original logging level
+    logging.getLogger().setLevel(original_level)
 
 
 DFWriter = Callable[[BabelonDataFrame, TextIO], None]
@@ -246,14 +254,23 @@ def write_json(bdf: BabelonDataFrame, output: TextIO, serialisation="json") -> N
         raise ValueError(f"Unknown json format: {serialisation}, currently only json supported")
 
 
-def write_owl(
-    bdf: BabelonDataFrame,
-    file: TextIO,
-) -> None:
-    """Write a mapping set dataframe to the file as OWL."""
-    graph = to_owl_graph(bdf)
-    t = graph.serialize(format="ttl", encoding="utf-8")
-    print(t.decode(), file=file)
+def write_owl(bdf: BabelonDataFrame, output: TextIO, serialisation="owl") -> None:
+    """Write a mapping set dataframe to the file as OWL.
+
+    Args:
+        bdf (BabelonDataFrame): The path to the input file in one of the legal formats, eg obographs, aligmentapi-xml
+        output (TextIO): The path or stream of the output.
+        serialisation (str): the target serialisation (must be 'json')
+
+    Raises:
+        ValueError: [description]
+    """
+    if serialisation == "owl":
+        graph = to_owl_graph(bdf)
+        t = graph.serialize(format="ttl", encoding="utf-8")
+        print(t.decode(), file=output)
+    else:
+        raise ValueError(f"Unknown json format: {serialisation}, currently only OWL supported")
 
 
 def _get_writer_function(
@@ -284,6 +301,6 @@ def _get_writer_function(
 
 # Adjust WRITER_FUNCTIONS to map to tuples of (function, tag)
 WRITER_FUNCTIONS: Dict[str, Tuple[Callable, str]] = {
-    "owl": (write_owl, "turtle"),
+    "owl": (write_owl, "owl"),
     "json": (write_json, "json"),
 }

@@ -116,6 +116,9 @@ slots:
     multivalued: true
     inlined_as_list: true
     range: translation
+  comment:
+    description: A comment about this translation.
+    range: string
 
 classes:
   translation:
@@ -136,6 +139,7 @@ classes:
       - translation_precision
       - translation_status
       - source
+      - comment
     class_uri: owl:Axiom
     slot_usage:
       subject_id:
@@ -166,5 +170,6 @@ classes:
       - translation_provider
       - profile_id
       - profile_version
+      - comment
 
 

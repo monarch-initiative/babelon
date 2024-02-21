@@ -47,5 +47,5 @@ class TestTranslationProfile(unittest.TestCase):
         df_babelon = _create_simple_example_for_testing()
         df_augmented = prepare_translation_for_ontology(ontology, "de", df_babelon, terms, fields)
         subject_ids = df_augmented["subject_id"].tolist()
-        expected_subject_ids = ["HP:0001945", "HP:0001297"]
+        expected_subject_ids = ["HP:0001945", "HP:0001297", "HP:0001707"]
         self.assertEqual(expected_subject_ids, subject_ids)

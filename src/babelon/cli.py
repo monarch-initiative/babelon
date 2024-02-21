@@ -27,7 +27,7 @@ output_option = click.option(
     "--output",
     "-o",
     help="Path of output file.",
-    type=Path,
+    type=click.File(mode="w"),
     default=sys.stdout,
 )
 output_format_option = click.option(
@@ -48,7 +48,7 @@ output_directory_option = click.option(
 @click.option("-v", "--verbose", count=True)
 @click.option("-q", "--quiet")
 def main(verbose=1, quiet=False) -> None:
-    """Command Line Interface for the main method for SSSOM.
+    """Command Line Interface for the main method for Babelon.
 
     Args:
         verbose (int, optional): Verbose flag.
@@ -76,7 +76,7 @@ def babelon():
 # @input_format_option
 @output_option
 def parse(input, output):
-    """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
+    """Parse a file in one of the supported formats (such as obographs) into an Babelon TSV file."""
     parse_file(input_path=input, output_path=output)
 
 
@@ -186,8 +186,9 @@ def example(input):
         click.echo(df.to_string(index=False))
 
 
+babelon.add_command(example)
 babelon.add_command(parse)
 babelon.add_command(prepare_translation)
-babelon.add_command(statistics_translation_profile_command)
-babelon.add_command(example)
 babelon.add_command(translate)
+babelon.add_command(convert)
+babelon.add_command(statistics_translation_profile_command)

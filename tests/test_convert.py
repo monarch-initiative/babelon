@@ -20,7 +20,7 @@ class TestConvert(unittest.TestCase):
         df_babelon = _create_simple_example_for_testing()
         bdf = BabelonDataFrame(df=df_babelon)
         doc = to_babelon_linkml_document(bdf)
-        self.assertEqual(4, len(doc))
+        self.assertEqual(5, len(doc))
         self.assertTrue("translations" in doc)
 
     def test_convert_owl(self):

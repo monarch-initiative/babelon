@@ -109,27 +109,18 @@ docserve:
 gh-deploy:
 	mkdocs gh-deploy
 
-
-#####
-
-prepare_data:
-	rm -rf tests/data/all_translations
-	unzip -d tests/data/all_translations tests/data/all_translations.zip
-
-tests/data/translations/hp-%.babelon.tsv:
-	mkdir -p tests/data/translations/
-	python src/babelon/cli.py tests/data/all_translations/$*/hpo_notes.xliff $@
-
-
-LANGUAGES=cs nl tr
-HP_TRANSLATIONS=$(patsubst %, tests/data/translations/hp-%.babelon.tsv, $(LANGUAGES))
-
-# Recipe: Go to https://crowdin.com/project/hpo-translation/translations# and click "Build and Download"
-# Safe the downloaded file as tests/data/all_translations.zip
-# Run "make prepare_data" to unpack the translations
-# Run "make languages" to process them
-# Copy the results into hpo/src/ontology/translations
 translations: $(HP_TRANSLATIONS)
 
 cli_test:
-	echo ""
+	babelon example tests/tmp/example.babelon.tsv
+	babelon parse tests/data/hpo_dutch.xliff -o tests/tmp/parsed.babelon.tsv
+	babelon prepare-translation tests/tmp/example.babelon.tsv \
+				--oak-adapter pronto:tests/data/hp-testsubset.obo \
+				--language-code de \
+				--field rdfs:label --field IAO:0000115 \
+				-o tests/tmp/example-augmented.babelon.tsv
+	#export OPENAI_API_KEY="" &&\
+	#babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
+	babelon statistics tests/tmp/example-translated.babelon.tsv
+	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format json -o tests/tmp/example-translated.babelon.json
+	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format owl -o tests/tmp/example-translated.babelon.owl
