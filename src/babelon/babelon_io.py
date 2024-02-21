@@ -261,15 +261,20 @@ def _get_writer_function(
         ValueError: If the provided file path is not a valid file or URL.
 
     """
+    func: DFWriter
+    tag: str
+
     if output_format is None:
         output_format = _get_file_extension(output)
     if output_format not in WRITER_FUNCTIONS:
         raise ValueError(f"Unknown output format: {output_format}")
+    
     func, tag = WRITER_FUNCTIONS[output_format]
     return func, tag or output_format
 
-
-WRITER_FUNCTIONS: Dict[str, Callable] = {
-    "owl": write_owl,
-    "json": write_json
+# Adjust WRITER_FUNCTIONS to map to tuples of (function, tag)
+WRITER_FUNCTIONS: Dict[str, Tuple[Callable, str]] = {
+    "owl": (write_owl, "turtle"),
+    "json": (write_json, "json")
 }
+
