@@ -1,5 +1,6 @@
 """Tests for translation profile."""
 
+import os
 import unittest
 
 import pandas as pd
@@ -8,6 +9,8 @@ from oaklib.implementations.pronto.pronto_implementation import ProntoImplementa
 from oaklib.resource import OntologyResource
 
 from babelon.translate import GPT4Translator, prepare_translation_for_ontology, translate_profile
+from tests.test_data import data_dir as test_data_dir
+from tests.test_data import env_file
 
 
 def _create_simple_example():
@@ -40,6 +43,7 @@ class TestTranslationProfile(unittest.TestCase):
     def setUp(self) -> None:
         """Set up the test case."""
 
+    @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
     def test_translate(self):
         """Test update_translation_profile."""
         load_dotenv()
@@ -47,6 +51,7 @@ class TestTranslationProfile(unittest.TestCase):
         translated_value = translator.translate("fever", "de")
         self.assertEqual("Fieber", translated_value)
 
+    @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
     def test_translate_profile(self):
         """Test to see if a small babelon profile can be translated."""
         load_dotenv()
@@ -58,7 +63,8 @@ class TestTranslationProfile(unittest.TestCase):
 
     def test_prepare_translation_for_ontology(self):
         """Test the update method for babelon profiles."""
-        resource = OntologyResource(slug="data/hp-testsubset.obo", local=True)
+        test_file = f"{test_data_dir}/hp-testsubset.obo"
+        resource = OntologyResource(slug=test_file, local=True)
         ontology = ProntoImplementation(resource)
         terms = ["HP:0001707"]
         fields = ["rdfs:label"]
