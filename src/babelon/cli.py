@@ -6,13 +6,16 @@ import sys
 from pathlib import Path
 
 import click
+import pandas as pd
+from oaklib import get_adapter
 
 from babelon.babelon_io import parse_file
-from babelon.translation_profile import statistics_translation_profile, update_translation_profile
+from babelon.translate import prepare_translation_for_ontology, translate_profile
+from babelon.translation_profile import statistics_translation_profile
 
 info_log = logging.getLogger("info")
 # Click input options common across commands
-input_argument = click.argument("input_path", required=True, type=click.Path())
+input_argument = click.argument("input", required=False, type=click.Path())
 
 input_format_option = click.option(
     "--input-format",
@@ -71,80 +74,106 @@ def babelon():
 @input_argument
 # @input_format_option
 @output_option
-def parse(input_path, output):
+def parse(input, output):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
-    parse_file(input_path=input_path, output_path=output)
+    parse_file(input_path=input, output_path=output)
 
 
-if __name__ == "__main__":
-    try:
-        parse(sys.argv[1:])
-    except Exception as e:
-        print(e)
+@click.command("translate")
+@input_argument
+@output_option
+def translate(input, output):
+    """Process a table to translate values."""
+    df = pd.read_csv(input, sep="\t")
+    translated_df = translate_profile(df)
+    translated_df.to_csv(output, sep="\t", index=False)
+
+
+@click.command()
+@input_argument
+@click.option("--oak-adapter", type=str, help="Oak handle string.")
+@click.option("--language-code", type=str, help="ISO code for the target translation language.")
+@click.option(
+    "--term-list",
+    type=click.Path(exists=True),
+    help="Path to file containing term ids to be translated.",
+)
+@click.option("--field", multiple=True, type=str, help="Fields to be translated.")
+@output_option
+def prepare_translation(input, oak_adapter, language_code, term_list, field, output):
+    """Translate ontology fields based on the specified language code."""
+    ontology = get_adapter(oak_adapter)
+    if input:
+        df_babelon = pd.read_csv(input, sep="\t")
+    else:
+        df_babelon = None
+
+    terms = None
+    if term_list:
+        with open(term_list, "r") as file:
+            lines = file.readlines()
+        terms = [line.strip() for line in lines]
+
+    output_profile = prepare_translation_for_ontology(
+        ontology=ontology,
+        language_code=language_code,
+        df_babelon=df_babelon,
+        terms=terms,
+        fields=field,
+    )
+    output_profile.to_csv(output, sep="\t", index=False)
 
 
 @click.command("statistics")
-@click.option(
-    "--translation-profile",
-    "-t",
-    metavar="PATH",
-    required=True,
-    help="Path to translation profile.",
-    type=Path,
-)
+@input_argument
 def statistics_translation_profile_command(
-    translation_profile: Path,
+    input: Path,
 ):
-    """Takes as an input a babelon profile (TSV) and returns some basic stats:
+    """Take as an input a babelon profile (TSV) and returns some basic stats.
+
         number of translations by source_language, target_language
         number of translations by source_language, target_language, predicate_id
         number of translations by source_language, target_language, translation_status
     Args:
-        translation_profile (Path): translation profile
+        input (Path): translation profile
     """
-    statistics_translation_profile(translation_profile)
+    statistics_translation_profile(input)
 
 
-@click.command("update-translation-profile")
-@click.option(
-    "--translation-profile",
-    "-t",
-    metavar="PATH",
-    required=True,
-    help="Path to translation profile.",
-    type=Path,
-)
-@click.option(
-    "--ontology-file",
-    "-o",
-    metavar="PATH",
-    required=True,
-    help="Path to ontology file.",
-    type=Path,
-)
-@click.option(
-    "--output",
-    "-o",
-    metavar="PATH",
-    required=True,
-    help="Path where updated profile will be written.",
-    type=Path,
-)
-def update_translation_profile_command(
-    translation_profile: Path,
-    ontology_file: Path,
-    output: Path,
-):
-    """Write update_translation_profile to TSV file.
+@click.command("example")
+@input_argument
+def example(input):
+    """Generate an example babelon file for user."""
+    data = [
+        {
+            "source_language": "en",
+            "source_value": "Fever",
+            "subject_id": "HP:0001945",
+            "predicate_id": "rdfs:label",
+            "translation_language": "de",
+            "translation_value": "",
+            "translation_status": "NOT_TRANSLATED",
+        },
+        {
+            "source_language": "en",
+            "source_value": "Stroke",
+            "subject_id": "HP:0001297",
+            "predicate_id": "rdfs:label",
+            "translation_language": "de",
+            "translation_value": "",
+            "translation_status": "NOT_TRANSLATED",
+        },
+    ]
+    df = pd.DataFrame(data)
 
-    Args:
-        translation_profile (Path): Path to the translation profile
-        ontology_file (Path): Path to the ontology file
-        output (Path): Path to the output TSV file
-    """
-    update_translation_profile(translation_profile, ontology_file, output)
+    if input:
+        df.to_csv(input, sep="\t", index=False)
+    else:
+        click.echo(df.to_string(index=False))
 
 
 babelon.add_command(parse)
-babelon.add_command(update_translation_profile_command)
+babelon.add_command(prepare_translation)
 babelon.add_command(statistics_translation_profile_command)
+babelon.add_command(example)
+babelon.add_command(translate)

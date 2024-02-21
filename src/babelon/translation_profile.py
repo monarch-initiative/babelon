@@ -25,7 +25,7 @@ def update_translation_profile(
 
 
 def table_print(title: str, data: pd.DataFrame):
-    """Print grouped translation data
+    """Print grouped translation data.
 
     Args:
         title (str): Table title
@@ -45,7 +45,8 @@ def table_print(title: str, data: pd.DataFrame):
 
 
 def statistics_translation_profile(translation_profile: Path) -> None:
-    """Takes as an input a babelon profile (TSV) and returns some basic stats:
+    """Take as an input a babelon profile (TSV) and returns some basic stats.
+
         number of translations by source_language, target_language
         number of translations by source_language, target_language, predicate_id
         number of translations by source_language, target_language, translation_status

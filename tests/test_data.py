@@ -5,7 +5,9 @@ import os
 from tests.constants import cwd, data_dir
 
 test_validate_dir = os.path.join(cwd, "validate_data")
+test_out_dir = os.path.join(cwd, "tmp")
 schema_dir = os.path.join(cwd, os.pardir, "schema")
+env_file = os.path.join(cwd, ".env")
 
 
 def get_test_file(filename: str) -> str:

@@ -1,4 +1,5 @@
 """babelon package."""
+
 import importlib_metadata
 
 try:

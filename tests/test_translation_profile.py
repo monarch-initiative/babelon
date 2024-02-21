@@ -1,4 +1,5 @@
 """Tests for translation profile."""
+
 import unittest
 
 from babelon.translation_profile import update_translation_status
