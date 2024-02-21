@@ -95,11 +95,26 @@ def convert(input: str, output: TextIO, output_format: str):
 
 @click.command("translate")
 @input_argument
+@click.option(
+    "--model",
+    type=str,
+    help="The model used to run the translation. Currently allowed: gpt-4.",
+    default="gpt-4",
+)
+@click.option("--language-code", type=str, help="ISO code for the target translation language.")
+@click.option(
+    "--update-existing",
+    type=bool,
+    default=False,
+    help="If true, all values will be translated, including the once already translated.",
+)
 @output_option
-def translate(input, output):
+def translate(input, model, language_code, update_existing, output):
     """Process a table to translate values."""
     df = pd.read_csv(input, sep="\t")
-    translated_df = translate_profile(df)
+    translated_df = translate_profile(
+        babelon_df=df, language_code=language_code, update_existing=update_existing, model=model
+    )
     translated_df.to_csv(output, sep="\t", index=False)
 
 

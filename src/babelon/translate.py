@@ -11,6 +11,14 @@ import pandas as pd
 class Translator:
     """A generic translator class."""
 
+    def model_name(self):
+        """Return the unique name of the model.
+
+        Raises:
+            NotImplementedError: If the method is not implemented in the subclass
+        """
+        raise NotImplementedError("This method should be implemented by subclasses.")
+
     def translate(self, text, target_language):
         """
         Translate the provided text into the target language.
@@ -25,8 +33,17 @@ class Translator:
         raise NotImplementedError("This method should be implemented by subclasses.")
 
 
-class GPT4Translator(Translator):
+class OpenAITranslator(Translator):
     """A specific translator class that uses GPT-4 for translation."""
+
+    def __init__(self, model="gpt-4-turbo-preview"):
+        """Instantiate GPT4 translator."""
+        self.model = llm.get_model(model)
+        self.model.key = os.environ["OPENAI_API_KEY"]
+
+    def model_name(self):
+        """Return the unique name of the model."""
+        return self.model.model_id
 
     def translate(self, text_to_translate, language_code):
         """
@@ -52,18 +69,13 @@ If no translation can be found for whatever reason, including that the translati
 language is the same as the language of the text to translate, return an empty string.
 Give no comments, no explanations. Just the translation or an empty string."""
 
-        # Save the current logging level
+        # There is a lot of chatter of the OpenAI API. I still cant silence it all
+        # TODO make silent
         original_level = logging.getLogger().getEffectiveLevel()
-
-        # Set the logging level to CRITICAL to silence lower level logs
-        # There is a lot of noisy putput here..
         logging.getLogger().setLevel(logging.CRITICAL)
 
-        model = llm.get_model("gpt-4-turbo-preview")
-        model.key = os.environ["OPENAI_API_KEY"]
-
         try:
-            response = model.prompt(prompt)
+            response = self.model.prompt(prompt)
             translated_value = response.text()
             # Restore the original logging level
             logging.getLogger().setLevel(original_level)
@@ -71,7 +83,7 @@ Give no comments, no explanations. Just the translation or an empty string."""
         except Exception as e:
             # Restore the original logging level
             logging.getLogger().setLevel(original_level)
-            print(f"An error occurred: {e}")
+            logging.getLogger().warning(f"An error occurred: {e}")
             return ""
 
 
@@ -99,7 +111,9 @@ def get_translator_model(model="gpt-4"):
         ValueError: If the model does not exist.
     """
     if model == "gpt-4":
-        return GPT4Translator()
+        return OpenAITranslator("gpt-4-turbo-preview")
+    elif model == "gpt-3.5":
+        return OpenAITranslator("gpt-3.5-turbo")
     else:
         raise ValueError(f"{model} is not a valid translation model!")
 
@@ -131,7 +145,7 @@ def translate_profile(
                 translated_df.at[index, "translation_value"] = translated_value
                 translated_df.at[index, "translator"] = "wikidata:Q116709136"
                 translated_df.at[index, "translator_expertise"] = "ALGORITHM"
-                translated_df.at[index, "comment"] = model
+                translated_df.at[index, "comment"] = translator.model_name()
                 translated_df.at[index, "translation_date"] = formatted_date
                 translated_df.at[index, "translation_status"] = "CANDIDATE"
             else:

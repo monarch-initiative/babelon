@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from oaklib.implementations.pronto.pronto_implementation import ProntoImplementation
 from oaklib.resource import OntologyResource
 
-from babelon.translate import GPT4Translator, prepare_translation_for_ontology, translate_profile
+from babelon.translate import OpenAITranslator, prepare_translation_for_ontology, translate_profile
 from tests.constants import _create_simple_example_for_testing
 from tests.test_data import data_dir as test_data_dir
 from tests.test_data import env_file
@@ -23,7 +23,7 @@ class TestTranslationProfile(unittest.TestCase):
     def test_translate(self):
         """Test update_translation_profile."""
         load_dotenv()
-        translator = GPT4Translator()
+        translator = OpenAITranslator()
         translated_value = translator.translate("fever", "de")
         self.assertEqual("Fieber", translated_value)
 
