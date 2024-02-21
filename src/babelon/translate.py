@@ -115,7 +115,11 @@ def get_translator_model(model="gpt-4"):
     elif model == "gpt-3.5":
         return OpenAITranslator("gpt-3.5-turbo")
     else:
-        raise ValueError(f"{model} is not a valid translation model!")
+        try:
+            translator = OpenAITranslator(model)
+            return translator
+        except Exception:
+            raise ValueError(f"{model} is not a valid translation model!")
 
 
 def translate_profile(

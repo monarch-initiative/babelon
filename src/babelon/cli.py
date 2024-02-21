@@ -98,7 +98,9 @@ def convert(input: str, output: TextIO, output_format: str):
 @click.option(
     "--model",
     type=str,
-    help="The model used to run the translation. Currently allowed: gpt-4.",
+    help="The model used to run the translation. "
+    "Currently allowed: gpt-4, gpt-3.5 or any official model from OpenAI "
+    "(https://platform.openai.com/docs/models).",
     default="gpt-4",
 )
 @click.option("--language-code", type=str, help="ISO code for the target translation language.")
