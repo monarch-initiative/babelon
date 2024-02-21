@@ -18,12 +18,12 @@ from babelon.parsers.xliff import xliff_path_to_babelon
 from babelon.utils import BabelonDataFrame, _get_file_extension, parse_babelon, raise_for_bad_path
 
 
-def parse_file(input_path: str, output_path: str) -> None:
+def parse_file(input_path: str, output_path: TextIO) -> None:
     """Parse a Babelon metadata file and write to a table.
 
     Args:
         input_path (str): The path to the input file in one of the legal formats, eg obographs, aligmentapi-xml
-        output_path (str): The path to the output file.
+        output_path (TextIO): The path to the output file.
 
     Raises:
         ValueError: [description]
