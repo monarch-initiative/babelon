@@ -1,5 +1,5 @@
 SRC_DIR = src
-SCHEMA_DIR = $(SRC_DIR)/schema
+SCHEMA_DIR = $(SRC_DIR)/babelon/schema
 SOURCE_FILES := $(shell find $(SCHEMA_DIR) -name '*.yaml')
 SCHEMA_NAMES = $(patsubst $(SCHEMA_DIR)/%.yaml, %, $(SOURCE_FILES))
 
@@ -119,8 +119,8 @@ cli_test:
 				--language-code de \
 				--field rdfs:label --field IAO:0000115 \
 				-o tests/tmp/example-augmented.babelon.tsv
-	#export OPENAI_API_KEY="" &&\
-	#babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
+
+	babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
 	babelon statistics tests/tmp/example-translated.babelon.tsv
 	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format json -o tests/tmp/example-translated.babelon.json
 	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format owl -o tests/tmp/example-translated.babelon.owl

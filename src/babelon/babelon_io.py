@@ -31,7 +31,7 @@ def parse_file(input_path: str, output_path: str) -> None:
     file_extension = input_path.split(".")[-1]
     if file_extension == "xliff":
         df_babelon, df_synonym = xliff_path_to_babelon(input_file_path=input_path)
-        output_path_synonym = str(output_path).replace(".babelon.", ".synonyms.")
+        output_path_synonym = str(output_path.name).replace(".babelon.", ".synonyms.")
         df_babelon.to_csv(output_path, sep="\t", index=False)
         df_synonym.to_csv(output_path_synonym, sep="\t", index=False)
     else:

@@ -1,11 +1,10 @@
 [tool.poetry]
 name = "babelon"
-version = "0.2.1"
+version = "0.0.0"
 description = "babelon"
 authors = ["Vinicius de Souza <souzadevinicius@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "babelon", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -32,6 +31,10 @@ mkdocstrings = "^0.19.1"
 mkdocstrings-python = "^0.8.2"
 mkdocs-include-dir-to-nav = "^1.2.0"
 mkdocs-click = "^0.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+poetry-dynamic-versioning = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=7.1.2"
