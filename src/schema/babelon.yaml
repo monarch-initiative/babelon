@@ -142,11 +142,9 @@ classes:
         required: true
       predicate_id :
         required: true
+      source_value:
+        required: true
       source_language :
-        required: true
-      translation_language :
-        required: true
-      translation_value :
         required: true
 #      translator:
 #        required: true

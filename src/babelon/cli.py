@@ -4,12 +4,13 @@ import logging
 import os
 import sys
 from pathlib import Path
+from typing import TextIO
 
 import click
 import pandas as pd
 from oaklib import get_adapter
 
-from babelon.babelon_io import parse_file
+from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
 
@@ -70,13 +71,26 @@ def babelon():
 
 # Input and metadata would be files (file paths). Check if exists.
 # @main.command()
-@click.command()
+@click.command("parse")
 @input_argument
 # @input_format_option
 @output_option
 def parse(input, output):
     """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
     parse_file(input_path=input, output_path=output)
+
+
+@click.command("convert")
+@input_argument
+@output_option
+@output_format_option
+def convert(input: str, output: TextIO, output_format: str):
+    """Convert a Babelon file into a different format.
+
+    Example:
+        babelon convert my.babelon.tsv --output-format owl --output my.babelon.owl
+    """  # noqa: DAR101
+    convert_file(input_path=input, output=output, output_format=output_format)
 
 
 @click.command("translate")

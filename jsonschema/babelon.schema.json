@@ -1,93 +1,155 @@
 {
-   "$id": "https://w3id.org/babelon",
-   "$schema": "http://json-schema.org/draft-07/schema#",
-   "definitions": {
-      "Profile": {
-         "additionalProperties": false,
-         "description": "Represents a set of translation that together compose a language profile.",
-         "properties": {
-            "translation_provider": {
-               "description": "The entity, i.e. person or group, that provides and maintains the translation profile.",
-               "type": "string"
-            }
-         },
-         "required": [],
-         "title": "Profile",
-         "type": "object"
-      },
-      "Translation": {
-         "additionalProperties": false,
-         "description": "Represents and individual translation",
-         "properties": {
-            "predicate_id": {
-               "type": "string"
+    "$defs": {
+        "Profile": {
+            "additionalProperties": false,
+            "description": "Represents a set of translation that together compose a language profile.",
+            "properties": {
+                "profile_id": {
+                    "description": "The persistent identifier of the profile, for example http://w3id.org/hpo-international/french.",
+                    "type": "string"
+                },
+                "profile_version": {
+                    "description": "The version of the profile (e.g. 2.1, v2021-01-01).",
+                    "type": "string"
+                },
+                "translation_provider": {
+                    "description": "The entity, i.e. person or group, that provides and maintains the translation profile.",
+                    "type": "string"
+                },
+                "translations": {
+                    "items": {
+                        "$ref": "#/$defs/Translation"
+                    },
+                    "type": "array"
+                }
             },
-            "source": {
-               "description": "The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.",
-               "type": "string"
+            "title": "Profile",
+            "type": "object"
+        },
+        "Translation": {
+            "additionalProperties": false,
+            "description": "Represents and individual translation",
+            "properties": {
+                "predicate_id": {
+                    "description": "The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description",
+                    "type": "string"
+                },
+                "source": {
+                    "description": "The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.",
+                    "type": "string"
+                },
+                "source_language": {
+                    "description": "The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).",
+                    "type": "string"
+                },
+                "source_value": {
+                    "description": "The value that is being translated, for example the definition of a disease or the name of a cell type.",
+                    "type": "string"
+                },
+                "source_version": {
+                    "description": "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.",
+                    "type": "string"
+                },
+                "subject_id": {
+                    "description": "The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.",
+                    "type": "string"
+                },
+                "translation_confidence": {
+                    "description": "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0).",
+                    "type": "number"
+                },
+                "translation_date": {
+                    "description": "The date the translation was performed.",
+                    "type": "string"
+                },
+                "translation_language": {
+                    "description": "The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).",
+                    "type": "string"
+                },
+                "translation_precision": {
+                    "$ref": "#/$defs/TranslationPrecisionEnum",
+                    "description": "While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad."
+                },
+                "translation_status": {
+                    "$ref": "#/$defs/TranslationStatusEnum",
+                    "description": "The status of the translation indicates how \"official\" the translation is."
+                },
+                "translation_type": {
+                    "$ref": "#/$defs/TranslationTypeEnum",
+                    "description": "By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value."
+                },
+                "translation_value": {
+                    "description": "The translation of the source value int the translation language. For example the french name of a disease.",
+                    "type": "string"
+                },
+                "translator": {
+                    "description": "The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/",
+                    "type": "string"
+                },
+                "translator_expertise": {
+                    "$ref": "#/$defs/TranslatorExpertiseEnum",
+                    "description": "The expertise level of the translator, e.g. domain expert or student."
+                }
             },
-            "source_language": {
-               "type": "string"
-            },
-            "source_value": {
-               "description": "The value that is being translated, for example the definition of a disease or the name of a cell type.",
-               "type": "string"
-            },
-            "source_version": {
-               "description": "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.",
-               "type": "string"
-            },
-            "subject_id": {
-               "type": "string"
-            },
-            "translation_confidence": {
-               "description": "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0).",
-               "type": "number"
-            },
-            "translation_date": {
-               "description": "The date the translation was performed.",
-               "type": "string"
-            },
-            "translation_language": {
-               "type": "string"
-            },
-            "translation_precision": {
-               "description": "While by default, all translations are assumed to be exact, this is not possible in all cases. Where the translations cant be exact, they can be close, narrow or broad.",
-               "type": "string"
-            },
-            "translation_status": {
-               "description": "The status of the translation indicates how \"official\" the translation is.",
-               "type": "string"
-            },
-            "translation_type": {
-               "description": "By default, a record in a translation table is a direct translation, but there are situations where a translation may add additional values, like synonyms, without having a directly corresponding translated value.",
-               "type": "string"
-            },
-            "translation_value": {
-               "type": "string"
-            },
-            "translator": {
-               "type": "string"
-            },
-            "translator_expertise": {
-               "type": "string"
-            }
-         },
-         "required": [
-            "subject_id",
-            "predicate_id",
-            "translation_value",
-            "source_language",
-            "translation_language",
-            "translator",
-            "translator_expertise"
-         ],
-         "title": "Translation",
-         "type": "object"
-      }
-   },
-   "properties": {},
-   "title": "babelon",
-   "type": "object"
+            "required": [
+                "subject_id",
+                "predicate_id",
+                "source_value",
+                "source_language"
+            ],
+            "title": "Translation",
+            "type": "object"
+        },
+        "TranslationPrecisionEnum": {
+            "description": "",
+            "enum": [
+                "EXACT",
+                "BROADER",
+                "NARROWER",
+                "CLOSE"
+            ],
+            "title": "TranslationPrecisionEnum",
+            "type": "string"
+        },
+        "TranslationStatusEnum": {
+            "description": "",
+            "enum": [
+                "NOT_TRANSLATED",
+                "CANDIDATE",
+                "UNDER_REVIEW",
+                "OFFICIAL"
+            ],
+            "title": "TranslationStatusEnum",
+            "type": "string"
+        },
+        "TranslationTypeEnum": {
+            "description": "",
+            "enum": [
+                "TRANSLATION",
+                "AUGMENTATION",
+                "CORRECTION"
+            ],
+            "title": "TranslationTypeEnum",
+            "type": "string"
+        },
+        "TranslatorExpertiseEnum": {
+            "description": "",
+            "enum": [
+                "DOMAIN_EXPERT",
+                "LAYPERSON",
+                "DOMAIN_STUDENT",
+                "PROFESSIONAL_TRANSLATOR",
+                "ALGORITHM"
+            ],
+            "title": "TranslatorExpertiseEnum",
+            "type": "string"
+        }
+    },
+    "$id": "https://w3id.org/babelon",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "babelon",
+    "type": "object",
+    "version": null
 }
-
