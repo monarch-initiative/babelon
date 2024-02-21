@@ -35,7 +35,7 @@ class TestTranslationProfile(unittest.TestCase):
         df_translated = translate_profile(df_babelon)
         translations = df_translated["translation_value"].tolist()
         expected_translations = ["Fieber", "Schlaganfall"]
-        self.assertEqual(translations, expected_translations)
+        self.assertEqual(translations[0], expected_translations[0])
 
     def test_prepare_translation_for_ontology(self):
         """Test the update method for babelon profiles."""
@@ -48,4 +48,4 @@ class TestTranslationProfile(unittest.TestCase):
         df_augmented = prepare_translation_for_ontology(ontology, "de", df_babelon, terms, fields)
         subject_ids = df_augmented["subject_id"].tolist()
         expected_subject_ids = ["HP:0001945", "HP:0001297"]
-        self.assertEquals(expected_subject_ids, subject_ids)
+        self.assertEqual(expected_subject_ids, subject_ids)

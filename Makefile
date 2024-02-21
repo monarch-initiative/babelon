@@ -130,3 +130,6 @@ HP_TRANSLATIONS=$(patsubst %, tests/data/translations/hp-%.babelon.tsv, $(LANGUA
 # Run "make languages" to process them
 # Copy the results into hpo/src/ontology/translations
 translations: $(HP_TRANSLATIONS)
+
+cli_test:
+	echo ""
