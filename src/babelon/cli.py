@@ -4,12 +4,13 @@ import logging
 import os
 import sys
 from pathlib import Path
+from typing import TextIO
 
 import click
 import pandas as pd
 from oaklib import get_adapter
 
-from babelon.babelon_io import parse_file
+from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
 
@@ -26,7 +27,7 @@ output_option = click.option(
     "--output",
     "-o",
     help="Path of output file.",
-    type=Path,
+    type=click.File(mode="w"),
     default=sys.stdout,
 )
 output_format_option = click.option(
@@ -47,7 +48,7 @@ output_directory_option = click.option(
 @click.option("-v", "--verbose", count=True)
 @click.option("-q", "--quiet")
 def main(verbose=1, quiet=False) -> None:
-    """Command Line Interface for the main method for SSSOM.
+    """Command Line Interface for the main method for Babelon.
 
     Args:
         verbose (int, optional): Verbose flag.
@@ -70,22 +71,52 @@ def babelon():
 
 # Input and metadata would be files (file paths). Check if exists.
 # @main.command()
-@click.command()
+@click.command("parse")
 @input_argument
 # @input_format_option
 @output_option
 def parse(input, output):
-    """Parse a file in one of the supported formats (such as obographs) into an SSSOM TSV file."""
+    """Parse a file in one of the supported formats (such as obographs) into an Babelon TSV file."""
     parse_file(input_path=input, output_path=output)
+
+
+@click.command("convert")
+@input_argument
+@output_option
+@output_format_option
+def convert(input: str, output: TextIO, output_format: str):
+    """Convert a Babelon file into a different format.
+
+    Example:
+        babelon convert my.babelon.tsv --output-format owl --output my.babelon.owl
+    """  # noqa: DAR101
+    convert_file(input_path=input, output=output, output_format=output_format)
 
 
 @click.command("translate")
 @input_argument
+@click.option(
+    "--model",
+    type=str,
+    help="The model used to run the translation. "
+    "Currently allowed: gpt-4, gpt-3.5 or any official model from OpenAI "
+    "(https://platform.openai.com/docs/models).",
+    default="gpt-4",
+)
+@click.option("--language-code", type=str, help="ISO code for the target translation language.")
+@click.option(
+    "--update-existing",
+    type=bool,
+    default=False,
+    help="If true, all values will be translated, including the once already translated.",
+)
 @output_option
-def translate(input, output):
+def translate(input, model, language_code, update_existing, output):
     """Process a table to translate values."""
     df = pd.read_csv(input, sep="\t")
-    translated_df = translate_profile(df)
+    translated_df = translate_profile(
+        babelon_df=df, language_code=language_code, update_existing=update_existing, model=model
+    )
     translated_df.to_csv(output, sep="\t", index=False)
 
 
@@ -172,8 +203,9 @@ def example(input):
         click.echo(df.to_string(index=False))
 
 
+babelon.add_command(example)
 babelon.add_command(parse)
 babelon.add_command(prepare_translation)
-babelon.add_command(statistics_translation_profile_command)
-babelon.add_command(example)
 babelon.add_command(translate)
+babelon.add_command(convert)
+babelon.add_command(statistics_translation_profile_command)

@@ -1,20 +1,24 @@
+# metamodel_version: 1.7.0
 type Profile
   {
+    translations: [Translation]
     translationProvider: String
+    profileId: String
+    profileVersion: String
   }
 
 type Translation
   {
-    subjectId: String!
-    predicateId: String!
-    translationValue: String!
-    sourceValue: String
+    subjectId: EntityReference!
+    predicateId: EntityReference!
+    translationValue: String
+    sourceValue: String!
     sourceLanguage: String!
-    translationLanguage: String!
+    translationLanguage: String
     sourceVersion: String
     translationType: TranslationTypeEnum
-    translator: String!
-    translatorExpertise: TranslatorExpertiseEnum!
+    translator: String
+    translatorExpertise: TranslatorExpertiseEnum
     translationDate: String
     translationConfidence: Double
     translationPrecision: TranslationPrecisionEnum

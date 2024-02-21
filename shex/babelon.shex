@@ -1,8 +1,13 @@
+# metamodel_version: 1.7.0
 BASE <https://w3id.org/babelon/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
 
+
+<EntityReference> rdfs:Resource
 
 linkml:String xsd:string
 
@@ -16,13 +21,17 @@ linkml:Double xsd:double
 
 linkml:Decimal xsd:decimal
 
-linkml:Time xsd:dateTime
+linkml:Time xsd:time
 
 linkml:Date xsd:date
 
 linkml:Datetime xsd:dateTime
 
+linkml:DateOrDatetime linkml:DateOrDatetime
+
 linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
 
 linkml:Uri IRI
 
@@ -32,30 +41,52 @@ linkml:Objectidentifier IRI
 
 linkml:Nodeidentifier NONLITERAL
 
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
 <Profile> CLOSED {
-    (  $<Profile_tes> <translation_provider> @linkml:String ? ;
+    (  $<Profile_tes> (  <translations> @<Translation> * ;
+          <translation_provider> @linkml:String ? ;
+          <profile_id> @linkml:String ? ;
+          <profile_version> @linkml:String ?
+       ) ;
        rdf:type [ <Profile> ] ?
     )
 }
 
 <Translation> CLOSED {
-    (  $<Translation_tes> (  <subject_id> @linkml:String ;
-          <predicate_id> @linkml:String ;
-          <translation_value> @linkml:String ;
-          <source_value> @linkml:String ? ;
+    (  $<Translation_tes> (  owl:annotatedSource @<EntityReference> ;
+          owl:annotatedProperty @<EntityReference> ;
+          owl:annotatedTarget @linkml:String ? ;
+          <source_value> @linkml:String ;
           <source_language> @linkml:String ;
-          <translation_language> @linkml:String ;
+          <translation_language> @linkml:String ? ;
           <source_version> @linkml:String ? ;
-          <translation_type> @<TranslationTypeEnum> ? ;
-          <translator> @linkml:String ;
-          <translator_expertise> @<TranslatorExpertiseEnum> ;
+          <translation_type> [ <https://w3id.org/babelon/TranslationTypeEnum#TRANSLATION>
+             <https://w3id.org/babelon/TranslationTypeEnum#AUGMENTATION> <https://w3id.org/babelon/TranslationTypeEnum#CORRECTION>
+             ] ? ;
+          <translator> @linkml:String ? ;
+          <translator_expertise> [ <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_EXPERT>
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#LAYPERSON>
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_STUDENT>
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR>
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM> ] ? ;
           <translation_date> @linkml:String ? ;
           <translation_confidence> @linkml:Double ? ;
-          <translation_precision> @<TranslationPrecisionEnum> ? ;
-          <translation_status> @<TranslationStatusEnum> ? ;
+          <translation_precision> [ <https://w3id.org/babelon/TranslationPrecisionEnum#EXACT>
+             <https://w3id.org/babelon/TranslationPrecisionEnum#BROADER>
+             <https://w3id.org/babelon/TranslationPrecisionEnum#NARROWER> <https://w3id.org/babelon/TranslationPrecisionEnum#CLOSE>
+             ] ? ;
+          <translation_status> [ <https://w3id.org/babelon/TranslationStatusEnum#NOT_TRANSLATED>
+             <https://w3id.org/babelon/TranslationStatusEnum#CANDIDATE>
+             <https://w3id.org/babelon/TranslationStatusEnum#UNDER_REVIEW>
+             <https://w3id.org/babelon/TranslationStatusEnum#OFFICIAL> ] ? ;
           <source> @linkml:String ?
        ) ;
-       rdf:type [ <Translation> ] ?
+       rdf:type [ owl:Axiom ] ?
     )
 }
 

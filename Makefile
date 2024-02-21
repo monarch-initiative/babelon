@@ -3,7 +3,7 @@ SCHEMA_DIR = $(SRC_DIR)/schema
 SOURCE_FILES := $(shell find $(SCHEMA_DIR) -name '*.yaml')
 SCHEMA_NAMES = $(patsubst $(SCHEMA_DIR)/%.yaml, %, $(SOURCE_FILES))
 
-SCHEMA_NAME = my_schema
+SCHEMA_NAME = babelon
 SCHEMA_SRC = $(SCHEMA_DIR)/$(SCHEMA_NAME).yaml
 TGTS = graphql jsonschema docs shex owl csv graphql python
 
@@ -60,7 +60,7 @@ target/python/%.py: $(SCHEMA_DIR)/%.yaml  tdir-python
 
 ###  -- MARKDOWN DOCS --
 # TODO: modularize imports. For now imports are merged.
-gen-graphql:target/graphql/$(SCHEMA_NAME).graphql 
+gen-graphql: target/graphql/$(SCHEMA_NAME).graphql
 target/graphql/%.graphql: $(SCHEMA_DIR)/%.yaml tdir-graphql
 	gen-graphql $(GEN_OPTS) $< > $@
 
@@ -109,24 +109,18 @@ docserve:
 gh-deploy:
 	mkdocs gh-deploy
 
-
-#####
-
-prepare_data:
-	rm -rf tests/data/all_translations
-	unzip -d tests/data/all_translations tests/data/all_translations.zip
-
-tests/data/translations/hp-%.babelon.tsv:
-	mkdir -p tests/data/translations/
-	python src/babelon/cli.py tests/data/all_translations/$*/hpo_notes.xliff $@
-
-
-LANGUAGES=cs nl tr
-HP_TRANSLATIONS=$(patsubst %, tests/data/translations/hp-%.babelon.tsv, $(LANGUAGES))
-
-# Recipe: Go to https://crowdin.com/project/hpo-translation/translations# and click "Build and Download"
-# Safe the downloaded file as tests/data/all_translations.zip
-# Run "make prepare_data" to unpack the translations
-# Run "make languages" to process them
-# Copy the results into hpo/src/ontology/translations
 translations: $(HP_TRANSLATIONS)
+
+cli_test:
+	babelon example tests/tmp/example.babelon.tsv
+	babelon parse tests/data/hpo_dutch.xliff -o tests/tmp/parsed.babelon.tsv
+	babelon prepare-translation tests/tmp/example.babelon.tsv \
+				--oak-adapter pronto:tests/data/hp-testsubset.obo \
+				--language-code de \
+				--field rdfs:label --field IAO:0000115 \
+				-o tests/tmp/example-augmented.babelon.tsv
+	#export OPENAI_API_KEY="" &&\
+	#babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
+	babelon statistics tests/tmp/example-translated.babelon.tsv
+	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format json -o tests/tmp/example-translated.babelon.json
+	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format owl -o tests/tmp/example-translated.babelon.owl
