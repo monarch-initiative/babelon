@@ -1,0 +1,69 @@
+babelon package
+===============
+
+Submodules
+----------
+
+babelon.babelon\_io module
+--------------------------
+
+.. automodule:: babelon.babelon_io
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.cli module
+------------------
+
+.. automodule:: babelon.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.constants module
+------------------------
+
+.. automodule:: babelon.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.dataclasses module
+--------------------------
+
+.. automodule:: babelon.dataclasses
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.translate module
+------------------------
+
+.. automodule:: babelon.translate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.translation\_profile module
+-----------------------------------
+
+.. automodule:: babelon.translation_profile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+babelon.utils module
+--------------------
+
+.. automodule:: babelon.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: babelon
+   :members:
+   :undoc-members:
+   :show-inheritance:
