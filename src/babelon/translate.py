@@ -69,20 +69,13 @@ If no translation can be found for whatever reason, including that the translati
 language is the same as the language of the text to translate, return an empty string.
 Give no comments, no explanations. Just the translation or an empty string."""
 
-        # # There is a lot of chatter of the OpenAI API. I still cant silence it all
-        # # TODO make silent
-        original_level = logging.getLogger().getEffectiveLevel()
         logging.getLogger().setLevel(logging.CRITICAL)
 
         try:
             response = self.model.prompt(prompt)
             translated_value = response.text()
-            # Restore the original logging level
-            # logging.getLogger().setLevel(original_level)
             return translated_value
         except Exception as e:
-            # Restore the original logging level
-            # logging.getLogger().setLevel(original_level)
             logging.getLogger().warning(f"An error occurred: {e}")
             return ""
 

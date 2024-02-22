@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/monarch-initiative/monarch-project-template",
-  "commit": "0fce395fe859618d3feb3ac9ebd2f8b94d743b2b",
+  "commit": "9d4f915d4a4cd1a9d8206506db1e261bc397de9c",
   "checkout": null,
   "context": {
     "cookiecutter": {
