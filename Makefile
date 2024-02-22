@@ -120,7 +120,8 @@ cli_test:
 				--field rdfs:label --field IAO:0000115 \
 				-o tests/tmp/example-augmented.babelon.tsv
 
-	babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
+	#export OPENAI_API_KEY="sk-FILLINBEFORERUN" &&\
+	#babelon translate tests/tmp/example-augmented.babelon.tsv -o tests/tmp/example-translated.babelon.tsv
 	babelon statistics tests/tmp/example-translated.babelon.tsv
-	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format json -o tests/tmp/example-translated.babelon.json
-	poetry run babelon convert tests/tmp/example-translated.babelon.tsv --output-format owl -o tests/tmp/example-translated.babelon.owl
+	babelon convert tests/tmp/example-translated.babelon.tsv --output-format json -o tests/tmp/example-translated.babelon.json
+	babelon convert tests/tmp/example-translated.babelon.tsv --output-format owl -o tests/tmp/example-translated.babelon.owl
