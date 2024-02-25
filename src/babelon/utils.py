@@ -95,3 +95,10 @@ def _get_file_extension(file: Union[str, Path, TextIO]) -> str:
             logging.warning(f"Cannot guess format from {filename}")
     logging.info("Cannot guess format extension for this file, assuming TSV.")
     return "tsv"
+
+
+def sort_babelon_tsv(df: pd.DataFrame):
+    """Sort a babelon Dataframe according to key columns."""
+    return df.sort_values(
+        by=["subject_id", "predicate_id", "source_value"], ascending=[True, True, True]
+    )

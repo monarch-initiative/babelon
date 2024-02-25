@@ -51,6 +51,11 @@ class TestTranslationProfile(unittest.TestCase):
             )
         )
 
-        self.assertEqual(["HP:0001945", "HP:0001297", "HP:0001707"], df_augmented["subject_id"].tolist())
+        self.assertEqual(
+            ["HP:0001945", "HP:0001297", "HP:0001707"], df_augmented["subject_id"].tolist()
+        )
         self.assertEqual([], df_output_source_changed["subject_id"].tolist())
-        self.assertEqual(["HP:0001945", "HP:0001297", "HP:0001707"], df_output_not_translated["subject_id"].tolist())
+        self.assertEqual(
+            ["HP:0001945", "HP:0001297", "HP:0001707"],
+            df_output_not_translated["subject_id"].tolist(),
+        )

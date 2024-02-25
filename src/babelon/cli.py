@@ -13,6 +13,7 @@ from oaklib import get_adapter
 from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
+from babelon.utils import sort_babelon_tsv
 
 info_log = logging.getLogger()
 # Click input options common across commands
@@ -152,6 +153,12 @@ def translate(input, model, language_code, update_existing, output):
     default=True,
     help="If true, the translation status is changed to CANDIDATE if a source value has changed.",
 )
+@click.option(
+    "--sort-tables",
+    type=bool,
+    default=True,
+    help="If true, all output tables are sorted before written.",
+)
 @output_option
 def prepare_translation(
     input,
@@ -163,6 +170,7 @@ def prepare_translation(
     output_not_translated,
     include_not_translated,
     update_translation_status,
+    sort_tables,
     output,
 ):
     """Translate ontology fields based on the specified language code."""
@@ -189,10 +197,16 @@ def prepare_translation(
             update_translation_status=update_translation_status,
         )
     )
+    if sort_tables:
+        df_output_profile = sort_babelon_tsv(df_output_profile)
     df_output_profile.to_csv(output, sep="\t", index=False)
     if output_source_changed:
+        if sort_tables:
+            df_output_source_changed = sort_babelon_tsv(df_output_source_changed)
         df_output_source_changed.to_csv(output_source_changed, sep="\t", index=False)
     if output_not_translated:
+        if sort_tables:
+            output_not_translated = sort_babelon_tsv(output_not_translated)
         df_output_not_translated.to_csv(output_not_translated, sep="\t", index=False)
 
 
