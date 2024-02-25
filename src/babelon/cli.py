@@ -14,7 +14,7 @@ from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
 
-info_log = logging.getLogger("info")
+info_log = logging.getLogger()
 # Click input options common across commands
 input_argument = click.argument("input", required=False, type=click.Path())
 
@@ -48,27 +48,25 @@ output_directory_option = click.option(
 
 @click.group()
 @click.option("-v", "--verbose", count=True)
-@click.option("-q", "--quiet")
-def main(verbose=1, quiet=False) -> None:
+@click.option("-q", "--quiet", type=bool, is_flag=True, default=False)
+def babelon(verbose=1, quiet=False) -> None:
     """Command Line Interface for the main method for Babelon.
 
     Args:
         verbose (int, optional): Verbose flag.
         quiet (bool, optional): Queit Flag.
     """
-    if verbose >= 2:
-        info_log.setLevel(level=logging.DEBUG)
-    elif verbose == 1:
+    if verbose > 2:
         info_log.setLevel(level=logging.INFO)
+    elif verbose == 2:
+        info_log.setLevel(level=logging.WARNING)
+    elif verbose == 1:
+        info_log.setLevel(level=logging.DEBUG)
     else:
         info_log.setLevel(level=logging.WARNING)
+
     if quiet:
         info_log.setLevel(level=logging.ERROR)
-
-
-@click.group()
-def babelon():
-    """babelon."""
 
 
 # Input and metadata would be files (file paths). Check if exists.
