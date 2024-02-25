@@ -45,7 +45,12 @@ class TestTranslationProfile(unittest.TestCase):
         terms = ["HP:0001707"]
         fields = ["rdfs:label"]
         df_babelon = _create_simple_example_for_testing()
-        df_augmented = prepare_translation_for_ontology(ontology, "de", df_babelon, terms, fields)
-        subject_ids = df_augmented["subject_id"].tolist()
-        expected_subject_ids = ["HP:0001945", "HP:0001297", "HP:0001707"]
-        self.assertEqual(expected_subject_ids, subject_ids)
+        df_augmented, df_output_source_changed, df_output_not_translated = (
+            prepare_translation_for_ontology(
+                ontology, "de", df_babelon, terms, fields, include_not_translated=True
+            )
+        )
+
+        self.assertEqual(["HP:0001945", "HP:0001297", "HP:0001707"], df_augmented["subject_id"].tolist())
+        self.assertEqual([], df_output_source_changed["subject_id"].tolist())
+        self.assertEqual(["HP:0001945", "HP:0001297", "HP:0001707"], df_output_not_translated["subject_id"].tolist())

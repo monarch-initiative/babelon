@@ -166,13 +166,22 @@ def _create_default_dataframe():
 
 
 def prepare_translation_for_ontology(
-    ontology, language_code, df_babelon: pd.DataFrame, terms: List[str], fields: List[str]
+    ontology,
+    language_code,
+    df_babelon: pd.DataFrame,
+    terms: List[str],
+    fields: List[str],
+    include_not_translated: bool = False,
+    update_translation_status: bool = True,
 ):
     """Prepare a babelon translation table for an ontology."""
     if df_babelon is None:
         df_augmented = _create_default_dataframe()
     else:
         df_augmented = df_babelon.copy()
+
+    output_source_changed_data = []
+    output_not_translated_data = []
 
     if terms is None:
         terms = []
@@ -184,6 +193,7 @@ def prepare_translation_for_ontology(
     # CANDIDATE
 
     processed: Dict[str, List[str]] = {}
+    mark_index_for_removal = []
 
     for index, row in df_augmented.iterrows():
         subject_id = row["subject_id"]
@@ -193,6 +203,7 @@ def prepare_translation_for_ontology(
         if predicate_id not in processed[subject_id]:
             processed[subject_id].append(predicate_id)
         source_value = row["source_value"]
+        translation_status = row["translation_status"]
         term_metadata = _get_metadata_for_term(ontology, subject_id)
         if predicate_id in term_metadata:
             ontology_value = term_metadata[predicate_id][0]
@@ -201,23 +212,30 @@ def prepare_translation_for_ontology(
                     f"{predicate_id} value for {subject_id} is ambiguous,"
                     f"picking first one ({term_metadata[predicate_id]})."
                 )
+            if translation_status == "NOT_TRANSLATED":
+                output_not_translated_data.append(row.to_dict())
+                if not include_not_translated:
+                    mark_index_for_removal.append(index)
             if ontology_value != source_value:
                 translation_value = row["translation_value"]
                 df_augmented.at[index, "source_value"] = ontology_value
-                new_translation_value = (
+                new_translation_status = (
                     "CANDIDATE" if translation_value != "NOT_TRANSLATED" else "NOT_TRANSLATED"
                 )
-                df_augmented.at[index, "translation_language"] = new_translation_value
+                if update_translation_status:
+                    df_augmented.at[index, "translation_status"] = new_translation_status
                 logging.warning(
-                    f"{predicate_id} value for {subject_id} is {source_value}, "
-                    f"but {ontology_value} in the ontology. Table is updated and "
-                    f"translation status reset to CANDIDATE"
+                    f"{predicate_id} value for {subject_id} is {source_value} in the translation table, "
+                    f"but {ontology_value} in the ontology."
                 )
+                output_source_changed_data.append(row)
         else:
             logging.warning(
                 f"{predicate_id} value for {subject_id} does not exist in ontology. "
                 f"Keeping value in the translation profile: {source_value}"
             )
+
+    df_augmented.drop(mark_index_for_removal, inplace=True)
 
     added_rows = []
     for term in terms:
@@ -227,7 +245,7 @@ def prepare_translation_for_ontology(
                 if field in processed[term]:
                     continue
             if field not in term_metadata:
-                logging.warning(f"{field} does not exist for {term}.")
+                logging.info(f"{field} does not exist for {term}.")
                 continue
             for source_value in term_metadata[field]:
                 subject_id = term
@@ -242,12 +260,23 @@ def prepare_translation_for_ontology(
                 }
 
                 added_rows.append(data_row)
+                output_not_translated_data.append(data_row)
 
-    if added_rows:
+    if added_rows and include_not_translated:
         df_added = pd.DataFrame(added_rows)
         df_augmented = pd.concat([df_augmented, df_added], ignore_index=True)
 
-    return df_augmented
+    if output_not_translated_data:
+        df_output_not_translated = pd.DataFrame(output_not_translated_data)
+    else:
+        df_output_not_translated = _create_default_dataframe()
+
+    if output_source_changed_data:
+        df_output_source_changed = pd.DataFrame(output_source_changed_data)
+    else:
+        df_output_source_changed = _create_default_dataframe()
+
+    return df_augmented, df_output_source_changed, df_output_not_translated
 
 
 def _get_metadata_for_term(ontology, term):
