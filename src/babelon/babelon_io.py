@@ -208,12 +208,15 @@ def to_babelon_linkml_document(bdf: BabelonDataFrame):
     sv = SchemaView(SCHEMA_YAML)
     from babelon.dataclasses import Profile
 
-    babelon_translation = TSVLoader().loads(
-        input=temp_file_path,
-        target_class=Profile,
-        index_slot=SlotDefinitionName("translations"),
-        schemaview=sv,
-    )
+    if df.empty:
+        return Profile()
+    else:
+        babelon_translation = TSVLoader().loads(
+            input=temp_file_path,
+            target_class=Profile,
+            index_slot=SlotDefinitionName("translations"),
+            schemaview=sv,
+        )
     return babelon_translation
 
 

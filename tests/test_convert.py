@@ -5,7 +5,7 @@ from xml.dom import minidom  # noqa
 
 from babelon.babelon_io import to_babelon_linkml_document, to_json, to_owl_graph
 from babelon.utils import BabelonDataFrame
-from tests.constants import _create_simple_example_for_testing
+from tests.constants import _create_empty_example_for_testing, _create_simple_example_for_testing
 
 
 class TestConvert(unittest.TestCase):
@@ -31,6 +31,20 @@ class TestConvert(unittest.TestCase):
         graph = to_owl_graph(bdf)
 
         self.assertEqual(22, len(graph))
+
+        # t = graph.serialize(format="ttl", encoding="utf-8")
+        # test_file_path = f"{test_out_dir}/simple-test.babelon.tsv"
+        # with open(test_file_path, "w", encoding="utf-8") as file:
+        #    print(t.decode(), file=file)
+
+    def test_convert_empty_owl(self):
+        """Test Convert an empty file."""
+        df_babelon = _create_empty_example_for_testing()
+        bdf = BabelonDataFrame(df=df_babelon)
+
+        graph = to_owl_graph(bdf)
+
+        self.assertEqual(1, len(graph))
 
         # t = graph.serialize(format="ttl", encoding="utf-8")
         # test_file_path = f"{test_out_dir}/simple-test.babelon.tsv"

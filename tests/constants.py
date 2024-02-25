@@ -34,3 +34,8 @@ def _create_simple_example_for_testing():
         },
     ]
     return pd.DataFrame(data)
+
+
+def _create_empty_example_for_testing():
+    df = _create_simple_example_for_testing()
+    return df.iloc[0:0]
