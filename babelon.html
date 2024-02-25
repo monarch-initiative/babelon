@@ -83,8 +83,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-babelon.translation_profile">babelon.translation_profile module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.translation_profile.statistics_translation_profile"><code class="docutils literal notranslate"><span class="pre">statistics_translation_profile()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.translation_profile.table_print"><code class="docutils literal notranslate"><span class="pre">table_print()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#babelon.translation_profile.update_translation_profile"><code class="docutils literal notranslate"><span class="pre">update_translation_profile()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#babelon.translation_profile.update_translation_status"><code class="docutils literal notranslate"><span class="pre">update_translation_status()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-babelon.utils">babelon.utils module</a><ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.get_converter"><code class="docutils literal notranslate"><span class="pre">get_converter()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.parse_babelon"><code class="docutils literal notranslate"><span class="pre">parse_babelon()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.raise_for_bad_path"><code class="docutils literal notranslate"><span class="pre">raise_for_bad_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#babelon.utils.sort_babelon_tsv"><code class="docutils literal notranslate"><span class="pre">sort_babelon_tsv()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-babelon">Module contents</a></li>
@@ -746,7 +745,7 @@ target_language (str): The language to translate the text into.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.translate.prepare_translation_for_ontology">
-<span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">prepare_translation_for_ontology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ontology</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_babelon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translate.prepare_translation_for_ontology" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">prepare_translation_for_ontology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ontology</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_babelon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_not_translated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_translation_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translate.prepare_translation_for_ontology" title="Link to this definition"></a></dt>
 <dd><p>Prepare a babelon translation table for an ontology.</p>
 </dd></dl>
 
@@ -783,42 +782,6 @@ number of translations by source_language, target_language, translation_status</
 <dl class="simple">
 <dt>Args:</dt><dd><p>title (str): Table title
 data (pd.DataFrame): Translation groupped data</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="babelon.translation_profile.update_translation_profile">
-<span class="sig-prename descclassname"><span class="pre">babelon.translation_profile.</span></span><span class="sig-name descname"><span class="pre">update_translation_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ontology_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translation_profile.update_translation_profile" title="Link to this definition"></a></dt>
-<dd><p>Write update_translation_profile to TSV file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Args:</dt><dd><p>translation_profile (Path): Path to the translation profile
-ontology_file (Path): Path to the ontology file
-output_file (Path): Path to the output TSV file</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="babelon.translation_profile.update_translation_status">
-<span class="sig-prename descclassname"><span class="pre">babelon.translation_profile.</span></span><span class="sig-name descname"><span class="pre">update_translation_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ontology_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translation_profile.update_translation_status" title="Link to this definition"></a></dt>
-<dd><p>Update all translation_status in translation_profile.</p>
-<p>From “OFFICIAL”  to “CANDIDATE”  if the original ontology label has changed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></span></p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Args:</dt><dd><p>translation_profile (Path): Path to the translation profile
-ontology_file (Path): Path to the ontology file</p>
-</dd>
-<dt>Returns:</dt><dd><p>pd.DataFrame: updated translation status</p>
 </dd>
 </dl>
 </dd></dl>
@@ -888,6 +851,12 @@ ontology_file (Path): Path to the ontology file</p>
 <dt>Raises:</dt><dd><p>FileNotFoundError: If the provided file path is not a valid file or URL.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="babelon.utils.sort_babelon_tsv">
+<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">sort_babelon_tsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.sort_babelon_tsv" title="Link to this definition"></a></dt>
+<dd><p>Sort a babelon Dataframe according to key columns.</p>
 </dd></dl>
 
 </section>
