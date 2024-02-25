@@ -178,11 +178,11 @@ def statistics_translation_profile_command(
 @output_option
 def merge(inputs, output):
     """Merge multiple babelon files into one."""
-    df = pd.read_csv(inputs[0], sep='\t')
+    df = pd.read_csv(inputs[0], sep="\t")
 
     # Loop through the rest of the input files and concatenate each DataFrame
     for input_file in inputs[1:]:
-        df_temp = pd.read_csv(input_file, sep='\t')
+        df_temp = pd.read_csv(input_file, sep="\t")
         df = pd.concat([df, df_temp], axis=0, ignore_index=True)
 
     if output:
