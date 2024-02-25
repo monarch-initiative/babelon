@@ -18,6 +18,8 @@ info_log = logging.getLogger("info")
 # Click input options common across commands
 input_argument = click.argument("input", required=False, type=click.Path())
 
+multiple_inputs_argument = click.argument("inputs", nargs=-1, required=False, type=click.Path())
+
 input_format_option = click.option(
     "--input-format",
     "-f",
@@ -171,6 +173,24 @@ def statistics_translation_profile_command(
     statistics_translation_profile(input)
 
 
+@click.command("merge")
+@multiple_inputs_argument
+@output_option
+def merge(inputs, output):
+    """Merge multiple babelon files into one."""
+    df = pd.read_csv(inputs[0], sep="\t")
+
+    # Loop through the rest of the input files and concatenate each DataFrame
+    for input_file in inputs[1:]:
+        df_temp = pd.read_csv(input_file, sep="\t")
+        df = pd.concat([df, df_temp], axis=0, ignore_index=True)
+
+    if output:
+        df.to_csv(output, sep="\t", index=False)
+    else:
+        click.echo(df.to_string(index=False))
+
+
 @click.command("example")
 @input_argument
 def example(input):
@@ -204,6 +224,7 @@ def example(input):
 
 
 babelon.add_command(example)
+babelon.add_command(merge)
 babelon.add_command(parse)
 babelon.add_command(prepare_translation)
 babelon.add_command(translate)
