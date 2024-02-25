@@ -206,7 +206,7 @@ def prepare_translation(
         df_output_source_changed.to_csv(output_source_changed, sep="\t", index=False)
     if output_not_translated:
         if sort_tables:
-            output_not_translated = sort_babelon_tsv(output_not_translated)
+            df_output_not_translated = sort_babelon_tsv(df_output_not_translated)
         df_output_not_translated.to_csv(output_not_translated, sep="\t", index=False)
 
 
