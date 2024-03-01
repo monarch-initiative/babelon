@@ -4,10 +4,14 @@ import os
 import unittest
 
 from dotenv import load_dotenv
-from oaklib.implementations.pronto.pronto_implementation import ProntoImplementation
-from oaklib.resource import OntologyResource
+from oaklib import get_adapter
 
-from babelon.translate import OpenAITranslator, prepare_translation_for_ontology, translate_profile
+from babelon.translate import (
+    OpenAITranslator,
+    _is_equivalent_string,
+    prepare_translation_for_ontology,
+    translate_profile,
+)
 from tests.constants import _create_simple_example_for_testing
 from tests.test_data import data_dir as test_data_dir
 from tests.test_data import env_file
@@ -40,8 +44,7 @@ class TestTranslationProfile(unittest.TestCase):
     def test_prepare_translation_for_ontology(self):
         """Test the update method for babelon profiles."""
         test_file = f"{test_data_dir}/hp-testsubset.obo"
-        resource = OntologyResource(slug=test_file, local=True)
-        ontology = ProntoImplementation(resource)
+        ontology = get_adapter(f"pronto:{test_file}")
         terms = ["HP:0001707"]
         fields = ["rdfs:label"]
         df_babelon = _create_simple_example_for_testing()
@@ -59,3 +62,10 @@ class TestTranslationProfile(unittest.TestCase):
             ["HP:0001945", "HP:0001297", "HP:0001707"],
             df_output_not_translated["subject_id"].tolist(),
         )
+
+    def test_equivalent_string(self):
+        """Test if _is_equivalent_string() catches important cases."""
+        string1 = "Hello, my."
+        string2 = "hello  my"
+
+        self.assertTrue(_is_equivalent_string(string1, string2))
