@@ -205,6 +205,16 @@ def prepare_translation_for_ontology(
         source_value = row["source_value"]
         translation_status = row["translation_status"]
         term_metadata = _get_metadata_for_term(ontology, subject_id)
+        if translation_status == "NOT_TRANSLATED":
+            if not include_not_translated:
+                mark_index_for_removal.append(index)
+            if predicate_id in term_metadata:
+                output_not_translated_data.append(row.to_dict())
+            else:
+                logging.warning(
+                    f"{predicate_id} value for {subject_id} is marked as NOT_TRANSLATED,"
+                    f"but does not exist at all in the ontology. Omitting row."
+                )
         if predicate_id in term_metadata:
             ontology_value = term_metadata[predicate_id][0]
             if len(term_metadata[predicate_id]) > 1:
@@ -212,10 +222,6 @@ def prepare_translation_for_ontology(
                     f"{predicate_id} value for {subject_id} is ambiguous,"
                     f"picking first one ({term_metadata[predicate_id]})."
                 )
-            if translation_status == "NOT_TRANSLATED":
-                output_not_translated_data.append(row.to_dict())
-                if not include_not_translated:
-                    mark_index_for_removal.append(index)
             if ontology_value != source_value:
                 translation_value = row["translation_value"]
                 df_augmented.at[index, "source_value"] = ontology_value
