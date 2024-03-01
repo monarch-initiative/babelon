@@ -13,7 +13,7 @@ from oaklib import get_adapter
 from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
-from babelon.utils import sort_babelon_tsv
+from babelon.utils import drop_unknown_columns_babelon, sort_babelon
 
 info_log = logging.getLogger()
 # Click input options common across commands
@@ -38,6 +38,12 @@ sort_table_option = click.option(
     type=bool,
     default=True,
     help="If true, all output tables are sorted before written.",
+)
+drop_unknown_column_option = click.option(
+    "--drop-unknown-columns",
+    type=bool,
+    default=False,
+    help="If true, columns that are not specified as part of the babelon format are dropped.",
 )
 output_format_option = click.option(
     "--output-format",
@@ -89,15 +95,26 @@ def parse(input, output):
 
 @click.command("convert")
 @input_argument
+@click.option(
+    "--drop-unknown-columns",
+    type=bool,
+    default=True,
+    help="If true, columns that are not specified as part of the babelon format are dropped.",
+)
 @output_option
 @output_format_option
-def convert(input: str, output: TextIO, output_format: str):
+def convert(input: str, drop_unknown_columns: bool, output: TextIO, output_format: str):
     """Convert a Babelon file into a different format.
 
     Example:
-        babelon convert my.babelon.tsv --output-format owl --output my.babelon.owl
+        babelon convert my.babelon.tsv --output-format owl --output my.babelon.owl --drop-unknown-columns true
     """  # noqa: DAR101
-    convert_file(input_path=input, output=output, output_format=output_format)
+    convert_file(
+        input_path=input,
+        output=output,
+        drop_unknown_columns=drop_unknown_columns,
+        output_format=output_format,
+    )
 
 
 @click.command("translate")
@@ -119,7 +136,12 @@ def convert(input: str, output: TextIO, output_format: str):
 )
 @output_option
 def translate(input, model, language_code, update_existing, output):
-    """Process a table to translate values."""
+    """Translate a babelon TSV file.
+
+    Example:
+        export OPENAI_API_KEY="sk-FILLINBEFORERUN"
+            babelon translate my.babelon.tsv -o my.babelon-translated.tsv
+    """  # noqa: DAR101
     df = pd.read_csv(input, sep="\t")
     translated_df = translate_profile(
         babelon_df=df, language_code=language_code, update_existing=update_existing, model=model
@@ -159,6 +181,7 @@ def translate(input, model, language_code, update_existing, output):
     default=True,
     help="If true, the translation status is changed to CANDIDATE if a source value has changed.",
 )
+@drop_unknown_column_option
 @sort_table_option
 @output_option
 def prepare_translation(
@@ -171,10 +194,23 @@ def prepare_translation(
     output_not_translated,
     include_not_translated,
     update_translation_status,
+    drop_unknown_columns,
     sort_tables,
     output,
 ):
-    """Translate ontology fields based on the specified language code."""
+    """Prepare a babelon TSV file based on an ontology.
+
+    Example:
+        babelon prepare-translation my.babelon.tsv \
+        --oak-adapter pronto:myont.obo \
+        --language-code de \
+        --field rdfs:label --field IAO:0000115 \
+        --output-source-changed tests/tmp/example-source-changed.babelon.tsv \
+        --output-not-translated tests/tmp/example-not-translated.babelon.tsv \
+        --include-not-translated false \
+        --update-translation-status true \
+        -o my.babelon-preprocessed.tsv
+    """  # noqa: DAR101
     ontology = get_adapter(oak_adapter)
     if input:
         df_babelon = pd.read_csv(input, sep="\t")
@@ -198,17 +234,25 @@ def prepare_translation(
             update_translation_status=update_translation_status,
         )
     )
-    if sort_tables:
-        df_output_profile = sort_babelon_tsv(df_output_profile)
-    df_output_profile.to_csv(output, sep="\t", index=False)
-    if output_source_changed:
+    _sort_drop_write_df(df_output_profile, drop_unknown_columns, sort_tables, output)
+    _sort_drop_write_df(
+        df_output_source_changed, drop_unknown_columns, sort_tables, output_source_changed
+    )
+    _sort_drop_write_df(
+        df_output_not_translated, drop_unknown_columns, sort_tables, output_not_translated
+    )
+
+
+def _sort_drop_write_df(
+    df: pd.DataFrame, drop_unknown_cols: bool, sort_tables: bool, output_path: str
+):
+    if output_path:
+        df_out = df.copy()
         if sort_tables:
-            df_output_source_changed = sort_babelon_tsv(df_output_source_changed)
-        df_output_source_changed.to_csv(output_source_changed, sep="\t", index=False)
-    if output_not_translated:
-        if sort_tables:
-            df_output_not_translated = sort_babelon_tsv(df_output_not_translated)
-        df_output_not_translated.to_csv(output_not_translated, sep="\t", index=False)
+            df_out = sort_babelon(df_out)
+        if drop_unknown_cols:
+            df_out = drop_unknown_columns_babelon(df_out)
+        df_out.to_csv(output_path, sep="\t", index=False)
 
 
 @click.command("statistics")
@@ -229,10 +273,16 @@ def statistics_translation_profile_command(
 
 @click.command("merge")
 @multiple_inputs_argument
+@drop_unknown_column_option
 @sort_table_option
 @output_option
-def merge(inputs, sort_tables, output):
-    """Merge multiple babelon files into one."""
+def merge(inputs, sort_tables, drop_unknown_columns, output):
+    """Merge multiple babelon TSV files into one.
+
+    Example:
+        babelon merge my1.babelon.tsv my2.babelon.tsv -o my.babelon-merged.tsv \
+          --drop-unknown-columns true --sort-tables true
+    """  # noqa: DAR101
     df = pd.read_csv(inputs[0], sep="\t")
 
     # Loop through the rest of the input files and concatenate each DataFrame
@@ -241,7 +291,10 @@ def merge(inputs, sort_tables, output):
         df = pd.concat([df, df_temp], axis=0, ignore_index=True)
 
     if sort_tables:
-        df = sort_babelon_tsv(df)
+        df = sort_babelon(df)
+
+    if drop_unknown_columns:
+        df = drop_unknown_columns_babelon(df)
 
     if output:
         df.to_csv(output, sep="\t", index=False)
@@ -252,7 +305,11 @@ def merge(inputs, sort_tables, output):
 @click.command("example")
 @input_argument
 def example(input):
-    """Generate an example babelon file for user."""
+    """Generate an example babelon file for the user.
+
+    Example:
+        babelon example my-example.babelon.tsv
+    """  # noqa: DAR101
     data = [
         {
             "source_language": "en",
