@@ -2,6 +2,8 @@
 
 import logging
 import os
+import re
+import string
 from typing import Dict, List
 
 import llm
@@ -222,8 +224,11 @@ def prepare_translation_for_ontology(
                     f"{predicate_id} value for {subject_id} is ambiguous,"
                     f"picking first one ({term_metadata[predicate_id]})."
                 )
-            if ontology_value != source_value:
+            if not _is_equivalent_string(ontology_value, source_value):
+                # If the translated string and the ontology literal are not equivalent, change status:
                 translation_value = row["translation_value"]
+                # Set the ontology value as the source value, so that the translation profiles are consistent
+                # With what is in the ontology
                 df_augmented.at[index, "source_value"] = ontology_value
                 new_translation_status = (
                     "CANDIDATE" if translation_value != "NOT_TRANSLATED" else "NOT_TRANSLATED"
@@ -235,6 +240,10 @@ def prepare_translation_for_ontology(
                     f"but {ontology_value} in the ontology."
                 )
                 output_source_changed_data.append(row)
+            else:
+                # Because `_is_equivalent_string` is a bit forgiving, we still want to replace the source value,
+                # so that the translation profiles are consistent
+                df_augmented.at[index, "source_value"] = ontology_value
         else:
             logging.warning(
                 f"{predicate_id} value for {subject_id} does not exist in ontology. "
@@ -283,6 +292,22 @@ def prepare_translation_for_ontology(
         df_output_source_changed = _create_default_dataframe()
 
     return df_augmented, df_output_source_changed, df_output_not_translated
+
+
+def _is_equivalent_string(string1, string2):
+    """Compare two strings after they are whitespace, punctuation and case normalised."""
+
+    def _normalize(s):
+        # Remove punctuation
+        s = s.translate(str.maketrans("", "", string.punctuation))
+        # Normalize whitespace and convert to lowercase
+        return re.sub(r"\s+", " ", s).strip().lower()
+
+    normalized_string1 = _normalize(string1)
+    normalized_string2 = _normalize(string2)
+
+    # Compare the normalized strings
+    return normalized_string1 == normalized_string2
 
 
 def _get_metadata_for_term(ontology, term):
