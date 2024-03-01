@@ -87,10 +87,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-babelon.utils">babelon.utils module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.BabelonDataFrame"><code class="docutils literal notranslate"><span class="pre">BabelonDataFrame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#babelon.utils.drop_unknown_columns_babelon"><code class="docutils literal notranslate"><span class="pre">drop_unknown_columns_babelon()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.get_converter"><code class="docutils literal notranslate"><span class="pre">get_converter()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.parse_babelon"><code class="docutils literal notranslate"><span class="pre">parse_babelon()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#babelon.utils.raise_for_bad_path"><code class="docutils literal notranslate"><span class="pre">raise_for_bad_path()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#babelon.utils.sort_babelon_tsv"><code class="docutils literal notranslate"><span class="pre">sort_babelon_tsv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#babelon.utils.sort_babelon"><code class="docutils literal notranslate"><span class="pre">sort_babelon()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-babelon">Module contents</a></li>
@@ -135,13 +136,14 @@
 <p>babelon.io.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.babelon_io.convert_file">
-<span class="sig-prename descclassname"><span class="pre">babelon.babelon_io.</span></span><span class="sig-name descname"><span class="pre">convert_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.babelon_io.convert_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">babelon.babelon_io.</span></span><span class="sig-name descname"><span class="pre">convert_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_unknown_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.babelon_io.convert_file" title="Link to this definition"></a></dt>
 <dd><p>Convert a file from one format to another.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The path to the input babelon tsv file</p></li>
 <li><p><strong>output</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></span>) – The path to the output file. If none is given, will default to using stdout.</p></li>
+<li><p><strong>drop_unknown_columns</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If true, columns unknown to Babelon format are dropped prior to processing.</p></li>
 <li><p><strong>output_format</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The format to which the SSSOM TSV should be converted.</p></li>
 </ul>
 </dd>
@@ -825,6 +827,12 @@ data (pd.DataFrame): Translation groupped data</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="babelon.utils.drop_unknown_columns_babelon">
+<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">drop_unknown_columns_babelon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.drop_unknown_columns_babelon" title="Link to this definition"></a></dt>
+<dd><p>Sort a babelon Dataframe according to key columns.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.get_converter">
 <span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">get_converter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.get_converter" title="Link to this definition"></a></dt>
 <dd><p>Get default SSSOM converter.</p>
@@ -832,7 +840,7 @@ data (pd.DataFrame): Translation groupped data</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.parse_babelon">
-<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">parse_babelon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.parse_babelon" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">parse_babelon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_unknown_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.parse_babelon" title="Link to this definition"></a></dt>
 <dd><p>Parse a babelon TSV file into a BabelonDataFrame.</p>
 </dd></dl>
 
@@ -854,8 +862,8 @@ data (pd.DataFrame): Translation groupped data</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="babelon.utils.sort_babelon_tsv">
-<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">sort_babelon_tsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.sort_babelon_tsv" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="babelon.utils.sort_babelon">
+<span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">sort_babelon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.sort_babelon" title="Link to this definition"></a></dt>
 <dd><p>Sort a babelon Dataframe according to key columns.</p>
 </dd></dl>
 
