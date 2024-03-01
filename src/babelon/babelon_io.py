@@ -41,16 +41,20 @@ def parse_file(input_path: str, output_path: TextIO) -> None:
 def convert_file(
     input_path: str,
     output: TextIO,
+    drop_unknown_columns: bool = True,
     output_format: Optional[str] = None,
 ) -> None:
     """Convert a file from one format to another.
 
     :param input_path: The path to the input babelon tsv file
     :param output: The path to the output file. If none is given, will default to using stdout.
+    :param drop_unknown_columns: If true, columns unknown to Babelon format are dropped prior to processing.
     :param output_format: The format to which the SSSOM TSV should be converted.
     """
     raise_for_bad_path(input_path)
-    babelon_df: BabelonDataFrame = parse_babelon(input_path)
+    babelon_df: BabelonDataFrame = parse_babelon(
+        input_path, drop_unknown_columns=drop_unknown_columns
+    )
     write_func, fileformat = _get_writer_function(output_format=output_format, output=output)
 
     # We need to silence logging for the LinkML parts as it is way too verbose

@@ -2,7 +2,7 @@
 
 import logging
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from functools import lru_cache
 from pathlib import Path
 from string import punctuation
@@ -14,9 +14,11 @@ from curies import Converter
 from sssom.util import get_converter as get_sssom_converter
 
 
-def parse_babelon(input_path):
+def parse_babelon(input_path, drop_unknown_columns: bool = False):
     """Parse a babelon TSV file into a BabelonDataFrame."""
     df = pd.read_csv(input_path, sep="\t")
+    if drop_unknown_columns:
+        df = drop_unknown_columns_babelon(df)
     return BabelonDataFrame(df=df)
 
 
@@ -97,8 +99,16 @@ def _get_file_extension(file: Union[str, Path, TextIO]) -> str:
     return "tsv"
 
 
-def sort_babelon_tsv(df: pd.DataFrame):
+def sort_babelon(df: pd.DataFrame):
     """Sort a babelon Dataframe according to key columns."""
     return df.sort_values(
         by=["subject_id", "predicate_id", "source_value"], ascending=[True, True, True]
     )
+
+
+def drop_unknown_columns_babelon(df: pd.DataFrame):
+    """Sort a babelon Dataframe according to key columns."""
+    from babelon.dataclasses import Translation
+
+    profile_fields = [f.name for f in fields(Translation)]
+    return df[df.columns.intersection(profile_fields)]
