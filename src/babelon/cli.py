@@ -33,6 +33,12 @@ output_option = click.option(
     type=click.File(mode="w"),
     default=sys.stdout,
 )
+sort_table_option = click.option(
+    "--sort-tables",
+    type=bool,
+    default=True,
+    help="If true, all output tables are sorted before written.",
+)
 output_format_option = click.option(
     "--output-format",
     "-t",
@@ -153,12 +159,7 @@ def translate(input, model, language_code, update_existing, output):
     default=True,
     help="If true, the translation status is changed to CANDIDATE if a source value has changed.",
 )
-@click.option(
-    "--sort-tables",
-    type=bool,
-    default=True,
-    help="If true, all output tables are sorted before written.",
-)
+@sort_table_option
 @output_option
 def prepare_translation(
     input,
@@ -228,8 +229,9 @@ def statistics_translation_profile_command(
 
 @click.command("merge")
 @multiple_inputs_argument
+@sort_table_option
 @output_option
-def merge(inputs, output):
+def merge(inputs, sort_tables, output):
     """Merge multiple babelon files into one."""
     df = pd.read_csv(inputs[0], sep="\t")
 
@@ -237,6 +239,9 @@ def merge(inputs, output):
     for input_file in inputs[1:]:
         df_temp = pd.read_csv(input_file, sep="\t")
         df = pd.concat([df, df_temp], axis=0, ignore_index=True)
+
+    if sort_tables:
+        df = sort_babelon_tsv(df)
 
     if output:
         df.to_csv(output, sep="\t", index=False)
