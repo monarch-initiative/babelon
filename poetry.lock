@@ -427,6 +427,17 @@ rdflib = ["rdflib"]
 tests = ["coverage", "pytest"]
 
 [[package]]
+name = "defusedxml"
+version = "0.7.1"
+description = "XML bomb protection for Python stdlib modules"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+files = [
+    {file = "defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"},
+    {file = "defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"},
+]
+
+[[package]]
 name = "deprecated"
 version = "1.2.14"
 description = "Python @deprecated decorator to deprecate old python classes, functions or methods."
@@ -1995,13 +2006,13 @@ files = [
 
 [[package]]
 name = "oaklib"
-version = "0.5.33"
+version = "0.6.5"
 description = "Ontology Access Kit: Python library for common ontology operations over a variety of backends"
 optional = false
 python-versions = "<4.0.0,>=3.9"
 files = [
-    {file = "oaklib-0.5.33-py3-none-any.whl", hash = "sha256:c24a566277213b69fb8e78c041518e601f1587b0f556d60acdd23100235845f3"},
-    {file = "oaklib-0.5.33.tar.gz", hash = "sha256:f3b4724583f6e4c572480c955f79182bfa30edca96b528b82102443b17c317f8"},
+    {file = "oaklib-0.6.5-py3-none-any.whl", hash = "sha256:9f5d66193133e639ddef4ed1819accf9f96560c86017030a4cf1f2eba6de2396"},
+    {file = "oaklib-0.6.5.tar.gz", hash = "sha256:ba3036772dc9a95ecf1272e32e7e99f4954a1d7fd1fd0a94ccfca656c0ea32ca"},
 ]
 
 [package.dependencies]
@@ -2010,11 +2021,12 @@ appdirs = ">=1.4.4"
 class-resolver = ">=0.4.2"
 click = "*"
 curies = ">=0.6.6"
+defusedxml = ">=0.7.1,<0.8.0"
 eutils = ">=0.6.0"
 funowl = ">=0.2.0"
 jsonlines = ">=4.0.0,<5.0.0"
 kgcl-rdflib = "0.5.0"
-kgcl-schema = ">=0.6.5,<0.7.0"
+kgcl-schema = ">=0.6.8,<0.7.0"
 linkml-renderer = ">=0.3.0"
 linkml-runtime = ">=1.5.3"
 ndex2 = ">=3.5.0,<4.0.0"
@@ -2036,7 +2048,7 @@ tenacity = ">=8.2.3,<9.0.0"
 
 [package.extras]
 gilda = ["gilda (>=1.0.0)", "urllib3 (<2)"]
-llm = ["aiohttp", "llm"]
+llm = ["aiohttp", "html2text", "llm"]
 semsimian = ["semsimian (>=0.2.15)"]
 
 [[package]]
@@ -3756,13 +3768,13 @@ tui = ["trogon"]
 
 [[package]]
 name = "sssom"
-version = "0.4.7"
+version = "0.4.8"
 description = "Operations on SSSOM mapping tables"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "sssom-0.4.7-py3-none-any.whl", hash = "sha256:93118cafec7f35948f3bdb17f21612cf94162a500c8f569c8a8564de36e3c040"},
-    {file = "sssom-0.4.7.tar.gz", hash = "sha256:c2f8bf418f159f778e4564cdec2a859f2bfae5891a33e0b67b2d8bb56c6221b3"},
+    {file = "sssom-0.4.8-py3-none-any.whl", hash = "sha256:1b41f5aedb61e8fc4c4cef581da3fd64a3b8bbfaec46062a00a0105ab253d93b"},
+    {file = "sssom-0.4.8.tar.gz", hash = "sha256:8a316d836e655f86c8907bbb5916129d59cbf3d189e9dd9c872d0732f80ad89d"},
 ]
 
 [package.dependencies]
@@ -4168,4 +4180,4 @@ docs = []
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "36b49dc71938add637e8d48a560b4417fc97441be93d6f502ca3bbec98f26ecb"
+content-hash = "38efccc5197f1adf7eefae6256f6299037507a6e2302c9c2095af93e5a48d226"
