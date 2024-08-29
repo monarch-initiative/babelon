@@ -7,6 +7,8 @@ from functools import lru_cache
 from pathlib import Path
 from string import punctuation
 from typing import TextIO, Union
+from xml.etree.ElementTree import Element, SubElement, tostring, fromstring
+from xml.dom import minidom
 
 import pandas as pd
 import validators
@@ -112,3 +114,58 @@ def drop_unknown_columns_babelon(df: pd.DataFrame):
 
     profile_fields = [f.name for f in fields(Translation)]
     return df[df.columns.intersection(profile_fields)]
+
+
+def assemble_xliff_file(translation_units):
+    xliff = Element("xliff", version="1.2")
+    file = SubElement(xliff, "file", {"original": "HPO_classes", "source-language": "en-US"})
+    body = SubElement(file, "body")
+
+    for unit in translation_units:
+        unit_xml = unit.toxml()
+        unit_element = fromstring(unit_xml)
+        body.append(unit_element)
+
+    raw_string = tostring(xliff, "utf-8")
+    reparsed = minidom.parseString(raw_string)
+
+    return reparsed.toprettyxml(indent="  ")
+
+
+def assemble_xliff_translation_unit(identifier, id_normalised, label, element, value):
+    if not label:
+        label = "no label"
+    trans_unit = Element("trans-unit", id=f"{id_normalised}_{element}")
+    source = SubElement(trans_unit, "source", {"xml:lang": "en"})
+    source.text = value.strip().rstrip(".")
+    note = SubElement(trans_unit, "note")
+    note.text = f"{element} of {identifier} ({label})"
+    raw = tostring(trans_unit, "utf-8")
+    reparsed = minidom.parseString(raw)
+    return reparsed
+
+
+def generate_translation_units(identifier, label, definition, synonyms):
+    elements = list()
+
+    id_normalised = identifier.replace(":", "_")
+
+    if label:
+        reparsed_label = assemble_xliff_translation_unit(
+            identifier, id_normalised, label, "label", label
+        )
+        elements.append(reparsed_label)
+
+    if definition:
+        reparsed_def = assemble_xliff_translation_unit(
+            identifier, id_normalised, label, "definition", definition
+        )
+        elements.append(reparsed_def)
+
+    if synonyms:
+        synonyms_normalised = " ".join([f"#{synonym}" for synonym in synonyms])
+        reparsed_synonyms = assemble_xliff_translation_unit(
+            identifier, id_normalised, label, "synonyms", synonyms_normalised
+        )
+        elements.append(reparsed_synonyms)
+    return elements
