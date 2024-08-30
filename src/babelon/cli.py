@@ -9,11 +9,17 @@ from typing import TextIO
 import click
 import pandas as pd
 from oaklib import get_adapter
+from oaklib.datamodels.vocabulary import IS_A
 
 from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
-from babelon.utils import drop_unknown_columns_babelon, sort_babelon
+from babelon.utils import (
+    drop_unknown_columns_babelon,
+    sort_babelon,
+    generate_translation_units,
+    assemble_xliff_file,
+)
 
 info_log = logging.getLogger()
 # Click input options common across commands
@@ -89,7 +95,7 @@ def babelon(verbose=1, quiet=False) -> None:
 # @input_format_option
 @output_option
 def parse(input, output):
-    """Parse a file in one of the supported formats (such as obographs) into an Babelon TSV file."""
+    """Parse a file in one of the supported formats (such as obographs) into a Babelon TSV file."""
     parse_file(input_path=input, output_path=output)
 
 
@@ -302,6 +308,37 @@ def merge(inputs, sort_tables, drop_unknown_columns, output):
         click.echo(df.to_string(index=False))
 
 
+@click.command("prepare-ontology-for-crowdin")
+@click.option("--oak-adapter", type=str, help="Oak handle string.")
+@click.option(
+    "--top-level-term",
+    multiple=True,
+    type=str,
+    help="Top level term in ontology of which to translate all descendants.",
+)
+@output_option
+def prepare_ontology_for_crowdin(oak_adapter, top_level_term, output):
+    """Merge multiple babelon TSV files into one.
+
+    Example:
+        babelon prepare-ontology-for-crowdin --oak-adapter simpleobo:hp-base.obo --top-level-term HP:0000001 -o hp-translation.xliff
+    """  # noqa: DAR101
+    adapter = get_adapter(oak_adapter)
+    translation_units = list()
+
+    for top_level_term in top_level_term:
+        for term in adapter.descendants(top_level_term, predicates=[IS_A]):
+            label = adapter.label(term)
+            definition = adapter.definition(term)
+            alias_map = adapter.entity_alias_map(term)
+            synonyms = [v for p, vl in alias_map.items() if "oio:hasExactSynonym" == p for v in vl]
+            xml = generate_translation_units(term, label, definition, synonyms)
+            translation_units.extend(xml)
+
+    xliff = assemble_xliff_file(translation_units)
+    output.write(xliff)
+
+
 @click.command("example")
 @input_argument
 def example(input):
@@ -341,6 +378,7 @@ def example(input):
 babelon.add_command(example)
 babelon.add_command(merge)
 babelon.add_command(parse)
+babelon.add_command(prepare_ontology_for_crowdin)
 babelon.add_command(prepare_translation)
 babelon.add_command(translate)
 babelon.add_command(convert)
