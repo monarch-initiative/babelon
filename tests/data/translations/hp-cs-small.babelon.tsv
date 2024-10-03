@@ -1,0 +1,4 @@
+source_language	translation_language	subject_id	predicate_id	source_value	translation_value	translation_status
+en	cs	HP:0032768	rdfs:label	Focal aware autonomic seizure with pupillary dilation/constriction	Fokální autonomní záchvat s dilatací/konstrikcí zornic bez poruchy vědomí	CANDIDATE
+en	cs	HP:0032768	IAO:0000115	A focal autonomic seizure with pupillary dilation / constriction characterized by retained awareness throughout the seizure	Fokální autonomní záchvat s dilatací/konstrikcí zornic charakterizovaný zachovaným vědomím po celou dobu záchvatu.	CANDIDATE
+en	cs	HP:0000001	rdfs:label	All	Všo	OFFICIAL

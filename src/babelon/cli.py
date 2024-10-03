@@ -281,8 +281,14 @@ def statistics_translation_profile_command(
 @multiple_inputs_argument
 @drop_unknown_column_option
 @sort_table_option
+@click.option(
+    "--update-translations",
+    type=bool,
+    default=False,
+    help="If true, duplicate translations for the same term and property are merged. Translated values provided by a later babelon file are considered newer and will take precedence.",
+)
 @output_option
-def merge(inputs, sort_tables, drop_unknown_columns, output):
+def merge(inputs, sort_tables, drop_unknown_columns, update_translations, output):
     """Merge multiple babelon TSV files into one.
 
     Example:
@@ -294,7 +300,20 @@ def merge(inputs, sort_tables, drop_unknown_columns, output):
     # Loop through the rest of the input files and concatenate each DataFrame
     for input_file in inputs[1:]:
         df_temp = pd.read_csv(input_file, sep="\t")
-        df = pd.concat([df, df_temp], axis=0, ignore_index=True)
+        if update_translations:
+            merge_keys = ['source_language', 'translation_language', 'subject_id', 'predicate_id']
+        
+            # Create a temporary key for merging
+            df['temp_key'] = df[merge_keys].apply(lambda x: '_'.join(x.astype(str)), axis=1)
+            df_temp['temp_key'] = df_temp[merge_keys].apply(lambda x: '_'.join(x.astype(str)), axis=1)
+            
+            # Remove rows from df that exist in df_temp (based on the merge keys)
+            df = df[~df['temp_key'].isin(df_temp['temp_key'])]
+            
+            df = pd.concat([df, df_temp], axis=0, ignore_index=True)
+            df = df.drop('temp_key', axis=1)
+        else:
+            df = pd.concat([df, df_temp], axis=0, ignore_index=True)
 
     if sort_tables:
         df = sort_babelon(df)
