@@ -301,17 +301,19 @@ def merge(inputs, sort_tables, drop_unknown_columns, update_translations, output
     for input_file in inputs[1:]:
         df_temp = pd.read_csv(input_file, sep="\t")
         if update_translations:
-            merge_keys = ['source_language', 'translation_language', 'subject_id', 'predicate_id']
-        
+            merge_keys = ["source_language", "translation_language", "subject_id", "predicate_id"]
+
             # Create a temporary key for merging
-            df['temp_key'] = df[merge_keys].apply(lambda x: '_'.join(x.astype(str)), axis=1)
-            df_temp['temp_key'] = df_temp[merge_keys].apply(lambda x: '_'.join(x.astype(str)), axis=1)
-            
+            df["temp_key"] = df[merge_keys].apply(lambda x: "_".join(x.astype(str)), axis=1)
+            df_temp["temp_key"] = df_temp[merge_keys].apply(
+                lambda x: "_".join(x.astype(str)), axis=1
+            )
+
             # Remove rows from df that exist in df_temp (based on the merge keys)
-            df = df[~df['temp_key'].isin(df_temp['temp_key'])]
-            
+            df = df[~df["temp_key"].isin(df_temp["temp_key"])]
+
             df = pd.concat([df, df_temp], axis=0, ignore_index=True)
-            df = df.drop('temp_key', axis=1)
+            df = df.drop("temp_key", axis=1)
         else:
             df = pd.concat([df, df_temp], axis=0, ignore_index=True)
 
