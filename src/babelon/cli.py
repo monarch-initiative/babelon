@@ -15,10 +15,10 @@ from babelon.babelon_io import convert_file, parse_file
 from babelon.translate import prepare_translation_for_ontology, translate_profile
 from babelon.translation_profile import statistics_translation_profile
 from babelon.utils import (
-    drop_unknown_columns_babelon,
-    sort_babelon,
-    generate_translation_units,
     assemble_xliff_file,
+    drop_unknown_columns_babelon,
+    generate_translation_units,
+    sort_babelon,
 )
 
 info_log = logging.getLogger()
@@ -285,7 +285,8 @@ def statistics_translation_profile_command(
     "--update-translations",
     type=bool,
     default=False,
-    help="If true, duplicate translations for the same term and property are merged. Translated values provided by a later babelon file are considered newer and will take precedence.",
+    help="""If true, duplicate translations for the same term and property are merged.
+    "Translated values provided by a later babelon file are considered newer and will take precedence.""",
 )
 @output_option
 def merge(inputs, sort_tables, drop_unknown_columns, update_translations, output):
@@ -342,13 +343,15 @@ def prepare_ontology_for_crowdin(oak_adapter, top_level_term, output):
     """Merge multiple babelon TSV files into one.
 
     Example:
-        babelon prepare-ontology-for-crowdin --oak-adapter simpleobo:hp-base.obo --top-level-term HP:0000001 -o hp-translation.xliff
+        babelon prepare-ontology-for-crowdin
+        --oak-adapter simpleobo:hp-base.obo
+        --top-level-term HP:0000001 -o hp-translation.xliff
     """  # noqa: DAR101
     adapter = get_adapter(oak_adapter)
     translation_units = list()
 
-    for top_level_term in top_level_term:
-        for term in adapter.descendants(top_level_term, predicates=[IS_A]):
+    for t in top_level_term:
+        for term in adapter.descendants(t, predicates=[IS_A]):
             label = adapter.label(term)
             definition = adapter.definition(term)
             alias_map = adapter.entity_alias_map(term)

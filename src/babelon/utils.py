@@ -7,8 +7,8 @@ from functools import lru_cache
 from pathlib import Path
 from string import punctuation
 from typing import TextIO, Union
-from xml.etree.ElementTree import Element, SubElement, tostring, fromstring
 from xml.dom import minidom
+from xml.etree.ElementTree import Element, SubElement, fromstring, tostring
 
 import pandas as pd
 import validators
