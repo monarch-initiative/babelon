@@ -1,7 +1,0 @@
-babelon
-=======
-
-.. toctree::
-   :maxdepth: 4
-
-   babelon
