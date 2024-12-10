@@ -23,6 +23,7 @@ enums:
       DOMAIN_STUDENT: "The translator is a student of the domain of the ontology, for example a student of anatomy, when translating terms from an anatomy ontology such as Uberon."
       PROFESSIONAL_TRANSLATOR: "The translator is a professional translator by trade."
       ALGORITHM: "The translator is a machine, not a person."
+      TECHNICAL_SPECIALIST: "The translator is a technical specialist, such as a software engineer, a bioinformatician or a data scientist."
   translation_status_enum:
     permissible_values:
       NOT_TRANSLATED: "This translation is incomplete."
