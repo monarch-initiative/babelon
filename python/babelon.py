@@ -1,5 +1,5 @@
 # Auto generated from babelon.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-02-21T13:44:30
+# Generation date: 2024-12-11T18:30:55
 # Schema: babelon
 #
 # id: https://w3id.org/babelon
@@ -8,19 +8,55 @@
 
 import dataclasses
 import re
-from jsonasobj2 import JsonObj, as_dict
-from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
-from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
+from datetime import (
+    date,
+    datetime,
+    time
+)
+from typing import (
+    Any,
+    ClassVar,
+    Dict,
+    List,
+    Optional,
+    Union
+)
 
-from linkml_runtime.utils.slot import Slot
-from linkml_runtime.utils.metamodelcore import empty_list, empty_dict, bnode
-from linkml_runtime.utils.yamlutils import YAMLRoot, extended_str, extended_float, extended_int
-from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
-from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
-from linkml_runtime.utils.enumerations import EnumDefinitionImpl
-from rdflib import Namespace, URIRef
+from jsonasobj2 import (
+    JsonObj,
+    as_dict
+)
+from linkml_runtime.linkml_model.meta import (
+    EnumDefinition,
+    PermissibleValue,
+    PvFormulaOptions
+)
 from linkml_runtime.utils.curienamespace import CurieNamespace
+from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
+from linkml_runtime.utils.enumerations import EnumDefinitionImpl
+from linkml_runtime.utils.formatutils import (
+    camelcase,
+    sfx,
+    underscore
+)
+from linkml_runtime.utils.metamodelcore import (
+    bnode,
+    empty_dict,
+    empty_list
+)
+from linkml_runtime.utils.slot import Slot
+from linkml_runtime.utils.yamlutils import (
+    YAMLRoot,
+    extended_float,
+    extended_int,
+    extended_str
+)
+from rdflib import (
+    Namespace,
+    URIRef
+)
+
 from linkml_runtime.linkml_model.types import Double, String, Uriorcurie
 from linkml_runtime.utils.metamodelcore import URIorCURIE
 
@@ -55,7 +91,7 @@ class EntityReference(Uriorcurie):
 
 
 
-@dataclass
+@dataclass(repr=False)
 class Translation(YAMLRoot):
     """
     Represents and individual translation
@@ -82,6 +118,7 @@ class Translation(YAMLRoot):
     translation_precision: Optional[Union[str, "TranslationPrecisionEnum"]] = None
     translation_status: Optional[Union[str, "TranslationStatusEnum"]] = None
     source: Optional[str] = None
+    comment: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.subject_id):
@@ -137,10 +174,13 @@ class Translation(YAMLRoot):
         if self.source is not None and not isinstance(self.source, str):
             self.source = str(self.source)
 
+        if self.comment is not None and not isinstance(self.comment, str):
+            self.comment = str(self.comment)
+
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Profile(YAMLRoot):
     """
     Represents a set of translation that together compose a language profile.
@@ -156,6 +196,7 @@ class Profile(YAMLRoot):
     translation_provider: Optional[str] = None
     profile_id: Optional[str] = None
     profile_version: Optional[str] = None
+    comment: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if not isinstance(self.translations, list):
@@ -170,6 +211,9 @@ class Profile(YAMLRoot):
 
         if self.profile_version is not None and not isinstance(self.profile_version, str):
             self.profile_version = str(self.profile_version)
+
+        if self.comment is not None and not isinstance(self.comment, str):
+            self.comment = str(self.comment)
 
         super().__post_init__(**kwargs)
 
@@ -192,6 +236,9 @@ class TranslatorExpertiseEnum(EnumDefinitionImpl):
     ALGORITHM = PermissibleValue(
         text="ALGORITHM",
         description="The translator is a machine, not a person.")
+    TECHNICAL_SPECIALIST = PermissibleValue(
+        text="TECHNICAL_SPECIALIST",
+        description="""The translator is a technical specialist, such as a software engineer, a bioinformatician or a data scientist.""")
 
     _defn = EnumDefinition(
         name="TranslatorExpertiseEnum",
@@ -311,6 +358,9 @@ slots.translation_status = Slot(uri=BABELON.translation_status, name="translatio
 
 slots.translations = Slot(uri=BABELON.translations, name="translations", curie=BABELON.curie('translations'),
                    model_uri=BABELON.translations, domain=None, range=Optional[Union[Union[dict, Translation], List[Union[dict, Translation]]]])
+
+slots.comment = Slot(uri=BABELON.comment, name="comment", curie=BABELON.curie('comment'),
+                   model_uri=BABELON.comment, domain=None, range=Optional[str])
 
 slots.translation_subject_id = Slot(uri=OWL.annotatedSource, name="translation_subject_id", curie=OWL.curie('annotatedSource'),
                    model_uri=BABELON.translation_subject_id, domain=Translation, range=Union[str, EntityReference])

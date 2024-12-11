@@ -13,37 +13,46 @@
 babelon:Profile a owl:Class ;
     rdfs:label "profile" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty babelon:profile_id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:translation_provider ],
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:profile_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom babelon:Translation ;
             owl:onProperty babelon:translations ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty babelon:profile_version ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:profile_version ],
+            owl:onProperty babelon:translation_provider ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty babelon:translations ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:profile_id ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty babelon:profile_version ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
             owl:onProperty babelon:translation_provider ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:comment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:comment ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty babelon:profile_id ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:profile_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:profile_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:comment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty babelon:translation_provider ] ;
     skos:definition "Represents a set of translation that together compose a language profile." ;
     skos:inScheme <https://w3id.org/babelon> .
@@ -51,140 +60,149 @@ babelon:Profile a owl:Class ;
 babelon:Translation a owl:Class ;
     rdfs:label "translation" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom rdfs:Resource ;
-            owl:onProperty babelon:predicate_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:translator ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty babelon:subject_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty babelon:source_language ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:source ],
-        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:translation_date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:source_version ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom babelon:TranslationStatusEnum ;
-            owl:onProperty babelon:translation_status ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translator ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_date ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_confidence ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:predicate_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty babelon:predicate_id ],
+            owl:onProperty babelon:source_language ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty babelon:translation_language ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty babelon:source_language ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translator ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty babelon:predicate_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdfs:Resource ;
             owl:onProperty babelon:subject_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_language ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty babelon:translator_expertise ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty babelon:source ],
+            owl:onProperty babelon:translation_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_precision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:source_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdfs:Resource ;
+            owl:onProperty babelon:predicate_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:subject_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty babelon:subject_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_precision ],
         [ a owl:Restriction ;
             owl:allValuesFrom babelon:TranslationPrecisionEnum ;
             owl:onProperty babelon:translation_precision ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translator_expertise ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:translator ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom rdfs:Resource ;
-            owl:onProperty babelon:subject_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:source_version ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_confidence ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_value ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom babelon:TranslationStatusEnum ;
             owl:onProperty babelon:translation_status ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_language ],
+            owl:onProperty babelon:comment ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:source ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom babelon:TranslatorExpertiseEnum ;
-            owl:onProperty babelon:translator_expertise ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_type ],
+            owl:onProperty babelon:translation_value ],
         [ a owl:Restriction ;
             owl:allValuesFrom babelon:TranslationTypeEnum ;
             owl:onProperty babelon:translation_type ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:source_language ],
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:predicate_id ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty babelon:source_version ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_status ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty babelon:source_value ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_precision ],
+            owl:onProperty babelon:translation_language ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom babelon:TranslatorExpertiseEnum ;
+            owl:onProperty babelon:translator_expertise ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:comment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:translation_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:source_value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translator_expertise ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty babelon:source_value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_confidence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty babelon:translator ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:source_version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translation_confidence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty babelon:translation_value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:translator ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:double ;
             owl:onProperty babelon:translation_confidence ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty babelon:source_language ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty babelon:source_value ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:translation_value ],
+            owl:minCardinality 0 ;
+            owl:onProperty babelon:source ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty babelon:translation_value ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_language ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty babelon:translation_precision ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty babelon:source_value ] ;
+            owl:onProperty babelon:comment ] ;
     skos:definition "Represents and individual translation" ;
     skos:exactMatch owl:Axiom ;
     skos:inScheme <https://w3id.org/babelon> .
@@ -251,6 +269,10 @@ babelon:Translation a owl:Class ;
 
 <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR> a owl:Class ;
     rdfs:label "PROFESSIONAL_TRANSLATOR" ;
+    rdfs:subClassOf babelon:TranslatorExpertiseEnum .
+
+<https://w3id.org/babelon/TranslatorExpertiseEnum#TECHNICAL_SPECIALIST> a owl:Class ;
+    rdfs:label "TECHNICAL_SPECIALIST" ;
     rdfs:subClassOf babelon:TranslatorExpertiseEnum .
 
 babelon:translations a owl:ObjectProperty ;
@@ -391,12 +413,19 @@ babelon:TranslationStatusEnum a owl:Class ;
         <https://w3id.org/babelon/TranslationStatusEnum#OFFICIAL>,
         <https://w3id.org/babelon/TranslationStatusEnum#UNDER_REVIEW> .
 
+babelon:comment a owl:DatatypeProperty ;
+    rdfs:label "comment" ;
+    rdfs:range xsd:string ;
+    skos:definition "A comment about this translation." ;
+    skos:inScheme <https://w3id.org/babelon> .
+
 babelon:TranslatorExpertiseEnum a owl:Class ;
-    owl:unionOf ( <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_EXPERT> <https://w3id.org/babelon/TranslatorExpertiseEnum#LAYPERSON> <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_STUDENT> <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR> <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM> ) ;
+    owl:unionOf ( <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_EXPERT> <https://w3id.org/babelon/TranslatorExpertiseEnum#LAYPERSON> <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_STUDENT> <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR> <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM> <https://w3id.org/babelon/TranslatorExpertiseEnum#TECHNICAL_SPECIALIST> ) ;
     linkml:permissible_values <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM>,
         <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_EXPERT>,
         <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_STUDENT>,
         <https://w3id.org/babelon/TranslatorExpertiseEnum#LAYPERSON>,
-        <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR> .
+        <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR>,
+        <https://w3id.org/babelon/TranslatorExpertiseEnum#TECHNICAL_SPECIALIST> .
 
 
