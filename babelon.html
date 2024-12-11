@@ -8,13 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babelon package &mdash; babelon 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=4621528c"></script>
-      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -548,6 +548,11 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 <span class="sig-name descname"><span class="pre">PROFESSIONAL_TRANSLATOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PermissibleValue({</span>&#160;&#160; <span class="pre">'text':</span> <span class="pre">'PROFESSIONAL_TRANSLATOR',</span>&#160;&#160; <span class="pre">'description':</span> <span class="pre">'The</span> <span class="pre">translator</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">professional</span> <span class="pre">translator</span> <span class="pre">by</span> <span class="pre">trade.'</span> <span class="pre">})</span></em><a class="headerlink" href="#babelon.dataclasses.TranslatorExpertiseEnum.PROFESSIONAL_TRANSLATOR" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="babelon.dataclasses.TranslatorExpertiseEnum.TECHNICAL_SPECIALIST">
+<span class="sig-name descname"><span class="pre">TECHNICAL_SPECIALIST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PermissibleValue({</span>&#160;&#160; <span class="pre">'text':</span> <span class="pre">'TECHNICAL_SPECIALIST',</span>&#160;&#160; <span class="pre">'description':</span> <span class="pre">('The</span> <span class="pre">translator</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">technical</span> <span class="pre">specialist,</span> <span class="pre">such</span> <span class="pre">as</span> <span class="pre">a</span> <span class="pre">software</span> <span class="pre">engineer,</span> <span class="pre">a</span> <span class="pre">'</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">'bioinformatician</span> <span class="pre">or</span> <span class="pre">a</span> <span class="pre">data</span> <span class="pre">scientist.')</span> <span class="pre">})</span></em><a class="headerlink" href="#babelon.dataclasses.TranslatorExpertiseEnum.TECHNICAL_SPECIALIST" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -830,12 +835,14 @@ data (pd.DataFrame): Translation groupped data</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.assemble_xliff_file">
 <span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">assemble_xliff_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation_units</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.assemble_xliff_file" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Assemble a XLIFF file from translation units.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.assemble_xliff_translation_unit">
 <span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">assemble_xliff_translation_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_normalised</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.assemble_xliff_translation_unit" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Assemble a XLIFF translation unit.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.drop_unknown_columns_babelon">
@@ -846,7 +853,8 @@ data (pd.DataFrame): Translation groupped data</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.generate_translation_units">
 <span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">generate_translation_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">definition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synonyms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.generate_translation_units" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generate translation units from a Babelon record.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.utils.get_converter">
