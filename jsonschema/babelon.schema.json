@@ -4,23 +4,42 @@
             "additionalProperties": false,
             "description": "Represents a set of translation that together compose a language profile.",
             "properties": {
+                "comment": {
+                    "description": "A comment about this translation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "profile_id": {
                     "description": "The persistent identifier of the profile, for example http://w3id.org/hpo-international/french.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "profile_version": {
                     "description": "The version of the profile (e.g. 2.1, v2021-01-01).",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translation_provider": {
                     "description": "The entity, i.e. person or group, that provides and maintains the translation profile.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translations": {
                     "items": {
                         "$ref": "#/$defs/Translation"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Profile",
@@ -30,13 +49,23 @@
             "additionalProperties": false,
             "description": "Represents and individual translation",
             "properties": {
+                "comment": {
+                    "description": "A comment about this translation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "predicate_id": {
                     "description": "The predicate / annotation property used to relate the translated value at the source ontolgy. For example: rdfs:label, oio:exactSynonym, dc:description",
                     "type": "string"
                 },
                 "source": {
                     "description": "The persistent identifier of the source, for example http://purl.obolibrary.org/obo/hp.owl.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "source_language": {
                     "description": "The language code of the source value, for example en-GB (see http://www.lingoes.net/en/translator/langcode.htm).",
@@ -48,7 +77,10 @@
                 },
                 "source_version": {
                     "description": "The version of the source used for the translation, for example http://purl.obolibrary.org/obo/hp/releases/2021-04-13/hp.owl.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "subject_id": {
                     "description": "The id of the entity to which the source value belongs, i.e. the subject of the annotation, for example HP:0000001.",
@@ -56,15 +88,24 @@
                 },
                 "translation_confidence": {
                     "description": "A score between 0 and 1 to denote the degree of certainty the translator has with regards to the translation of the source value into the translation value, given a particular level of precision. For example, the translation may have precision \"narrow\" or \"broad\" rather than \"exact\", but the confidence that this is right may still be 100% (1.0).",
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "translation_date": {
                     "description": "The date the translation was performed.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translation_language": {
                     "description": "The language code of the translated value, for example fr (see http://www.lingoes.net/en/translator/langcode.htm).",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translation_precision": {
                     "$ref": "#/$defs/TranslationPrecisionEnum",
@@ -80,11 +121,17 @@
                 },
                 "translation_value": {
                     "description": "The translation of the source value int the translation language. For example the french name of a disease.",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translator": {
                     "description": "The entity that performed the translation, for example https://orcid.org/0000-0002-1373-XXXX or https://translate.google.com/",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "translator_expertise": {
                     "$ref": "#/$defs/TranslatorExpertiseEnum",
@@ -139,7 +186,8 @@
                 "LAYPERSON",
                 "DOMAIN_STUDENT",
                 "PROFESSIONAL_TRANSLATOR",
-                "ALGORITHM"
+                "ALGORITHM",
+                "TECHNICAL_SPECIALIST"
             ],
             "title": "TranslatorExpertiseEnum",
             "type": "string"

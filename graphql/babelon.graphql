@@ -1,10 +1,44 @@
 # metamodel_version: 1.7.0
+enum TranslationPrecisionEnum
+  {
+    EXACT
+    BROADER
+    NARROWER
+    CLOSE
+  }
+
+enum TranslationStatusEnum
+  {
+    NOT_TRANSLATED
+    CANDIDATE
+    UNDER_REVIEW
+    OFFICIAL
+  }
+
+enum TranslationTypeEnum
+  {
+    TRANSLATION
+    AUGMENTATION
+    CORRECTION
+  }
+
+enum TranslatorExpertiseEnum
+  {
+    DOMAIN_EXPERT
+    LAYPERSON
+    DOMAIN_STUDENT
+    PROFESSIONAL_TRANSLATOR
+    ALGORITHM
+    TECHNICAL_SPECIALIST
+  }
+
 type Profile
   {
     translations: [Translation]
     translationProvider: String
     profileId: String
     profileVersion: String
+    comment: String
   }
 
 type Translation
@@ -24,6 +58,7 @@ type Translation
     translationPrecision: TranslationPrecisionEnum
     translationStatus: TranslationStatusEnum
     source: String
+    comment: String
   }
 
 

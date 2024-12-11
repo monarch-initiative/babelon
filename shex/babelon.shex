@@ -51,7 +51,8 @@ linkml:Sparqlpath xsd:string
     (  $<Profile_tes> (  <translations> @<Translation> * ;
           <translation_provider> @linkml:String ? ;
           <profile_id> @linkml:String ? ;
-          <profile_version> @linkml:String ?
+          <profile_version> @linkml:String ? ;
+          <comment> @linkml:String ?
        ) ;
        rdf:type [ <Profile> ] ?
     )
@@ -73,7 +74,8 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/babelon/TranslatorExpertiseEnum#LAYPERSON>
              <https://w3id.org/babelon/TranslatorExpertiseEnum#DOMAIN_STUDENT>
              <https://w3id.org/babelon/TranslatorExpertiseEnum#PROFESSIONAL_TRANSLATOR>
-             <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM> ] ? ;
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#ALGORITHM>
+             <https://w3id.org/babelon/TranslatorExpertiseEnum#TECHNICAL_SPECIALIST> ] ? ;
           <translation_date> @linkml:String ? ;
           <translation_confidence> @linkml:Double ? ;
           <translation_precision> [ <https://w3id.org/babelon/TranslationPrecisionEnum#EXACT>
@@ -84,11 +86,11 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/babelon/TranslationStatusEnum#CANDIDATE>
              <https://w3id.org/babelon/TranslationStatusEnum#UNDER_REVIEW>
              <https://w3id.org/babelon/TranslationStatusEnum#OFFICIAL> ] ? ;
-          <source> @linkml:String ?
+          <source> @linkml:String ? ;
+          <comment> @linkml:String ?
        ) ;
        rdf:type [ owl:Axiom ] ?
     )
 }
-
 
 
