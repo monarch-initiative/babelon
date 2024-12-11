@@ -6,6 +6,7 @@ import re
 import string
 from typing import Dict, List
 
+import deepl
 import llm
 import pandas as pd
 
@@ -38,7 +39,7 @@ class Translator:
 class OpenAITranslator(Translator):
     """A specific translator class that uses GPT-4 for translation."""
 
-    def __init__(self, model="gpt-4-turbo-preview"):
+    def __init__(self, model="gpt-4o"):
         """Instantiate GPT4 translator."""
         self.model = llm.get_model(model)
         self.model.key = os.environ["OPENAI_API_KEY"]
@@ -82,6 +83,40 @@ Give no comments, no explanations. Just the translation or an empty string."""
             return ""
 
 
+class DeepLTranslator(Translator):
+    """A specific translator class that uses DeepL API for translation."""
+
+    def __init__(self):
+        """Instantiate DeepL translator with an API key."""
+        self.api_key = os.environ["DEEPL_API_KEY"]
+        self.translator = deepl.Translator(self.api_key)
+
+    def model_name(self):
+        """Return the unique name of the translation model."""
+        return "DeepL"
+
+    def translate(self, text_to_translate, language_code):
+        """
+        Translate text using DeepL API.
+
+        Args:
+        text_to_translate (str): The text to be translated.
+        language_code (str): The target language code (e.g., 'DE' for German).
+
+        Returns:
+        str: The translated text, or an empty string if translation fails.
+        """
+        result = self.translator.translate_text(
+            text_to_translate, target_lang=language_code.upper()
+        )
+        translation = result.text
+        if translation:
+            print(f"Translation: {translation}")
+            return translation
+        else:
+            return ""
+
+
 def _get_translation_language(translation_language_df, default_language="en"):
     if translation_language_df:
         return translation_language_df
@@ -106,9 +141,11 @@ def get_translator_model(model="gpt-4"):
         ValueError: If the model does not exist.
     """
     if model == "gpt-4":
-        return OpenAITranslator("gpt-4-turbo-preview")
+        return OpenAITranslator("gpt-4o")
     elif model == "gpt-3.5":
         return OpenAITranslator("gpt-3.5-turbo")
+    elif model == "deepl":
+        return DeepLTranslator()
     else:
         try:
             translator = OpenAITranslator(model)

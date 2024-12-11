@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from oaklib import get_adapter
 
 from babelon.translate import (
+    DeepLTranslator,
     OpenAITranslator,
     _is_equivalent_string,
     prepare_translation_for_ontology,
@@ -24,10 +25,18 @@ class TestTranslationProfile(unittest.TestCase):
         """Set up the test case."""
 
     @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
-    def test_translate(self):
+    def test_translate_openai(self):
         """Test update_translation_profile."""
         load_dotenv()
         translator = OpenAITranslator()
+        translated_value = translator.translate("fever", "de")
+        self.assertEqual("Fieber", translated_value)
+
+    @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
+    def test_translate_deepl(self):
+        """Test update_translation_profile."""
+        load_dotenv()
+        translator = DeepLTranslator()
         translated_value = translator.translate("fever", "de")
         self.assertEqual("Fieber", translated_value)
 
