@@ -117,6 +117,7 @@ def drop_unknown_columns_babelon(df: pd.DataFrame):
 
 
 def assemble_xliff_file(translation_units):
+    """Assemble a XLIFF file from translation units."""
     xliff = Element("xliff", version="1.2")
     file = SubElement(xliff, "file", {"original": "HPO_classes", "source-language": "en-US"})
     body = SubElement(file, "body")
@@ -133,6 +134,7 @@ def assemble_xliff_file(translation_units):
 
 
 def assemble_xliff_translation_unit(identifier, id_normalised, label, element, value):
+    """Assemble a XLIFF translation unit."""
     if not label:
         label = "no label"
     trans_unit = Element("trans-unit", id=f"{id_normalised}_{element}")
@@ -146,6 +148,7 @@ def assemble_xliff_translation_unit(identifier, id_normalised, label, element, v
 
 
 def generate_translation_units(identifier, label, definition, synonyms):
+    """Generate translation units from a Babelon record."""
     elements = list()
 
     id_normalised = identifier.replace(":", "_")
