@@ -21,6 +21,7 @@ def _create_simple_example_for_testing():
             "translation_language": "de",
             "translation_value": "Fieber",
             "translation_status": "NOT_TRANSLATED",
+            "translator_expertise": "DOMAIN_EXPERT",
         },
         {
             "source_language": "en",
@@ -31,6 +32,7 @@ def _create_simple_example_for_testing():
             "translation_language": "de",
             "translation_value": "",
             "translation_status": "NOT_TRANSLATED",
+            "translator_expertise": "TECHNICAL_SPECIALIST",
         },
     ]
     return pd.DataFrame(data)

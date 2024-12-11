@@ -30,7 +30,7 @@ class TestConvert(unittest.TestCase):
 
         graph = to_owl_graph(bdf)
 
-        self.assertEqual(22, len(graph))
+        self.assertEqual(25, len(graph))
 
         # t = graph.serialize(format="ttl", encoding="utf-8")
         # test_file_path = f"{test_out_dir}/simple-test.babelon.tsv"
