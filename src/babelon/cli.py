@@ -323,6 +323,8 @@ def merge(inputs, sort_tables, drop_unknown_columns, update_translations, output
 
     if drop_unknown_columns:
         df = drop_unknown_columns_babelon(df)
+        
+    df = df.drop_duplicates()
 
     if output:
         df.to_csv(output, sep="\t", index=False)
