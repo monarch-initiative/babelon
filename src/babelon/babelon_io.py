@@ -61,7 +61,7 @@ def convert_file(
     original_level = logging.getLogger().getEffectiveLevel()
     logging.getLogger().setLevel(logging.CRITICAL)
 
-    write_func(babelon_df, output, serialisation=fileformat)  # type:ignore
+    write_func(babelon_df, output, serialisation=fileformat)  # type: ignore
 
     # Restore the original logging level
     logging.getLogger().setLevel(original_level)
@@ -99,9 +99,7 @@ PREFIX babelon: <https://w3id.org/babelon/>
 """
     queries = []
 
-    queries.append(
-        sparql_prefixes
-        + """
+    queries.append(sparql_prefixes + """
         DELETE {
           ?o rdf:type babelon:Profile .
         }
@@ -111,25 +109,19 @@ PREFIX babelon: <https://w3id.org/babelon/>
         WHERE {
          ?o rdf:type babelon:Profile .
         }
-        """
-    )
+        """)
 
-    queries.append(
-        sparql_prefixes
-        + """
+    queries.append(sparql_prefixes + """
     DELETE {
       ?o babelon:translations ?translations .
     }
     WHERE {
      ?o babelon:translations ?translations .
     }
-    """
-    )
+    """)
 
     # Add annotation assertions to known properties
-    queries.append(
-        sparql_prefixes
-        + """
+    queries.append(sparql_prefixes + """
         INSERT {
             ?property rdf:type owl:AnnotationProperty .
         }
@@ -138,12 +130,9 @@ PREFIX babelon: <https://w3id.org/babelon/>
             ?ax a owl:Axiom ;
             owl:annotatedProperty ?property .
         }
-        """
-    )
+        """)
 
-    queries.append(
-        sparql_prefixes
-        + """
+    queries.append(sparql_prefixes + """
             INSERT {
                 ?p rdf:type owl:AnnotationProperty .
             }
@@ -152,12 +141,9 @@ PREFIX babelon: <https://w3id.org/babelon/>
                 ?p ?v .
                 FILTER(?p!=rdf:type && ?p!=owl:annotatedProperty && ?p!=owl:annotatedTarget && ?p!=owl:annotatedSource)
             }
-        """
-    )
+        """)
 
-    queries.append(
-        sparql_prefixes
-        + """
+    queries.append(sparql_prefixes + """
             # Turn language in annotation to LANG(string), i.e abc@fr
 
             DELETE {
@@ -190,8 +176,7 @@ PREFIX babelon: <https://w3id.org/babelon/>
 
               BIND(STRLANG(STR(?translation),STR(?language_tag)) as ?translation_lang)
             }
-                """
-    )
+                """)
 
     for query in queries:
         graph.update(query)
