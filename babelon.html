@@ -263,7 +263,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 <span id="babelon-dataclasses-module"></span><h2>babelon.dataclasses module<a class="headerlink" href="#module-babelon.dataclasses" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.EntityReference">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">EntityReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.EntityReference" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">EntityReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.EntityReference" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Uriorcurie</span></code></p>
 <p>A reference to a mapped entity. This is represented internally as a string, and as a resource in RDF</p>
 <dl class="py attribute">
@@ -290,7 +290,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.Profile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">Profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translations=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_provider=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.Profile" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">Profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translations=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_provider=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.Profile" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLRoot</span></code></p>
 <p>Represents a set of translation that together compose a language profile.</p>
 <dl class="py attribute">
@@ -342,7 +342,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.Translation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">Translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicate_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translator_expertise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.Translation" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">Translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicate_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translator_expertise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.Translation" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLRoot</span></code></p>
 <p>Represents and individual translation</p>
 <dl class="py attribute">
@@ -449,7 +449,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationPrecisionEnum">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationPrecisionEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationPrecisionEnum" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationPrecisionEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationPrecisionEnum" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumDefinitionImpl</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationPrecisionEnum.BROADER">
@@ -475,7 +475,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationStatusEnum">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationStatusEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationStatusEnum" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationStatusEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationStatusEnum" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumDefinitionImpl</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationStatusEnum.CANDIDATE">
@@ -501,7 +501,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationTypeEnum">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationTypeEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationTypeEnum" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslationTypeEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslationTypeEnum" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumDefinitionImpl</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslationTypeEnum.AUGMENTATION">
@@ -522,7 +522,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslatorExpertiseEnum">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslatorExpertiseEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslatorExpertiseEnum" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">TranslatorExpertiseEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.dataclasses.TranslatorExpertiseEnum" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumDefinitionImpl</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="babelon.dataclasses.TranslatorExpertiseEnum.ALGORITHM">
@@ -558,7 +558,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.dataclasses.slots">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">slots</span></span><a class="headerlink" href="#babelon.dataclasses.slots" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.dataclasses.</span></span><span class="sig-name descname"><span class="pre">slots</span></span><a class="headerlink" href="#babelon.dataclasses.slots" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="babelon.dataclasses.slots.comment">
@@ -688,7 +688,7 @@ serialisation (str): the target serialisation (must be ‘json’)</p>
 <p>Translate Babelon profiles.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.translate.DeepLTranslator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">DeepLTranslator</span></span><a class="headerlink" href="#babelon.translate.DeepLTranslator" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">DeepLTranslator</span></span><a class="headerlink" href="#babelon.translate.DeepLTranslator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#babelon.translate.Translator" title="babelon.translate.Translator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Translator</span></code></a></p>
 <p>A specific translator class that uses DeepL API for translation.</p>
 <dl class="py method">
@@ -712,7 +712,7 @@ str: The translated text, or an empty string if translation fails.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.translate.OpenAITranslator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">OpenAITranslator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpt-4o'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translate.OpenAITranslator" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">OpenAITranslator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpt-4o'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translate.OpenAITranslator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#babelon.translate.Translator" title="babelon.translate.Translator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Translator</span></code></a></p>
 <p>A specific translator class that uses GPT-4 for translation.</p>
 <dl class="py method">
@@ -736,7 +736,7 @@ str: The translated text.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.translate.Translator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">Translator</span></span><a class="headerlink" href="#babelon.translate.Translator" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.translate.</span></span><span class="sig-name descname"><span class="pre">Translator</span></span><a class="headerlink" href="#babelon.translate.Translator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A generic translator class.</p>
 <dl class="py method">
@@ -795,8 +795,7 @@ target_language (str): The language to translate the text into.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="babelon.translation_profile.statistics_translation_profile">
 <span class="sig-prename descclassname"><span class="pre">babelon.translation_profile.</span></span><span class="sig-name descname"><span class="pre">statistics_translation_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation_profile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.translation_profile.statistics_translation_profile" title="Link to this definition"></a></dt>
-<dd><p>Take as an input a babelon profile (TSV) and returns some basic stats.
-:rtype: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd><p>Take as an input a babelon profile (TSV) and returns some basic stats.</p>
 <blockquote>
 <div><p>number of translations by source_language, target_language
 number of translations by source_language, target_language, predicate_id
@@ -804,6 +803,11 @@ number of translations by source_language, target_language, translation_status</
 </div></blockquote>
 <dl class="simple">
 <dt>Args:</dt><dd><p>translation_profile (Path): translation profile</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -825,7 +829,7 @@ data (pd.DataFrame): Translation groupped data</p>
 <p>Utility methods for babelon processing.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="babelon.utils.BabelonDataFrame">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">BabelonDataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.BabelonDataFrame" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">babelon.utils.</span></span><span class="sig-name descname"><span class="pre">BabelonDataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.BabelonDataFrame" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A collection of mappings represented as a DataFrame, together with additional metadata.</p>
 <dl class="py attribute">
@@ -840,13 +844,13 @@ data (pd.DataFrame): Translation groupped data</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="babelon.utils.BabelonDataFrame.prefix_map">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prefix_map</span></span><a class="headerlink" href="#babelon.utils.BabelonDataFrame.prefix_map" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prefix_map</span></span><a class="headerlink" href="#babelon.utils.BabelonDataFrame.prefix_map" title="Link to this definition"></a></dt>
 <dd><p>Get a simple, bijective prefix map.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="babelon.utils.BabelonDataFrame.with_converter">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">converter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.BabelonDataFrame.with_converter" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">converter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#babelon.utils.BabelonDataFrame.with_converter" title="Link to this definition"></a></dt>
 <dd><p>Instantiate with a converter instead of a vanilla prefix map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -933,7 +937,7 @@ data (pd.DataFrame): Translation groupped data</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Vinicius de Souza &lt;souzadevinicius@gmail.com&gt;.</p>
+    <p>&#169; Copyright 2026, Vinicius de Souza &lt;souzadevinicius@gmail.com&gt;.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
