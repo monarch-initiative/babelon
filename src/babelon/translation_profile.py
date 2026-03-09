@@ -16,10 +16,10 @@ def table_print(title: str, data: pd.DataFrame):
         title (str): Table title
         data (pd.DataFrame): Translation groupped data
     """
-    logging.info("--------------------------------------------------------------------------------")
-    logging.info(title)
-    logging.info("--------------------------------------------------------------------------------")
-    logging.info(
+    print("--------------------------------------------------------------------------------")
+    print(title)
+    print("--------------------------------------------------------------------------------")
+    print(
         tabulate(
             data.reset_index().rename(columns={"level_0": "", "level_1": ""}),
             tablefmt="fancy_grid",
