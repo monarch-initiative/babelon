@@ -155,10 +155,21 @@ def translate(input, model, language_code, update_existing, output):
             --language-code de -o my.babelon-translated.tsv
     """  # noqa: DAR101
     df = pd.read_csv(input, sep="\t")
+    # If output is a real file (not stdout), write incrementally so that long-running
+    # batches survive transient API failures with partial progress on disk.
+    output_path = getattr(output, "name", None)
+    checkpoint_path = output_path if output_path and output_path != "<stdout>" else None
+    if checkpoint_path:
+        output.close()
     translated_df = translate_profile(
-        babelon_df=df, language_code=language_code, update_existing=update_existing, model=model
+        babelon_df=df,
+        language_code=language_code,
+        update_existing=update_existing,
+        model=model,
+        checkpoint_path=checkpoint_path,
     )
-    translated_df.to_csv(output, sep="\t", index=False)
+    if not checkpoint_path:
+        translated_df.to_csv(output, sep="\t", index=False)
 
 
 @click.command()

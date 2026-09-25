@@ -400,9 +400,18 @@ def get_translator_model(model="gpt-4"):
 
 
 def translate_profile(
-    babelon_df: pd.DataFrame, language_code="en", update_existing=False, model="gpt-4"
+    babelon_df: pd.DataFrame,
+    language_code="en",
+    update_existing=False,
+    model="gpt-4",
+    checkpoint_path: Optional[str] = None,
 ):
-    """Iterate through DataFrame rows and translate values."""
+    """Iterate through DataFrame rows and translate values.
+
+    If ``checkpoint_path`` is provided, the (partial) DataFrame is written to that
+    path after every translated row. This makes long-running batches resilient:
+    if the run is interrupted, completed rows are already on disk.
+    """
     from datetime import datetime
 
     translator = get_translator_model(model)
@@ -414,25 +423,49 @@ def translate_profile(
     formatted_date = today.strftime("%Y-%m-%d")
     translated_df = babelon_df.copy()
     translated_df = translated_df.astype(str)
+
+    def _checkpoint():
+        if checkpoint_path:
+            translated_df.to_csv(checkpoint_path, sep="\t", index=False)
+
+    def _record(index, translated_value):
+        translated_df.at[index, "translation_value"] = translated_value
+        translated_df.at[index, "translator"] = translator.translator_id()
+        translated_df.at[index, "translator_expertise"] = "ALGORITHM"
+        translated_df.at[index, "comment"] = translator.model_name()
+        translated_df.at[index, "translation_date"] = formatted_date
+        translated_df.at[index, "translation_status"] = "CANDIDATE"
+
+    # Collect the work first, grouped by target language: a batch can only be
+    # sent to one language at a time, and rows may each carry their own.
+    pending: Dict[str, List] = {}
     for index, row in translated_df.iterrows():
         translation_language = _get_translation_language(row["translation_language"], language_code)
         source_value = row["source_value"]
-        if source_value:
-            existing_translation_value = (
-                row["translation_value"] if "translation_value" in row else None
-            )
-            if update_existing or not _is_legal_string(existing_translation_value):
-                translated_value = translator.translate(source_value, translation_language)
-                translated_df.at[index, "translation_value"] = translated_value
-                translated_df.at[index, "translator"] = "wikidata:Q116709136"
-                translated_df.at[index, "translator_expertise"] = "ALGORITHM"
-                translated_df.at[index, "comment"] = translator.model_name()
-                translated_df.at[index, "translation_date"] = formatted_date
-                translated_df.at[index, "translation_status"] = "CANDIDATE"
-            else:
-                logging.warning(f"Existing translation {existing_translation_value}, skipping..")
-        else:
+        if not source_value:
             logging.warning(f"No source_value at index {index}, row: {row}")
+            continue
+        existing_translation_value = row.get("translation_value", None)
+        if not update_existing and _is_legal_string(existing_translation_value):
+            logging.warning(f"Existing translation {existing_translation_value}, skipping..")
+            continue
+        pending.setdefault(translation_language, []).append((index, source_value))
+
+    batch_size = max(1, translator.batch_size())
+    try:
+        for translation_language, items in pending.items():
+            for start in range(0, len(items), batch_size):
+                batch = items[start : start + batch_size]
+                translated_values = translator.translate_batch(
+                    [source_value for _, source_value in batch], translation_language
+                )
+                for (index, _), translated_value in zip(batch, translated_values):
+                    _record(index, translated_value)
+                _checkpoint()
+    except Exception:
+        # Persist whatever was translated so far before re-raising.
+        _checkpoint()
+        raise
     return translated_df
 
 
