@@ -129,7 +129,9 @@ def convert(input: str, drop_unknown_columns: bool, output: TextIO, output_forma
     "--model",
     type=str,
     help="The model used to run the translation. "
-    "Currently allowed: gpt-4, gpt-3.5 or any official model from OpenAI "
+    "Currently allowed: 'deepl'; 'claude' or any Claude model id such as "
+    "claude-sonnet-5 (https://docs.claude.com/en/docs/about-claude/models); "
+    "gpt-4, gpt-3.5 or any official model from OpenAI "
     "(https://platform.openai.com/docs/models).",
     default="gpt-4",
 )
@@ -144,9 +146,13 @@ def convert(input: str, drop_unknown_columns: bool, output: TextIO, output_forma
 def translate(input, model, language_code, update_existing, output):
     """Translate a babelon TSV file.
 
+    Each backend reads its own API key from the environment: OPENAI_API_KEY,
+    DEEPL_API_KEY or ANTHROPIC_API_KEY.
+
     Example:
-        export OPENAI_API_KEY="sk-FILLINBEFORERUN"
-            babelon translate my.babelon.tsv -o my.babelon-translated.tsv
+        export ANTHROPIC_API_KEY="<your-anthropic-api-key>"
+            babelon translate my.babelon.tsv --model claude-sonnet-5 \
+            --language-code de -o my.babelon-translated.tsv
     """  # noqa: DAR101
     df = pd.read_csv(input, sep="\t")
     translated_df = translate_profile(

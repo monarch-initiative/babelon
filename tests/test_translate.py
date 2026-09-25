@@ -7,10 +7,12 @@ from dotenv import load_dotenv
 from oaklib import get_adapter
 
 from babelon.translate import (
+    AnthropicTranslator,
     DeepLTranslator,
     OpenAITranslator,
     Translator,
     _is_equivalent_string,
+    get_translator_model,
     prepare_translation_for_ontology,
     translate_profile,
 )
@@ -41,6 +43,24 @@ class TestTranslationProfile(unittest.TestCase):
         translated_value = translator.translate("fever", "de")
         self.assertEqual("Fieber", translated_value)
 
+    @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
+    def test_translate_anthropic(self):
+        """Test that a Claude model translates a single value."""
+        load_dotenv()
+        translator = AnthropicTranslator()
+        translated_value = translator.translate("fever", "de")
+        self.assertEqual("Fieber", translated_value)
+
+    @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
+    def test_translate_anthropic_batch(self):
+        """Test that a batch comes back aligned with its input."""
+        load_dotenv()
+        translator = AnthropicTranslator()
+        values = translator.translate_batch(["fever", "stroke"], "de")
+        self.assertEqual(2, len(values))
+        self.assertEqual("Fieber", values[0])
+        self.assertTrue(values[1])
+
     def test_default_translate_batch_falls_back_to_translate(self):
         """A backend without a batch endpoint still works through translate_batch."""
 
@@ -54,6 +74,13 @@ class TestTranslationProfile(unittest.TestCase):
         translator = _Fake()
         self.assertEqual(["a-de", "b-de"], translator.translate_batch(["a", "b"], "de"))
         self.assertEqual(1, translator.batch_size())
+
+    def test_get_translator_model_resolves_claude(self):
+        """Claude model ids resolve to the Anthropic backend."""
+        os.environ.setdefault("ANTHROPIC_API_KEY", "test-key-not-used")
+        for model in ("claude", "anthropic", "claude-sonnet-5", "claude-opus-5"):
+            self.assertIsInstance(get_translator_model(model), AnthropicTranslator)
+        self.assertEqual("claude-opus-5", get_translator_model("claude-opus-5").model_name())
 
     @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
     def test_translate_profile(self):

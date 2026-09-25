@@ -1,12 +1,14 @@
 """Translate Babelon profiles."""
 
+import json
 import logging
 import os
 import re
 import string
 import time
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 
+import anthropic
 import deepl
 import llm
 import pandas as pd
@@ -17,6 +19,15 @@ import pandas as pd
 _DEEPL_MAX_ATTEMPTS = 8
 _DEEPL_INITIAL_BACKOFF_SECONDS = 5
 _DEEPL_MAX_BACKOFF_SECONDS = 120
+
+# Anthropic (Claude) defaults. Terms are sent in batches rather than one request
+# per row: a batch amortises the instruction prompt over many terms, which is
+# both markedly cheaper and orders of magnitude faster over a whole ontology.
+_ANTHROPIC_DEFAULT_MODEL = "claude-sonnet-5"
+_ANTHROPIC_DEFAULT_BATCH_SIZE = 40
+_ANTHROPIC_MAX_ATTEMPTS = 5
+_ANTHROPIC_INITIAL_BACKOFF_SECONDS = 2
+_ANTHROPIC_MAX_BACKOFF_SECONDS = 60
 
 # The default identifier recorded in the `translator` column. Kept as-is for the
 # existing backends so their output does not change.
@@ -173,6 +184,179 @@ class DeepLTranslator(Translator):
         raise last_error  # type: ignore[misc]
 
 
+class AnthropicTranslator(Translator):
+    """A translator class that uses Anthropic's Claude models.
+
+    Unlike the other backends this one translates in batches: a single request
+    carries many terms, which amortises the instruction prompt and removes the
+    per-row round trip. Responses are constrained with a JSON schema so results
+    map back by index instead of being scraped out of free text.
+    """
+
+    def __init__(self, model: str = _ANTHROPIC_DEFAULT_MODEL, batch_size: Optional[int] = None):
+        """Instantiate a Claude translator.
+
+        Args:
+            model (str): The Claude model id, e.g. ``claude-sonnet-5``.
+            batch_size (int): How many terms to send per request.
+        """
+        # The SDK resolves credentials itself (ANTHROPIC_API_KEY, or a configured
+        # profile), so no key is read or held here.
+        self.client = anthropic.Anthropic()
+        self.model = model
+        self._batch_size = batch_size or _ANTHROPIC_DEFAULT_BATCH_SIZE
+
+    def model_name(self):
+        """Return the unique name of the translation model."""
+        return self.model
+
+    def batch_size(self) -> int:
+        """Return the configured batch size."""
+        return self._batch_size
+
+    def translator_id(self) -> str:
+        """Return the identifier recorded in the ``translator`` column."""
+        return f"anthropic:{self.model}"
+
+    _SYSTEM_PROMPT = (
+        "You translate terms from an ontology into another language. The terms are "
+        "controlled-vocabulary entries used by domain experts, not prose.\n\n"
+        "Rules:\n"
+        "- Translate into the established technical register of the target language. "
+        "Use the term a specialist in the field would write, not a lay paraphrase.\n"
+        "- Where the target language has a standard technical or Latin/Greek-derived "
+        "term, prefer it over a descriptive circumlocution.\n"
+        "- Preserve the grammatical shape of the source. Ontology labels are noun "
+        "phrases naming a class, not sentences. Do not add articles, final "
+        "punctuation, commentary or explanations.\n"
+        "- Keep qualifiers exact. Words such as absent, decreased, increased, "
+        "bilateral, unilateral, mild and severe carry meaning that must survive "
+        "translation, as must any negation.\n"
+        "- Do not transliterate an English term when a real term exists in the "
+        "target language.\n"
+        "- If a term genuinely has no translation, return it unchanged.\n"
+        "- Return exactly one translation for every numbered input, keeping the "
+        "numbering. Never merge, skip or reorder entries."
+    )
+
+    _RESPONSE_SCHEMA: ClassVar[Dict] = {
+        "type": "object",
+        "properties": {
+            "translations": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "n": {
+                            "type": "integer",
+                            "description": "The number of the input term.",
+                        },
+                        "translation": {"type": "string"},
+                    },
+                    "required": ["n", "translation"],
+                    "additionalProperties": False,
+                },
+            }
+        },
+        "required": ["translations"],
+        "additionalProperties": False,
+    }
+
+    def translate(self, text_to_translate, language_code):
+        """Translate a single text. Prefer :meth:`translate_batch`.
+
+        Args:
+            text_to_translate (str): The text to be translated.
+            language_code (str): The target language code, e.g. ``de``.
+
+        Returns:
+            str: The translated text, or an empty string if translation fails.
+        """
+        return self.translate_batch([text_to_translate], language_code)[0]
+
+    def translate_batch(self, texts: List[str], target_language: str) -> List[str]:
+        """Translate a batch of texts in a single request.
+
+        Args:
+            texts (List[str]): The texts to be translated.
+            target_language (str): The target language code, e.g. ``de``.
+
+        Returns:
+            List[str]: Translations aligned by position with ``texts``. An entry
+            is an empty string if the model returned nothing for it, which
+            leaves the row untranslated for a later run to pick up.
+
+        Raises:
+            Exception: The last transient API error, if all retries are exhausted.
+        """
+        if not texts:
+            return []
+
+        numbered = "\n".join(f"{i}. {text}" for i, text in enumerate(texts))
+        prompt = (
+            f"Translate these {len(texts)} ontology terms into the language with "
+            f"ISO code '{target_language}'.\n\n{numbered}"
+        )
+
+        backoff = _ANTHROPIC_INITIAL_BACKOFF_SECONDS
+        last_error: Optional[Exception] = None
+        for attempt in range(1, _ANTHROPIC_MAX_ATTEMPTS + 1):
+            try:
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=16000,
+                    system=[
+                        {
+                            "type": "text",
+                            "text": self._SYSTEM_PROMPT,
+                            "cache_control": {"type": "ephemeral"},
+                        }
+                    ],
+                    messages=[{"role": "user", "content": prompt}],
+                    output_config={
+                        "format": {"type": "json_schema", "schema": self._RESPONSE_SCHEMA}
+                    },
+                )
+                if response.stop_reason == "refusal":
+                    print(f"Claude declined to translate a batch: {response.stop_details}")
+                    return [""] * len(texts)
+                return self._parse_response(response, len(texts))
+            except (
+                anthropic.RateLimitError,
+                anthropic.APIConnectionError,
+                anthropic.InternalServerError,
+            ) as e:
+                last_error = e
+                if attempt == _ANTHROPIC_MAX_ATTEMPTS:
+                    break
+                print(
+                    f"Anthropic transient error ({type(e).__name__}); "
+                    f"retrying in {backoff}s (attempt {attempt}/{_ANTHROPIC_MAX_ATTEMPTS})"
+                )
+                time.sleep(backoff)
+                backoff = min(backoff * 2, _ANTHROPIC_MAX_BACKOFF_SECONDS)
+        raise last_error  # type: ignore[misc]
+
+    @staticmethod
+    def _parse_response(response, expected: int) -> List[str]:
+        """Map a structured response back onto the batch by index."""
+        text = next((block.text for block in response.content if block.type == "text"), "")
+        try:
+            entries = json.loads(text)["translations"]
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            logging.warning(f"Could not read translation response: {e}")
+            return [""] * expected
+        by_index = {
+            entry["n"]: entry["translation"]
+            for entry in entries
+            if isinstance(entry, dict) and "n" in entry and "translation" in entry
+        }
+        missing = expected - sum(1 for i in range(expected) if by_index.get(i))
+        if missing:
+            logging.warning(f"{missing} of {expected} terms came back without a translation.")
+        return [by_index.get(i, "") or "" for i in range(expected)]
+
+
 def _get_translation_language(translation_language_df, default_language="en"):
     if translation_language_df:
         return translation_language_df
@@ -202,6 +386,11 @@ def get_translator_model(model="gpt-4"):
         return OpenAITranslator("gpt-3.5-turbo")
     elif model == "deepl":
         return DeepLTranslator()
+    elif model in ("claude", "anthropic"):
+        return AnthropicTranslator()
+    elif model.startswith("claude-"):
+        # Any current or future Claude model id is passed straight through.
+        return AnthropicTranslator(model)
     else:
         try:
             translator = OpenAITranslator(model)
