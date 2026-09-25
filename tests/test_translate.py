@@ -9,6 +9,7 @@ from oaklib import get_adapter
 from babelon.translate import (
     DeepLTranslator,
     OpenAITranslator,
+    Translator,
     _is_equivalent_string,
     prepare_translation_for_ontology,
     translate_profile,
@@ -39,6 +40,20 @@ class TestTranslationProfile(unittest.TestCase):
         translator = DeepLTranslator()
         translated_value = translator.translate("fever", "de")
         self.assertEqual("Fieber", translated_value)
+
+    def test_default_translate_batch_falls_back_to_translate(self):
+        """A backend without a batch endpoint still works through translate_batch."""
+
+        class _Fake(Translator):
+            def model_name(self):
+                return "fake"
+
+            def translate(self, text, target_language):
+                return f"{text}-{target_language}"
+
+        translator = _Fake()
+        self.assertEqual(["a-de", "b-de"], translator.translate_batch(["a", "b"], "de"))
+        self.assertEqual(1, translator.batch_size())
 
     @unittest.skipIf(not os.path.exists(env_file), "Skipping test as .env file does not exist")
     def test_translate_profile(self):

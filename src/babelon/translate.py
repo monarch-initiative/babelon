@@ -18,6 +18,10 @@ _DEEPL_MAX_ATTEMPTS = 8
 _DEEPL_INITIAL_BACKOFF_SECONDS = 5
 _DEEPL_MAX_BACKOFF_SECONDS = 120
 
+# The default identifier recorded in the `translator` column. Kept as-is for the
+# existing backends so their output does not change.
+_DEFAULT_TRANSLATOR_ID = "wikidata:Q116709136"
+
 
 class Translator:
     """A generic translator class."""
@@ -42,6 +46,32 @@ class Translator:
             NotImplementedError: If the method is not implemented in the subclass.
         """
         raise NotImplementedError("This method should be implemented by subclasses.")
+
+    def translate_batch(self, texts: List[str], target_language: str) -> List[str]:
+        """Translate several texts at once, returning one result per input.
+
+        The default implementation simply calls :meth:`translate` for each text,
+        so backends that have no batch endpoint keep working unchanged. Backends
+        that can translate many texts in a single request (LLMs in particular)
+        should override this: it amortises the instruction prompt across the
+        batch and cuts the number of round trips by orders of magnitude.
+
+        Args:
+            texts (List[str]): The texts to be translated.
+            target_language (str): The language to translate the texts into.
+
+        Returns:
+            List[str]: Translations, aligned by position with ``texts``.
+        """
+        return [self.translate(text, target_language) for text in texts]
+
+    def batch_size(self) -> int:
+        """Return how many texts to pass to :meth:`translate_batch` at a time."""
+        return 1
+
+    def translator_id(self) -> str:
+        """Return the identifier recorded in the ``translator`` column."""
+        return _DEFAULT_TRANSLATOR_ID
 
 
 class OpenAITranslator(Translator):
