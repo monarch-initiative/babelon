@@ -4,11 +4,19 @@ import logging
 import os
 import re
 import string
-from typing import Dict, List
+import time
+from typing import Dict, List, Optional
 
 import deepl
 import llm
 import pandas as pd
+
+# DeepL rate-limit / transient-error retry config.
+# The DeepL Free tier in particular throttles aggressively; without retries
+# any batch larger than a few dozen rows tends to fail mid-run.
+_DEEPL_MAX_ATTEMPTS = 8
+_DEEPL_INITIAL_BACKOFF_SECONDS = 5
+_DEEPL_MAX_BACKOFF_SECONDS = 120
 
 
 class Translator:
@@ -97,7 +105,7 @@ class DeepLTranslator(Translator):
 
     def translate(self, text_to_translate, language_code):
         """
-        Translate text using DeepL API.
+        Translate text using DeepL API with exponential-backoff retry.
 
         Args:
         text_to_translate (str): The text to be translated.
@@ -106,15 +114,33 @@ class DeepLTranslator(Translator):
         Returns:
         str: The translated text, or an empty string if translation fails.
         """
-        result = self.translator.translate_text(
-            text_to_translate, target_lang=language_code.upper()
-        )
-        translation = result.text
-        if translation:
-            print(f"Translation: {translation}")
-            return translation
-        else:
-            return ""
+        target_lang = language_code.upper()
+        backoff = _DEEPL_INITIAL_BACKOFF_SECONDS
+        last_error: Optional[Exception] = None
+        for attempt in range(1, _DEEPL_MAX_ATTEMPTS + 1):
+            try:
+                result = self.translator.translate_text(text_to_translate, target_lang=target_lang)
+                translation = result.text
+                if translation:
+                    print(f"Translation: {translation}")
+                    return translation
+                return ""
+            except (
+                deepl.exceptions.TooManyRequestsException,
+                deepl.exceptions.ConnectionException,
+            ) as e:
+                last_error = e
+                if attempt == _DEEPL_MAX_ATTEMPTS:
+                    break
+                print(
+                    f"DeepL transient error ({type(e).__name__}); "
+                    f"retrying in {backoff}s (attempt {attempt}/{_DEEPL_MAX_ATTEMPTS})"
+                )
+                time.sleep(backoff)
+                backoff = min(backoff * 2, _DEEPL_MAX_BACKOFF_SECONDS)
+        # Quota / auth errors propagate immediately (not caught above). For exhausted
+        # retries on transient errors we surface the last exception so callers can decide.
+        raise last_error  # type: ignore[misc]
 
 
 def _get_translation_language(translation_language_df, default_language="en"):
